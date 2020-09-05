@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "main_window.h"
+#include "plot_window.h"
 
 class app : public wxApp {
 

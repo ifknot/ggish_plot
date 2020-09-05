@@ -18,10 +18,13 @@
     <ClCompile Include="app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main_window.cpp">
+    <ClCompile Include="plot_paper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="plot_paper.cpp">
+    <ClCompile Include="plot_window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="r_data_frame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +32,22 @@
     <ClInclude Include="app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main_window.h">
+    <ClInclude Include="plot_paper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="plot_paper.h">
+    <ClInclude Include="plot_window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plot_component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plot_composite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plot_leaf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="r_data_frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

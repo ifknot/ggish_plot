@@ -1,4 +1,4 @@
-#include "main_window.h"
+#include "plot_window.h"
 
 plot_window::plot_window() : wxFrame(nullptr, wxID_ANY, "test_wx") {
 
