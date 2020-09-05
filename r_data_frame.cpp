@@ -2,9 +2,9 @@
 
 namespace R {
 
-	variant_vector as_dates(std::vector<std::string> dates) {
-		R::variant_vector tm_dates;
-		for (const auto& date : dates) {
+	variant_vector as_dates(std::vector<std::string> source) {
+		variant_vector tm_dates;
+		for (const auto& date : source) {
 			std::stringstream ss;
 			ss << date + "T00:00:00Z ";
 		std:tm tm;
@@ -21,6 +21,13 @@ std::ostream& operator<<(std::ostream& os, const std::tm& tm) {
 	return os;
 }
 
+std::ostream& operator<<(std::ostream& os, const R::variant_vector& vv) {
+	for (const auto& v : vv) {
+		std::visit([&os](auto&& arg) {os << arg << '\t'; }, v);
+	}
+	return os;
+}
+
 std::ostream& operator<<(std::ostream& os, const R::data_frame& df) {
 	size_t sz;
 	for (const auto& [key, vctr] : df) {
@@ -31,7 +38,7 @@ std::ostream& operator<<(std::ostream& os, const R::data_frame& df) {
 	for (size_t i{ 0 }; i < sz; ++i) {
 		std::cout << i;
 		for (const auto& [key, vctr] : df) {
-			std::visit([](auto&& arg) {std::cout << '\t' << arg; }, vctr[i]);
+			std::visit([&os](auto&& arg) {os << '\t' << arg; }, vctr[i]);
 		}
 		os << '\n';
 	}
