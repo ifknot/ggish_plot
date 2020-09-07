@@ -16,8 +16,10 @@ namespace R {
 
 }
 
-std::ostream& operator<<(std::ostream& os, const std::tm& tm) {
-	os << std::put_time(&tm, "%Y-%m-%d");
+/*-------- stream operator overloads --------*/
+
+std::ostream& operator<<(std::ostream& os, const R::r_date& date) {
+	os << std::put_time(&date, "%Y-%m-%d");
 	return os;
 }
 
@@ -25,6 +27,11 @@ std::ostream& operator<<(std::ostream& os, const R::variant_vector& vv) {
 	for (const auto& v : vv) {
 		std::visit([&os](auto&& arg) {os << arg << '\t'; }, v);
 	}
+	return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const R::variant_factor& vf) {
+	os << vf.first << "\n Levels: " << vf.second;
 	return os;
 }
 

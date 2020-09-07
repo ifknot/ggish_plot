@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <optional>
 #include <math.h>
+#include <stdexcept>
 
 namespace R {
 
@@ -22,7 +23,24 @@ namespace R {
 
 	using basic_data_types = std::variant<r_char, r_float, r_int, r_string, r_date>;
 
+	static enum ordinal_t { r_first = 1, r_second, r_third, r_fourth, r_fifth };
+
+	/**
+	 * @brief in R vectors can store any variable type.
+	 * 
+	 * @note unlike R variant_vectors are limited to the basic_data_types defined above
+	 */
 	using variant_vector = std::vector<basic_data_types>;
+
+	/**
+	 * @brief In R factors are data objects used to categorize data and store it as levels.
+	 * 
+	 * Stored as a pair of integer and string variant vectors they can be used to convert unique values into
+	 * ordinal integers.
+	 * @note unlike R factors can not be stored in a data_frame but either of the pairs variant vectors can be.
+	 * The first variant_vector of the pair is the ordinal integers, the second is the levels.
+	 */
+	using variant_factor = std::pair<variant_vector, variant_vector>;
 
 	/**
 	 * As per R language definition the following are the characteristics of a data frame
@@ -34,10 +52,14 @@ namespace R {
 	 */
 	using data_frame = std::unordered_map<std::string, variant_vector>;
 
+	/**
+	 * @brief (R-ish) as_dates convert between string representations and objects of type r_date representing 
+	 * calendar dates.
+	 */
 	variant_vector as_dates(std::vector<std::string> dates);
 
 	/**
-	 * @brief (R-ish) Sort (or order) a vector into ascending or descending order.
+	 * @brief (R-ish) sort (or order) a vector into ascending or descending order.
 	 * 
 	 * @param x				variant vector of values to sort
 	 * @param decreasing	bool should the sort be increasing or decreasing?
@@ -56,7 +78,12 @@ namespace R {
 		}
 	}
 
-	//(R-ish) Unique returns a variant vector like x but with duplicate elements removed.
+	/**
+	 * @brief (R-ish) unique returns a variant vector like x but with duplicate elements removed.
+	 * 
+	 * @param x		variant vector of r_string values to convert
+	 * @return		same sized variant vector of r_date
+	 */
 	template<typename T>
 	variant_vector unique(variant_vector& x) {
 		// lambda equality functor that works with source variant type
@@ -118,12 +145,24 @@ namespace R {
 	}
 	
 
-	template<typename T, typename U = T>
-	variant_vector factor(variant_vector& x, variant_vector&& levels = {}, variant_vector&& labels = {}, variant_vector&& exclude = {}) {
+	template<typename T>	// x type and levels type must be the same
+	variant_factor factor(variant_vector& x, variant_vector&& levels = {}, variant_vector&& labels = {}, variant_vector&& exclude = {}) {
 		std::set<r_string> s;
-		// if levels defined use it to build a new unique levels vector otherwise build it from x
-		variant_vector lvls{ levels.size() ? R::unique<U>(levels) : R::unique<U>(x) };
-		R::sort<U>(lvls);	// sort levels
+		// if levels defined use it to build a unique categories vector otherwise build it from x
+		variant_vector categories{ levels.size() ? R::unique<T>(levels) : R::unique<T>(x) };
+		R::sort<T>(categories);		// sort categories
+		variant_vector ordinals;	
+	
+		for (const auto& i : x) {		// check each x
+			r_int ordinal{ r_first };			
+			for (const auto& c : categories) {	// against each category
+				if (std::get<T>(c) == std::get<T>(i)) {
+					ordinals.push_back(ordinal);
+				}
+				ordinal++;
+			}
+		}
+	
 
 		// read out all of the source levels using a string stream for conversion then insert into levels set
 		/*
@@ -138,13 +177,18 @@ namespace R {
 		// modify the x vector to categories 1st, 2nd, ... nth
 
 		// return a string representation of the levels 
-		return lvls;//variant_vector{ s.begin(), s.end() };
+		//return y;//variant_vector{ s.begin(), s.end() };
+		return variant_factor{ ordinals, categories };
 	}
 
 }
 
-std::ostream& operator<<(std::ostream& os, const std::tm& tm);
+/*-------- stream operator overloads --------*/
+
+std::ostream& operator<<(std::ostream& os, const R::r_date& date);
 
 std::ostream& operator<<(std::ostream& os, const R::variant_vector& vv);
+
+std::ostream& operator<<(std::ostream& os, const R::variant_factor& vf);
 
 std::ostream& operator<<(std::ostream& os, const R::data_frame& df);

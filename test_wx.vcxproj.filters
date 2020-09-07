@@ -50,5 +50,11 @@
     <ClInclude Include="r_data_frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="metrics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PLOS_ONE_metrics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
