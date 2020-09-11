@@ -53,7 +53,13 @@
     <ClInclude Include="metrics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PLOS_ONE_metrics.h">
+    <ClInclude Include="theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="elements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PLOS_ONE_theme.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
