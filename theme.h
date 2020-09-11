@@ -6,7 +6,7 @@ namespace R {
 
 	struct theme_t {
 
-		element_line line;
+		element_line_t line;
 
 	};
 

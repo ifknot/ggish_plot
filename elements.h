@@ -10,9 +10,11 @@ namespace R {
 
 	static enum colour_mode_t { RGB, grayscale };
 
-	using point = std::pair<double, double>;
+	using point_t = std::pair<double, double>;
 
-	struct element_line {
+	using dimension_t = std::pair<double, double>;
+
+	struct element_line_t {
 
 		wxColour	colour;
 		double		size;
@@ -21,29 +23,38 @@ namespace R {
 
 	};
 
-	struct element_rect {
+	struct element_rect_t {
 
 		wxColour	fill;
 		wxColour	colour;
-		double		size;
+		dimension_t	size;
 		wxPenStyle  linetype;
 
 	};
 
+	struct element_circle_t {
+	
+		wxColour	fill;
+		wxColour	colour;
+		double		radius;
+		wxPenStyle  linetype;
 
-	/*
-	wxFont::wxFont	(	int 	pointSize,
-	wxFontFamily 	family,
-	wxFontStyle 	style,
-	wxFontWeight 	weight,
-	bool 	underline = false,
-	const wxString & 	faceName = wxEmptyString,
-	wxFontEncoding 	encoding = wxFONTENCODING_DEFAULT
-	)
-	*/
-	struct element_text {
+	};
 
+	struct element_text_t {
 
+		wxFontFamily	font_family = wxFONTFAMILY_DEFAULT;
+		wxString	 	base_family;
+		int	 			face;
+		wxColour		colour;
+		wxColour		background_colour;
+		size_t			base_size;
+		double			h_just;
+		double			v_just;
+		double			angle;
+		double			line_height;
+		double			margin;
+		bool			debug;
 
 	};
 

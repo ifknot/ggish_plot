@@ -9,8 +9,7 @@ namespace R {
 
 		END_EVENT_TABLE()
 
-	plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {
-	}
+	plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {}
 
 	void plot_paper::paintEvent(wxPaintEvent& evt) {
 		wxPaintDC dc(this);
@@ -26,8 +25,8 @@ namespace R {
 
 		int dpi = 76; //300;
 
-		// draw some text
-		//dc.DrawText(wxT("Testing"), 40, 60);
+		//create an image of correct size and use that dc 
+			//convert to greyscale if needed
 
 		// draw a circle
 		//dc.SetBrush(*wxGREEN_BRUSH); // green filling
@@ -44,6 +43,19 @@ namespace R {
 		// draw a line
 		dc.SetPen(wxPen(wxColor(0, 0, 0), 3)); // black line, 3 pixels thick
 		dc.DrawLine(300, 100, 700, 300); 
+
+		// draw some text
+		wxFontInfo info(text.base_size);
+		info.FaceName(text.base_family);
+		info.AllFlags(text.face);
+		wxCoord w, h;
+		dc.SetFont(wxFont(info));
+		dc.GetMultiLineTextExtent(wxT("Rotated Testing"), &w, &h);
+		dc.SetTextForeground(text.colour);
+		dc.SetTextBackground(text.background_colour);
+
+		dc.DrawRotatedText(wxT("Rotated Testing"), 50 - h, 50 + dpi + dpi, text.angle);
+		
 
 	}
 

@@ -17,33 +17,33 @@ namespace R {
 
 		colour_mode_t colour_mode;
 		unit_t		white_space_border;
-		point		place;
+		point_t		place;
 		unit		minimum_width;
 		unit		maximum_width;
 		unit		minimum_height;
 		unit		maximum_height;
 		unit		column_width;
-		std::vector<element_text>	valid_fonts;
-		element_text text_within_figure;
+		std::vector<element_text_t>	valid_fonts;
+		element_text_t text_within_figure;
 
 	};
 
 	struct legend_t {
 
-		point			place;
+		point_t			place;
 		std::string		legend;
-		std::vector<element_text>	valid_fonts;
-		element_text	text_within_caption;
+		std::vector<element_text_t>	valid_fonts;
+		element_text_t	text_within_caption;
 
 	};
 
 	struct caption_t {
 
-		point			place;
+		point_t			place;
 		std::string		figure_label;
 		std::string		figure_title;
-		std::vector<element_text>	valid_fonts;
-		element_text	text_within_caption;
+		std::vector<element_text_t>	valid_fonts;
+		element_text_t	text_within_caption;
 
 		legend_t legend;
 
