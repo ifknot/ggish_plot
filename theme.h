@@ -8,16 +8,24 @@ namespace R {
 
 	};
 
-	struct axis_ticks_t : public element_line_t {	
-		
-		element_line_t top;
-		element_line_t bottom;
-		element_line_t left;
-		element_line_t right;
+	struct tick_t : public element_line_t {
+
+		double	x{ 0 };
+		double	y{ 0 };
+		unit	length{ 0, cm };	// length of tick marks (unit)
 
 	};
 
-	struct axis_label_t: public element_text_t{
+	struct axis_ticks_t : public tick_t {	
+		
+		tick_t top;
+		tick_t bottom;
+		tick_t left;
+		tick_t right;
+
+	};
+
+	struct axis_label_t: public element_text_t {
 
 		element_text_t top;
 		element_text_t bottom;
@@ -25,31 +33,130 @@ namespace R {
 		element_text_t right;
 
 	};	
+
+	struct axis_line_t : public element_line_t {
+
+		element_line_t top;
+		element_line_t bottom;
+		element_line_t left;
+		element_line_t right;
+
+	};
+
+	struct legend_t {
+
+
+
+	};
+
+	struct panel_t {
+
+
+
+	};
+
+	struct plot_t {
+
+		enum position_t { topleft, top, topright, left, right, bottomleft, bottom, bottomright};
+		enum caption_position_t { panel, plot };
+
+		element_rect_t		background;		// background of the entire plot
+		element_text_t		title;			// plot title (text appearance)
+		std::vector<position_t>	title_position{ left, left, right };	// alignment of the plot title/subtitle and caption.
+		caption_position_t  caption_position{ panel };	// applies to both the title and the subtitle. A value of "panel" (the default) means that titles and/or caption are aligned to the plot panels. A value of "plot" means that titles and/or caption are aligned to the entire plot (minus any space for margins and plot tag)
+		element_text_t		subtitle;		// plot subtitle (text appearance) - left aligned default
+		element_text_t		caption;		// caption below the plot (text appearance) - right aligned default
+		element_text_t		tag;			// upper - left label to identify a plot (text appearance)
+		position_t			tag_position;	// position of the tag 
+		margin_t			margin;			// margin around entire plot (unit with the sizes of the top, right, bottom, and left margins)
+		
+	};
+
+	struct 
 	
 	struct theme_t {
 
-		dpi_t				dpi;			// pixels per inch of the paper
+		dpi_t				dpi;			// pixels per inch of the paper - 12-pt font is 1/6 inch in height
 		ratio_t				aspect_ratio;	// aspect ratio of the paper
-		wxFontFamily		font_family = wxFONTFAMILY_DEFAULT;
-		wxString	 		base_family;	// font family name of the paper
+		wxFontFamily		wx_font_family{ wxFONTFAMILY_DEFAULT };
 
-		element_text_t		etext;			// all text elements
-		element_line_t		eline;			// all line elements
-		element_rect_t		erect;			// all rectangular elements
-		element_circle_t	ecircle;		// all circular elements
+		double				base_size;		// base font size, given in pts
+		wxString			base_family;	// base font family name e.g. "Ariel"
+		double				base_line_size = base_size / 22;	// base size for line elements
+		double				base_rect_size = base_size / 22;	// base size for rect elements
+		
+		element_text_t		theme_text;		// all text elements
+		element_line_t		them_line;		// all line elements
+		element_rect_t		theme_rect;		// all rectangular elements
+		element_circle_t	theme_circle;	// all circular elements
 
 		axis_label_t		title;			// specify style all axes' title labels or individually for each axis by top, bottom, left and right
 		axis_label_t		text;			// specify style all axes' tick labels or individually for each axis by top, bottom, left and right
 		axis_ticks_t		ticks;			// specify style all axes ticks or individually for each axis by top, bottom, left and right
+		axis_line_t			line;			// specify lines along all axes or individually for each axis by top, bottom, left and right
 
-
-
+		panel_t				panel;
 		
 		
 
 	};
 
 }
+
+/*
+
+legend.background
+background of legend (element_rect(); inherits from rect)
+
+legend.margin
+the margin around each legend (margin())
+
+legend.spacing, legend.spacing.x, legend.spacing.y
+the spacing between legends (unit). legend.spacing.x & legend.spacing.y inherit from legend.spacing or can be specified separately
+
+legend.key
+background underneath legend keys (element_rect(); inherits from rect)
+
+legend.key.size, legend.key.height, legend.key.width
+size of legend keys (unit); key background height & width inherit from legend.key.size or can be specified separately
+
+legend.text
+legend item labels (element_text(); inherits from text)
+
+legend.text.align
+alignment of legend labels (number from 0 (left) to 1 (right))
+
+legend.title
+title of legend (element_text(); inherits from title)
+
+legend.title.align
+alignment of legend title (number from 0 (left) to 1 (right))
+
+legend.position
+the position of legends ("none", "left", "right", "bottom", "top", or two-element numeric vector)
+
+legend.direction
+layout of items in legends ("horizontal" or "vertical")
+
+legend.justification
+anchor point for positioning legend inside plot ("center" or two-element numeric vector) or the justification according to the plot area when positioned outside the plot
+
+legend.box
+arrangement of multiple legends ("horizontal" or "vertical")
+
+legend.box.just
+justification of each legend within the overall bounding box, when there are multiple legends ("top", "bottom", "left", or "right")
+
+legend.box.margin
+margins around the full legend area, as specified using margin()
+
+legend.box.background
+background of legend area (element_rect(); inherits from rect)
+
+legend.box.spacing
+The spacing between the plotting area and the legend box (unit)
+
+*/
 
 /*
 

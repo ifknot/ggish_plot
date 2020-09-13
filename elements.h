@@ -10,6 +10,7 @@ namespace R {
 
 	static const double cm_per_inch = 2.54;
 	static const double inch_per_cm = 0.393701;
+	static const double pt_ratio = 0.01388888888;	//  point (abbreviated pt) is equal to 1/72 of an inch 
 
 	static enum unit_t { pt, cm, inch, lines, pixels };
 
@@ -108,10 +109,11 @@ namespace R {
 		face_t		face;
 		wxColour	colour;			// line / border colour
 		double		size{ 0 };		// line / border size in mm; text size in pts.
-		double		hjust;
-		double		vjust;
-		double		angle;
-		double		lineheight;
+		double		hjust{ 0 };		// horizontal justification (in [0,1])
+		double		vjust{ 0 };		// vertical justification (in [0,1])
+		double		angle{ 0 };		// angle (in [0,360])
+		double		lineheight{ 0 };	// line height via dc.GetMultiLineTextExtent
+		double		linewidth{ 0 };		// extra specification for dc.GetMultiLineTextExtent
 		margin_t	margin;			// margins around the text = when creating a theme, the margins should be placed on the side of the text facing towards the center of the plot.
 		bool		debug{ false };	// aids visual debugging by drawing a solid rectangle behind the complete text area, and a point where each label is anchored.
 		double		x;				// single number specifying size relative to parent element
