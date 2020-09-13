@@ -20,17 +20,11 @@ namespace R {
 
         void render(wxDC& dc) override final;
 
-        //void element_text(R::element_text_t& text);
-
-        //void element_line(R::element_line_t& line);
-
-        //void element_rect(R::element_rect_t& rect);
-
-        //void element_circle(R::element_circle_t& circle);
-
         DECLARE_EVENT_TABLE()
 
     public:
+
+        theme_t theme;
 
     };
 

@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
+    <ClCompile Include="plot_component.cpp" />
     <ClCompile Include="plot_paper.cpp" />
     <ClCompile Include="plot_window.cpp" />
     <ClCompile Include="r_data_frame.cpp" />

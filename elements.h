@@ -42,10 +42,10 @@ namespace R {
 		enum end_t { last, first, both };
 		enum type_t { open, closed };
 
-		double		angle{ 0 };			// the angle of the arrow head in degrees (smaller numbers produce narrower, pointier arrows).Essentially describes the width of the arrow head.length
-		unit		length{ 0, cm };	// unit specifying the length of the arrow head (from tip to base).
-		end_t		ends;				// one of "last", "first", or "both", indicating which ends of the line to draw arrow heads.
-		type_t		type;				// one of "open" or "closed" indicating whether the arrow head should be a closed triangle.
+		double		angle{ 45 };			// the angle of the arrow head in degrees (smaller numbers produce narrower, pointier arrows).Essentially describes the width of the arrow head.length
+		unit		length{ 0.5, cm };	// unit specifying the length of the arrow head (from tip to base).
+		end_t		ends{ last };				// one of "last", "first", or "both", indicating which ends of the line to draw arrow heads.
+		type_t		type{ open };				// one of "open" or "closed" indicating whether the arrow head should be a closed triangle.
 
 	};
 
@@ -55,11 +55,10 @@ namespace R {
 	 */
 	struct element_line_t {
 
-		wxColour	fill;			// fill colour
-		wxColour	colour;			// line / border colour
-		double		size{ 0 };		// line / border size in mm; text size in pts.
-		int			linetype{ 0 };	// line type integer 0:8 blank, solid, dashed, dotted, dotdash, longdash, twodash
-		int			lineend;		// line end style 0:3 round, butt, square
+		wxColour	colour{ wxColor(0, 0, 0, wxALPHA_OPAQUE) };		// line / border colour default black
+		double		size{ 1 };		// line / border size in mm; text size in pts.
+		int			linetype{ 1 };	// line type integer 0:8 blank, solid, dashed, dotted, dotdash, longdash, twodash
+		int			lineend{ 0 };		// line end style 0:3 round, butt, square
 		element_arrow_t arrow;		// arrow specification
 	
 	};
@@ -69,10 +68,10 @@ namespace R {
 	*/
 	struct element_rect_t {
 
-		wxColour	fill;			// fill colour
-		wxColour	colour;			// line / border colour
-		double		size{ 0 };		// line / border size in mm; text size in pts.
-		int			linetype{ 0 };	// line type integer 0:8 blank, solid, dashed, dotted, dotdash, longdash, twodash
+		wxColour	fill{ wxColor(255, 255, 255, wxALPHA_OPAQUE) };	// fill colour default white
+		wxColour	colour{ wxColor(0, 0, 0, wxALPHA_OPAQUE) };		// line / border colour default black
+		double		size{ 1 };		// line / border size in mm; text size in pts.
+		int			linetype{ 1 };	// line type integer 0:8 blank, solid, dashed, dotted, dotdash, longdash, twodash
 
 	};
 
@@ -80,11 +79,11 @@ namespace R {
 	 * @brief element_circle: circles
 	 */
 	struct element_circle_t {
-	
-		wxColour	fill;			// fill colour
-		wxColour	colour;			// line / border colour
-		double		size{ 0 };		// line / border size in mm; text size in pts.
-		int			linetype{ 0 };	// line type integer 0:8 blank, solid, dashed, dotted, dotdash, longdash, twodash
+
+		wxColour	fill{ wxColor(255, 255, 255, wxALPHA_OPAQUE) };	// fill colour default white
+		wxColour	colour{ wxColor(0, 0, 0, wxALPHA_OPAQUE) };		// line / border colour default black
+		double		size{ 1 };		// line / border size in mm; text size in pts.
+		int			linetype{ 1 };	// line type integer 0:8 blank, solid, dashed, dotted, dotdash, longdash, twodash
 
 	};
 
@@ -105,10 +104,10 @@ namespace R {
 
 		enum face_t { plain, italic, bol, bold_italic};
 
-		wxString	family;
-		face_t		face;
-		wxColour	colour;			// line / border colour
-		double		size{ 0 };		// line / border size in mm; text size in pts.
+		wxString	family{ "Ariel" };
+		face_t		face{ plain };
+		wxColour	colour{ wxColor(0, 0, 0, wxALPHA_OPAQUE) };	// line / border colour
+		double		size{ 1 };		// line / border size in mm; text size in pts.
 		double		hjust{ 0 };		// horizontal justification (in [0,1])
 		double		vjust{ 0 };		// vertical justification (in [0,1])
 		double		angle{ 0 };		// angle (in [0,360])
@@ -116,7 +115,7 @@ namespace R {
 		double		linewidth{ 0 };		// extra specification for dc.GetMultiLineTextExtent
 		margin_t	margin;			// margins around the text = when creating a theme, the margins should be placed on the side of the text facing towards the center of the plot.
 		bool		debug{ false };	// aids visual debugging by drawing a solid rectangle behind the complete text area, and a point where each label is anchored.
-		double		x;				// single number specifying size relative to parent element
+		double		x{ 0 };				// single number specifying size relative to parent element
 		
 	};
 

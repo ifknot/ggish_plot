@@ -4,12 +4,12 @@ namespace R {
 
 	BEGIN_EVENT_TABLE(plot_paper, wxPanel)
 
-		 // catch paint events
+		// catch paint events
 		EVT_PAINT(plot_paper::paintEvent)
 
 		END_EVENT_TABLE()
 
-	plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {}
+		plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {}
 
 	void plot_paper::paintEvent(wxPaintEvent& evt) {
 		wxPaintDC dc(this);
@@ -22,6 +22,8 @@ namespace R {
 	}
 
 	void plot_paper::render(wxDC& dc) {
+
+		
 
 		int dpi = 300;
 

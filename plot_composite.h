@@ -6,6 +6,9 @@ namespace R {
  
     class plot_composite : public plot_component {
 
+       
+    protected:
+
         //virtual void add(plot_component& component) = 0;
 
         //virtual void remove(plot_component& component) = 0;
