@@ -9,7 +9,7 @@
 namespace R {
 
 	static const double cm_per_inch = 2.54;
-	static const double inch_per_cm = 0.393701;
+	static const double inch_per_cm = 0.393701; 
 	static const double pt_ratio = 0.01388888888;	//  point (abbreviated pt) is equal to 1/72 of an inch 
 
 	enum unit_t { pt, cm, inch, lines, pixels };
@@ -102,7 +102,7 @@ namespace R {
 	 */
 	struct element_text_t {
 
-		enum face_t { plain, italic, bol, bold_italic};
+		enum face_t { plain, italic, bold, bold_italic};
 
 		wxString	family{ "Ariel" };
 		face_t		face{ plain };

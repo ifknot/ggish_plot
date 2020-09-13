@@ -23,9 +23,10 @@ namespace R {
 
 	void plot_paper::render(wxDC& dc) {
 
-		
+		element_rect(dc, { 0, 0 }, { 50, 50 }, theme);
+		element_text(dc, { 50, 50 }, wxT("testing"), theme);
 
-		int dpi = 300;
+		//int dpi = 300;
 
 		//create an image of correct size and use that dc 
 			//convert to greyscale if needed
@@ -37,6 +38,7 @@ namespace R {
 
 		// draw a rectangle
 		//dc.SetBrush(*wxBLUE_BRUSH); // blue filling
+		/*
 		dc.SetPen(wxPen(wxColor(0, 0, 0), 1)); 
 		dc.DrawRectangle(50, 50, dpi, dpi);
 		dc.DrawRectangle(50, 50 + dpi, dpi, dpi);
@@ -45,7 +47,7 @@ namespace R {
 		// draw a line
 		dc.SetPen(wxPen(wxColor(0, 0, 0), 3)); // black line, 3 pixels thick
 		dc.DrawLine(300, 100, 700, 300); 
-
+		*/
 		// draw some text
 		/*
 		wxFontInfo info(text.base_size);
