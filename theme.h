@@ -18,40 +18,80 @@ namespace R {
 
 	struct axis_ticks_t : public tick_t {	
 		
-		tick_t top;
-		tick_t bottom;
-		tick_t left;
-		tick_t right;
+		tick_t top{ fill, colour, size, linetype, lineend, arrow, x, y, length };
+		tick_t bottom{ fill, colour, size, linetype, lineend, arrow, x, y, length };
+		tick_t left{ fill, colour, size, linetype, lineend, arrow, x, y, length };
+		tick_t right{ fill, colour, size, linetype, lineend, arrow, x, y, length };
 
 	};
 
 	struct axis_label_t: public element_text_t {
 
-		element_text_t top;
-		element_text_t bottom;
-		element_text_t left;
-		element_text_t right;
+		element_text_t top{ family, face, colour, size, hjust, vjust, angle, lineheight, linewidth, margin, debug, x };
+		element_text_t bottom{ family, face, colour, size, hjust, vjust, angle, lineheight, linewidth, margin, debug, x };
+		element_text_t left{ family, face, colour, size, hjust, vjust, angle, lineheight, linewidth, margin, debug, x };
+		element_text_t right{ family, face, colour, size, hjust, vjust, angle, lineheight, linewidth, margin, debug, x };
 
 	};	
 
 	struct axis_line_t : public element_line_t {
 
-		element_line_t top;
-		element_line_t bottom;
-		element_line_t left;
-		element_line_t right;
+		element_line_t top{ fill, colour, size, linetype, lineend, arrow };
+		element_line_t bottom{ fill, colour, size, linetype, lineend, arrow };
+		element_line_t left{ fill, colour, size, linetype, lineend, arrow };
+		element_line_t right{ fill, colour, size, linetype, lineend, arrow };
 
 	};
 
 	struct legend_t {
 
+		enum position_t { none, left, right, bottom, top };
+		enum direction_t { horizontal, vertical };
 
+		point_t			centre{ 0, 0 };
+
+		element_rect_t	background;		// background of legend (element_rect(); inherits from rect)
+		margin_t		margin;			// the margin around each legend (margin())
+		unit			spacing;		// the spacing between legends (unit).legend.spacing.x& legend.spacing.y inherit from legend.spacing or can be specified separately
+		unit			spacing_x{ spacing }; 
+		unit			spacing_y{ spacing };
+		element_rect_t	key;			// background underneath legend keys (element_rect(); inherits from rect)
+		unit			key_size;		// size of legend keys (unit); key background height & width inherit from legend.key.size or can be specified separately 
+		unit			key_size_width{ key_size };
+		unit			key_size_height{ key_size };
+		element_text_t	text;			// legend item labels (element_text(); inherits from text)
+		int				text_align;		// alignment of legend labels (number from 0 (left)to 1 (right))
+		element_text_t	title;			// style title of legend (element_text(); inherits from title)
+		int				title_align;	// alignment of legend title (number from 0 (left)to 1 (right))
+		position_t		legend_position;// the position of legends ("none", "left", "right", "bottom", "top")
+		direction_t		direction;		// layout of items in legends ("horizontal" or "vertical")
+		point_t			justification{ centre };	// anchor point for positioning legend inside plot ("center" or two - element numeric vector) or the justification according to the plot area when positioned outside the plot
+		direction_t		box;			// arrangement of multiple legends ("horizontal" or "vertical")
+		position_t		box_just;		// justification of each legend within the overall bounding box, when there are multiple legends ("top", "bottom", "left", or "right")
+		margin_t		box_margin;		// margins around the full legend area, as specified using margin()
+		element_rect_t	box_background;	// background of legend area (element_rect(); inherits from rect)
+		unit			box_spacing;	//The spacing between the plotting area and the legend box (unit)
+
+	};
+
+	struct grid_t : public element_line_t {
+
+		element_line_t major{ fill, colour, size, linetype, lineend, arrow };
+		element_line_t minor{ fill, colour, size, linetype, lineend, arrow };
+		element_line_t major_x{ major };		// vertical
+		element_line_t minor_x{ minor };		// vertical
+		element_line_t major_y{ major };		// horizontal
+		element_line_t minor_y{ minor };		// horizontal
 
 	};
 
 	struct panel_t {
 
-
+		element_rect_t background;			// background of plotting area, drawn underneath plot (element_rect(); inherits from rect)
+		element_rect_t border;				// border around plotting area, drawn on top of plot so that it covers tick marks and grid lines.This should be used with fill = NA (element_rect(); inherits from rect)
+		unit_t spacing;						// spacing between facet panels (unit). panel.spacing.x & panel.spacing.y inherit from panel.spacing or can be specified separately.
+		unit_t spacing_x{ spacing };		// or specify x spacing
+		unit_t spacing_y{ spacing };		// and y spacing separately
 
 	};
 
@@ -72,7 +112,28 @@ namespace R {
 		
 	};
 
-	struct 
+	struct strip {
+
+/*
+		
+strip.background, strip.background.x, strip.background.y
+background of facet labels (element_rect(); inherits from rect). Horizontal facet background (strip.background.x) & vertical facet background (strip.background.y) inherit from strip.background or can be specified separately
+
+strip.placement
+placement of strip with respect to axes, either "inside" or "outside". Only important when axes and strips are on the same side of the plot.
+
+strip.text, strip.text.x, strip.text.y
+facet labels (element_text(); inherits from text). Horizontal facet labels (strip.text.x) & vertical facet labels (strip.text.y) inherit from strip.text or can be specified separately
+
+strip.switch.pad.grid
+space between strips and axes when strips are switched (unit)
+
+strip.switch.pad.wrap
+space between strips and axes when strips are switched (unit)
+		
+*/
+
+	};
 	
 	struct theme_t {
 
@@ -95,10 +156,15 @@ namespace R {
 		axis_ticks_t		ticks;			// specify style all axes ticks or individually for each axis by top, bottom, left and right
 		axis_line_t			line;			// specify lines along all axes or individually for each axis by top, bottom, left and right
 
+		legend_t			legend;
 		panel_t				panel;
-		
-		
+		plot_t				plot;
+		strip_t				strip;
 
+		// complete // set this to TRUE if this is a complete theme, such as the one returned by theme_grey().Complete themes behave differently when added to a ggplot object.Also, when setting complete = TRUE all elements will be set to inherit from blank elements.
+
+		// validate // TRUE to run validate_element(), FALSE to bypass checks.
+		
 	};
 
 }

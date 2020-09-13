@@ -12,11 +12,11 @@ namespace R {
 	static const double inch_per_cm = 0.393701;
 	static const double pt_ratio = 0.01388888888;	//  point (abbreviated pt) is equal to 1/72 of an inch 
 
-	static enum unit_t { pt, cm, inch, lines, pixels };
+	enum unit_t { pt, cm, inch, lines, pixels };
 
 	using unit = std::pair<double, unit_t>;
 
-	static enum colour_mode_t { RGB, grayscale };
+	enum colour_mode_t { RGB, grayscale };
 
 	using point_t = std::pair<double, double>;
 
