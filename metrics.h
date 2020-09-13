@@ -4,11 +4,6 @@
 
 namespace R {
 
-	static const double cm_per_inch = 2.54;
-	static const double inch_per_cm = 0.393701;
-
-	static enum unit_t { cm, inch, lines, pixels };
-
 	using dpi_t = int;
 
 	using unit = std::pair<double, unit_t>;
@@ -18,22 +13,25 @@ namespace R {
 		colour_mode_t colour_mode;
 		unit_t		white_space_border;
 		point_t		place;
+		unit		column_width;
 		unit		minimum_width;
 		unit		maximum_width;
 		unit		minimum_height;
 		unit		maximum_height;
-		unit		column_width;
 		std::vector<element_text_t>	valid_fonts;
-		element_text_t text_within_figure;
+		element_text_t element_text;	
+		element_line_t element_line;
+		element_rect_t element_rect;
+		element_circle_t element_circle;
 
 	};
 
-	struct legend_t {
+	struct caption_legend_t {
 
 		point_t			place;
 		std::string		legend;
 		std::vector<element_text_t>	valid_fonts;
-		element_text_t	text_within_caption;
+		element_text_t	element_text;
 
 	};
 
@@ -43,9 +41,9 @@ namespace R {
 		std::string		figure_label;
 		std::string		figure_title;
 		std::vector<element_text_t>	valid_fonts;
-		element_text_t	text_within_caption;
+		element_text_t	element_text;
 
-		legend_t legend;
+		caption_legend_t legend;
 
 	};
 

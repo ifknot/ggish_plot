@@ -23,7 +23,7 @@ namespace R {
 
 	void plot_paper::render(wxDC& dc) {
 
-		int dpi = 76; //300;
+		int dpi = 300;
 
 		//create an image of correct size and use that dc 
 			//convert to greyscale if needed
@@ -45,6 +45,7 @@ namespace R {
 		dc.DrawLine(300, 100, 700, 300); 
 
 		// draw some text
+		/*
 		wxFontInfo info(text.base_size);
 		info.FaceName(text.base_family);
 		info.AllFlags(text.face);
@@ -55,7 +56,7 @@ namespace R {
 		dc.SetTextBackground(text.background_colour);
 
 		dc.DrawRotatedText(wxT("Rotated Testing"), 50 - h, 50 + dpi + dpi, text.angle);
-		
+		*/
 
 	}
 

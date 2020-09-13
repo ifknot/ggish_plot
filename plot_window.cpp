@@ -3,6 +3,7 @@
 plot_window::plot_window() : wxFrame(nullptr, wxID_ANY, "test_wx") {
 
 	pp = new R::plot_paper(this);
+	/*
 	pp->text.base_family = "Ariel";
 	pp->text.face = wxFONTFLAG_ITALIC | wxFONTFLAG_BOLD;
 	pp->text.colour = wxColour("RED");
@@ -14,6 +15,7 @@ plot_window::plot_window() : wxFrame(nullptr, wxID_ANY, "test_wx") {
 	pp->text.line_height = 0;
 	pp->text.margin = 0;
 	pp->text.debug = true;
+	*/
 	sz = new wxBoxSizer(wxHORIZONTAL);
 	sz->Add(pp, 1, wxEXPAND);
 	SetSizer(sz);
