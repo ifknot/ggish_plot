@@ -4,46 +4,51 @@
 
 namespace R {
 
-	using dpi_t = int;
+	
 
-	using unit = std::pair<double, unit_t>;
-
+	/**  
+	 * PLOS_ONE defaults
+	 * @url https://journals.plos.org/plosone/s/figures#loc-captions
+	 */
 	struct figure_t {
 
-		colour_mode_t colour_mode;
-		unit_t		white_space_border;
-		point_t		place;
-		unit		column_width;
-		unit		minimum_width;
-		unit		maximum_width;
-		unit		minimum_height;
-		unit		maximum_height;
-		std::vector<element_text_t>	valid_fonts;
-		element_text_t element_text;	
-		element_line_t element_line;
-		element_rect_t element_rect;
-		element_circle_t element_circle;
+		dpi_t dpi{ 300 };	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
+		colour_mode_t colour_mode{ RGB };
+		unit		white_space_border{ 2, pt };
+		point_t		place{ 0, 0 };
+		dimension_t dimensions{ 1, 1 };
+		unit		column_width{ 13.2, cm };
+		unit		minimum_width{ 6.68, cm };
+		unit		maximum_width{ 19.05, cm };
+		unit		minimum_height{ 22.23, cm };
+		unit		maximum_height{ 22.23, cm };
+		std::vector<wxString>	valid_fonts{ "Ariel", "Times", "Symbol" };
+		unit		minimum_pt{ 8, pt };
+		unit		maximum_pt{ 12, pt };
 
 	};
 
-	struct caption_legend_t {
-
-		point_t			place;
-		std::string		legend;
-		std::vector<element_text_t>	valid_fonts;
-		element_text_t	element_text;
-
-	};
-
+	/**
+	 * PLOS_ONE defaults
+	 * @url https://journals.plos.org/plosone/s/figures#loc-captions
+	 */
 	struct caption_t {
 
-		point_t			place;
-		std::string		figure_label;
-		std::string		figure_title;
-		std::vector<element_text_t>	valid_fonts;
-		element_text_t	element_text;
-
-		caption_legend_t legend;
+		dpi_t dpi{ 300 };
+		colour_mode_t colour_mode{ RGB };
+		unit		white_space_border{ 2, pt };
+		point_t		place{ 0, 0 };
+		wxString		figure_label{ "" };
+		wxString		figure_title{ "" };
+		wxString		legend{ "" };
+		unit		column_width{ 13.2, cm };
+		unit		minimum_width{ 6.68, cm };
+		unit		maximum_width{ 19.05, cm };
+		unit		minimum_height{ 22.23, cm };
+		unit		maximum_height{ 22.23, cm };
+		std::vector<wxString>	valid_fonts{ "Ariel", "Times", "Symbol" };
+		unit		minimum_pt{ 8, pt };
+		unit		maximum_pt{ 12, pt };
 
 	};
 

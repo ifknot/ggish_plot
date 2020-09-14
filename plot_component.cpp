@@ -1,44 +1,52 @@
 #include "plot_component.h"
 #include <math.h>
 
+#if wxUSE_GRAPHICS_CONTEXT
+	#include <wx/dcgraph.h>
+#endif
+
 namespace R {
-	void plot_component::draw_text(wxDC& dc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
-		wxFontInfo info(element_text.size);
+
+	void plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
+		auto dpi = theme.dpi;
+		wxFontInfo info(std::round(element_text.size * theme.font_scale));
 		info.FaceName(element_text.family); 
 		info.AllFlags(as_fontflag(element_text.face));
-		dc.SetFont(wxFont(info));
+		gdc.SetFont(wxFont(info));
 		wxCoord w, h;
-		dc.GetMultiLineTextExtent(text, &w, &h);
-		dc.SetTextForeground(element_text.colour);
-		dc.DrawRotatedText(
+		gdc.GetMultiLineTextExtent(text, &w, &h);
+		gdc.SetTextForeground(element_text.colour);
+		gdc.DrawRotatedText(
 			text, 
-			p.first, 
-			p.second - h, 
+			std::round(p.first * dpi),
+			std::round((p.second * dpi) - h),
 			element_text.angle
 		);
 	}
 
 	void plot_component::draw_line(wxDC& dc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::theme_t& theme) {
+		auto dpi = theme.dpi;
 		dc.SetPen(
 			wxPen(
 				element_line.colour,
-				std::round(theme.pixels_per_mm * theme.element_line.size),
+				std::round(theme.pixels_per_pt * theme.element_line.size),
 				as_penstyle(element_line.linetype)
 			)
 		);
 		dc.DrawLine(
-			a.first,
-			a.second,
-			b.first,
-			b.second
+			std::round(a.first * dpi),
+			std::round(a.second * dpi),
+			std::round(b.first * dpi),
+			std::round(b.second * dpi)
 		);
 	}
 
 	void plot_component::draw_rect(wxDC& dc, R::point_t p, R::dimension_t d, R::element_rect_t& element_rect, R::theme_t& theme) {
+		auto dpi = theme.dpi;
 		dc.SetPen(
 			wxPen(
 				element_rect.colour, 
-				std::round(theme.pixels_per_mm * theme.element_rect.size),
+				std::round(theme.pixels_per_pt * theme.element_rect.size),
 				as_penstyle(element_rect.linetype)
 			)
 		);
@@ -49,18 +57,19 @@ namespace R {
 			)
 		);
 		dc.DrawRectangle(
-			p.first, 
-			p.second, 
-			p.first + d.first, 
-			p.second + d.second
+			std::round(p.first * dpi),
+			std::round(p.second * dpi),
+			std::round((p.first + d.first) * dpi),
+			std::round((p.second + d.second) * dpi)
 		);
 	}
 
 	void plot_component::draw_circle(wxDC& dc, R::point_t o, double r, R::element_circle_t& element_circle, R::theme_t& theme) {
+		auto dpi = theme.dpi;
 		dc.SetPen(
 			wxPen(
 				element_circle.colour,
-				std::round(theme.pixels_per_mm * theme.element_circle.size),
+				std::round(theme.pixels_per_pt * theme.element_circle.size),
 				as_penstyle(element_circle.linetype)
 			)
 		);
@@ -70,7 +79,11 @@ namespace R {
 				wxBRUSHSTYLE_SOLID
 			)
 		);
-		dc.DrawCircle(o.first, o.second, r);
+		dc.DrawCircle(
+			std::round(o.first * dpi), 
+			std::round(o.second * dpi), 
+			std::round(r * dpi)
+		);
 	}
 
 	wxPenStyle plot_component::as_penstyle(int linetype) {

@@ -1,5 +1,9 @@
 #include "plot_paper.h"
 
+#if wxUSE_GRAPHICS_CONTEXT
+	#include <wx/dcgraph.h>
+#endif
+
 namespace R {
 
 	BEGIN_EVENT_TABLE(plot_paper, wxPanel)
@@ -9,10 +13,23 @@ namespace R {
 
 		END_EVENT_TABLE()
 
-		plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {}
+	plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {}
+
+	plot_paper::plot_paper(wxFrame* parent, unit width, unit height) {
+		theme.width = width;
+		theme.height = height;
+	}
 
 	void plot_paper::paintEvent(wxPaintEvent& evt) {
-		wxPaintDC dc(this);
+
+		wxPaintDC pdc(this);
+
+#if wxUSE_GRAPHICS_CONTEXT
+		wxGCDC gdc(pdc);
+		wxDC& dc = use_gcdc ? (wxDC&)gdc : (wxDC&)pdc;
+#else
+		wxDC& dc = pdc;
+#endif
 		render(dc);
 	}
 
@@ -23,10 +40,10 @@ namespace R {
 
 	void plot_paper::render(wxDC& dc) {
 
-		draw_rect(dc, { 0, 0 }, { 50, 50 }, theme.element_rect, theme);
-		draw_text(dc, { 50, 50 }, wxT("testing"), theme.element_text, theme);
-		draw_line(dc, { 0, 0 }, { 50, 50 }, theme.element_line, theme);
-		draw_circle(dc, { 25, 25 }, 20, theme.element_circle, theme);
+		draw_rect(dc, { 0, 0 }, { 1, 1 }, theme.element_rect, theme);
+		draw_text(dc, { 1, 1 }, wxT("testing"), theme.element_text, theme);
+		draw_line(dc, { 0, 0 }, { 1, 1 }, theme.element_line, theme);
+		draw_circle(dc, { 0.5, 0.5 }, 0.3, theme.element_circle, theme);
 
 		//int dpi = 300;
 

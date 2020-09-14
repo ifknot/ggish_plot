@@ -10,7 +10,9 @@ namespace R {
 
 	static const double cm_per_inch = 2.54;
 	static const double inch_per_cm = 0.393701; 
-	static const double pt_ratio = 0.01388888888;	//  point (abbreviated pt) is equal to 1/72 of an inch 
+	static const double pt_per_inch = 72;	//  point (abbreviated pt) is equal to 1/72 of an inch 
+
+	using dpi_t = int;
 
 	enum unit_t { pt, cm, inch, lines, pixels };
 
@@ -27,9 +29,9 @@ namespace R {
 	struct rect_t {		
 
 		double top{ 0 };
-		double bottom{ 0 };
+		double bottom{ 1 };
 		double left{ 0 };
-		double right{ 0 };
+		double right{ 1 };
 
 	};
 
@@ -43,7 +45,7 @@ namespace R {
 		enum type_t { open, closed };
 
 		double		angle{ 45 };			// the angle of the arrow head in degrees (smaller numbers produce narrower, pointier arrows).Essentially describes the width of the arrow head.length
-		unit		length{ 0.5, cm };	// unit specifying the length of the arrow head (from tip to base).
+		unit		length{ 1, pt };	// unit specifying the length of the arrow head (from tip to base).
 		end_t		ends{ last };				// one of "last", "first", or "both", indicating which ends of the line to draw arrow heads.
 		type_t		type{ open };				// one of "open" or "closed" indicating whether the arrow head should be a closed triangle.
 

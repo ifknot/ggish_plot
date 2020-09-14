@@ -137,9 +137,13 @@ space between strips and axes when strips are switched (unit)
 	
 	struct theme_t {
 
-		dpi_t				dpi{ 76 };			// pixels per inch of the paper - 12-pt font is 1/6 inch in height
+		dpi_t				dpi{ 72 };				// dpi/ppi of the paper
 		ratio_t				aspect_ratio{ 1, 1 };	// aspect ratio of the paper
-		double				pixels_per_mm = dpi / cm_per_inch / 10; // internally calculations are performed in mm
+		unit				width{ 1, inch };				// width of the paper
+		unit				height{ 1, inch };			// height of the paper 
+		double				pixels_per_cm = dpi / cm_per_inch; 
+		double				pixels_per_pt = dpi / pt_per_inch;
+		double				font_scale = dpi / pt_per_inch;
 		wxFontFamily		wx_font_family{ wxFONTFAMILY_DEFAULT };
 
 		double				base_size{ 11 };		// base font size, given in pts
