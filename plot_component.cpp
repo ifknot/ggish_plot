@@ -7,34 +7,52 @@
 
 namespace R {
 
-	void plot_component::draw_text(wxDC& dc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
-		auto dpi = theme.dpi;
+	void plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
+		auto scale_x = theme.dpi * theme.aspect_ratio.first * theme.width.first;
+		auto scale_y = theme.dpi * theme.aspect_ratio.second * theme.height.first;
 		wxFontInfo info(std::round(element_text.size * theme.font_scale));
 		info.FaceName(element_text.family); 
 		info.AllFlags(as_fontflag(element_text.face));
 		info.AntiAliased(true);
-		dc.SetFont(wxFont(info));
+		gdc.SetFont(wxFont(info));
 		wxCoord w, h;
-		dc.GetMultiLineTextExtent(text, &w, &h);
-		dc.SetTextForeground(element_text.colour);
-		if (element_text.angle == 0.0) {
-			dc.DrawText(
-				text,
-				std::round(p.first * dpi),
-				std::round((p.second * dpi) - h)
+		gdc.GetMultiLineTextExtent(text, &w, &h);
+
+		wxBitmap bitmap(w, h, wxBITMAP_SCREEN_DEPTH);
+		wxMemoryDC mdc;
+		mdc.SelectObject(bitmap);
+		mdc.SetBackground(element_text.background);  
+		mdc.Clear();
+		mdc.SetFont(wxFont(info));
+		mdc.SetTextForeground(element_text.colour);
+		mdc.DrawText(text, 0, 0);
+		if (element_text.angle == 0) {
+			gdc.DrawBitmap(
+				bitmap,
+				std::round(p.first * scale_x),
+				std::round((p.second * scale_y) - h)
 			);
 		}
-		else
-		dc.DrawRotatedText(
-			text, 
-			std::round(p.first * dpi),
-			std::round((p.second * dpi) - h),
-			element_text.angle
-		);
+		else {
+			auto image = bitmap.ConvertToImage();
+			image.SetMaskColour(element_text.background.Red(), element_text.background.Green(), element_text.background.Blue());
+			image.Rescale(w * theme.aspect_ratio.second, h * theme.aspect_ratio.first, wxIMAGE_QUALITY_HIGH);
+			gdc.DrawBitmap(
+				image.Rotate(
+					element_text.angle * as_radians, 
+					{ 0, 0 }
+				),
+				std::round(p.first * scale_x),
+				std::round((p.second * scale_y) - h)
+			);
+			
+		}
+		mdc.SelectObject(wxNullBitmap);
 	}
 
 	void plot_component::draw_line(wxDC& dc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::theme_t& theme) {
-		auto dpi = theme.dpi;
+		auto scale_x = theme.dpi * theme.aspect_ratio.first;
+		auto scale_y = theme.dpi * theme.aspect_ratio.second;
 		dc.SetPen(
 			wxPen(
 				element_line.colour,
@@ -43,15 +61,16 @@ namespace R {
 			)
 		);
 		dc.DrawLine(
-			std::round(a.first * dpi),
-			std::round(a.second * dpi),
-			std::round(b.first * dpi),
-			std::round(b.second * dpi)
+			std::round(a.first * scale_x),
+			std::round(a.second * scale_y),
+			std::round(b.first * scale_x),
+			std::round(b.second * scale_y)
 		);
 	}
 
 	void plot_component::draw_rect(wxDC& dc, R::point_t p, R::dimension_t d, R::element_rect_t& element_rect, R::theme_t& theme) {
-		auto dpi = theme.dpi;
+		auto scale_x = theme.dpi * theme.aspect_ratio.first;
+		auto scale_y = theme.dpi * theme.aspect_ratio.second;
 		dc.SetPen(
 			wxPen(
 				element_rect.colour, 
@@ -66,15 +85,17 @@ namespace R {
 			)
 		);
 		dc.DrawRectangle(
-			std::round(p.first * dpi),
-			std::round(p.second * dpi),
-			std::round((p.first + d.first) * dpi),
-			std::round((p.second + d.second) * dpi)
+			std::round(p.first * scale_x),
+			std::round(p.second * scale_y),
+			std::round((p.first + d.first) * scale_x),
+			std::round((p.second + d.second) * scale_y)
 		);
 	}
 
 	void plot_component::draw_circle(wxDC& dc, R::point_t o, double r, R::element_circle_t& element_circle, R::theme_t& theme) {
-		auto dpi = theme.dpi;
+		auto scale_x = theme.dpi * theme.aspect_ratio.first;
+		auto scale_y = theme.dpi * theme.aspect_ratio.second;
+		auto rr = r + r;
 		dc.SetPen(
 			wxPen(
 				element_circle.colour,
@@ -88,10 +109,11 @@ namespace R {
 				wxBRUSHSTYLE_SOLID
 			)
 		);
-		dc.DrawCircle(
-			std::round(o.first * dpi), 
-			std::round(o.second * dpi), 
-			std::round(r * dpi)
+		dc.DrawEllipse(
+			std::round((o.first - r) * scale_x), 
+			std::round((o.second - r) * scale_y), 
+			std::round(rr * scale_x),
+			std::round(rr * scale_y)
 		);
 	}
 

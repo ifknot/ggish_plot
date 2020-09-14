@@ -13,11 +13,7 @@ namespace R {
 
 	public:
 
-#if wxUSE_GRAPHICS_CONTEXT
-		virtual void render(wxDC& dc, wxGCDC& gdc) = 0;
-#else
-		virtual void render(wxDC& dc) = 0;
-#endif
+	virtual void render(wxDC& dc) = 0;
 
 	protected:
 

@@ -13,9 +13,12 @@ namespace R {
 
 		END_EVENT_TABLE()
 
-	plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {}
+	plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {
+		theme.width = fig.column_width;
+		theme.height = fig.column_width;
+	}
 
-	plot_paper::plot_paper(wxFrame* parent, unit width, unit height) {
+	plot_paper::plot_paper(wxFrame* parent, unit_t width, unit_t height) {
 		theme.width = width;
 		theme.height = height;
 	}
@@ -27,7 +30,7 @@ namespace R {
 #if wxUSE_GRAPHICS_CONTEXT
 		wxGCDC gdc(pdc);
 		wxDC& dc = use_gcdc ? (wxDC&)gdc : (wxDC&)pdc;
-		render(pdc, gdc);
+		render(dc);
 #else
 		wxDC& dc = pdc;
 		render(dc);
@@ -36,22 +39,14 @@ namespace R {
 	}
 
 	void plot_paper::paintNow() {
-		wxPaintDC pdc(this);
-
-#if wxUSE_GRAPHICS_CONTEXT
-		wxGCDC gdc(pdc);
-		wxDC& dc = use_gcdc ? (wxDC&)gdc : (wxDC&)pdc;
-		render(pdc, gdc);
-#else
-		wxDC& dc = pdc;
+		wxClientDC dc(this);
 		render(dc);
-#endif
 	}
 
-	void plot_paper::render(wxDC& dc, wxGCDC& gdc) {
+	void plot_paper::render(wxDC& gdc) {
 
 		draw_rect(gdc, { 0, 0 }, { 1, 1 }, theme.element_rect, theme);
-		draw_text(dc, { 1, 1 }, wxT("testing"), theme.element_text, theme);
+		draw_text(gdc, { 1, 1 }, wxT("testing"), theme.element_text, theme);
 		draw_line(gdc, { 0, 0 }, { 1, 1 }, theme.element_line, theme);
 		draw_circle(gdc, { 0.5, 0.5 }, 0.3, theme.element_circle, theme);
 

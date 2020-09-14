@@ -14,17 +14,13 @@ namespace R {
 
         plot_paper(wxFrame* parent);
 
-        plot_paper(wxFrame* parent, unit width, unit height);
+        plot_paper(wxFrame* parent, unit_t width, unit_t height);
 
         void paintEvent(wxPaintEvent& evt);
 
         void paintNow();
 
-#if wxUSE_GRAPHICS_CONTEXT
-        void render(wxDC& dc, wxGCDC& gdc) override final;
-#else
         void render(wxDC& dc) override final;
-#endif
 
         DECLARE_EVENT_TABLE()
 
