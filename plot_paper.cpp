@@ -23,8 +23,10 @@ namespace R {
 
 	void plot_paper::render(wxDC& dc) {
 
-		element_rect(dc, { 0, 0 }, { 50, 50 }, theme);
-		element_text(dc, { 50, 50 }, wxT("testing"), theme);
+		draw_rect(dc, { 0, 0 }, { 50, 50 }, theme.element_rect, theme);
+		draw_text(dc, { 50, 50 }, wxT("testing"), theme.element_text, theme);
+		draw_line(dc, { 0, 0 }, { 50, 50 }, theme.element_line, theme);
+		draw_circle(dc, { 25, 25 }, 20, theme.element_circle, theme);
 
 		//int dpi = 300;
 

@@ -2,68 +2,115 @@
 #include <math.h>
 
 namespace R {
-	void plot_component::element_text(wxDC& dc, R::point_t p, wxString s, R::theme_t& theme) {
-		wxFontInfo info(theme.element_text.size);
-		info.FaceName(theme.element_text.family); 
-		int face;
-		switch (theme.element_text.face) { // plain, italic, bold, bold_italic};
-		case element_text_t::plain:
-			face = wxFONTFLAG_DEFAULT;
-			break;
-		case element_text_t::italic:
-			face = wxFONTFLAG_ITALIC;
-			break;
-		case element_text_t::bold:
-			face = wxFONTFLAG_BOLD;
-			break;
-		case element_text_t::bold_italic:
-			face = wxFONTFLAG_BOLD | wxFONTFLAG_ITALIC;
-			break;
-		default:
-			face = wxFONTFLAG_DEFAULT;
-		}
-		info.AllFlags(face);
+	void plot_component::draw_text(wxDC& dc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
+		wxFontInfo info(element_text.size);
+		info.FaceName(element_text.family); 
+		info.AllFlags(as_fontflag(element_text.face));
 		dc.SetFont(wxFont(info));
 		wxCoord w, h;
-		dc.GetMultiLineTextExtent(s, &w, &h);
-		dc.SetTextForeground(theme.element_text.colour);
-		dc.DrawRotatedText(s, p.first, p.second - h, theme.element_text.angle);
+		dc.GetMultiLineTextExtent(text, &w, &h);
+		dc.SetTextForeground(element_text.colour);
+		dc.DrawRotatedText(
+			text, 
+			p.first, 
+			p.second - h, 
+			element_text.angle
+		);
 	}
 
-	void plot_component::element_rect(wxDC& dc, R::point_t p, R::dimension_t d, R::theme_t& theme) {
-	
-		//linetype integer 0:6 blank, solid, dashed, dotted, dotdash, longdash, twodash
-		wxPenStyle linetype;
-		switch (theme.element_rect.linetype) {
+	void plot_component::draw_line(wxDC& dc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::theme_t& theme) {
+		dc.SetPen(
+			wxPen(
+				element_line.colour,
+				std::round(theme.pixels_per_mm * theme.element_line.size),
+				as_penstyle(element_line.linetype)
+			)
+		);
+		dc.DrawLine(
+			a.first,
+			a.second,
+			b.first,
+			b.second
+		);
+	}
+
+	void plot_component::draw_rect(wxDC& dc, R::point_t p, R::dimension_t d, R::element_rect_t& element_rect, R::theme_t& theme) {
+		dc.SetPen(
+			wxPen(
+				element_rect.colour, 
+				std::round(theme.pixels_per_mm * theme.element_rect.size),
+				as_penstyle(element_rect.linetype)
+			)
+		);
+		dc.SetBrush(
+			wxBrush(
+				element_rect.fill, 
+				wxBRUSHSTYLE_SOLID
+			)
+		);
+		dc.DrawRectangle(
+			p.first, 
+			p.second, 
+			p.first + d.first, 
+			p.second + d.second
+		);
+	}
+
+	void plot_component::draw_circle(wxDC& dc, R::point_t o, double r, R::element_circle_t& element_circle, R::theme_t& theme) {
+		dc.SetPen(
+			wxPen(
+				element_circle.colour,
+				std::round(theme.pixels_per_mm * theme.element_circle.size),
+				as_penstyle(element_circle.linetype)
+			)
+		);
+		dc.SetBrush(
+			wxBrush(
+				element_circle.fill,
+				wxBRUSHSTYLE_SOLID
+			)
+		);
+		dc.DrawCircle(o.first, o.second, r);
+	}
+
+	wxPenStyle plot_component::as_penstyle(int linetype) {
+		//ggplot2 linetype integer 0:6 blank, solid, dashed, dotted, dotdash, longdash, twodash
+		switch (linetype) {
 		case 0:
-			linetype = wxPENSTYLE_TRANSPARENT;
-			break;
+			return wxPENSTYLE_TRANSPARENT;
 		case 1:
-			linetype = wxPENSTYLE_SOLID;
-			break;
+			return wxPENSTYLE_SOLID;
 		case 2:
-			linetype = wxPENSTYLE_SHORT_DASH;
-			break;
+			return wxPENSTYLE_SHORT_DASH;
 		case 3:
-			linetype = wxPENSTYLE_DOT;
-			break;
+			return wxPENSTYLE_DOT;
 		case 4:
-			linetype = wxPENSTYLE_DOT_DASH;
+			return wxPENSTYLE_DOT_DASH;
 			break;
 		case 5:
-			linetype = wxPENSTYLE_LONG_DASH;
-			break;
-		//case 6:
-			//linetype = wxPENSTYLE_USER_DASH;
-			//break;
+			return wxPENSTYLE_LONG_DASH;
+/*	TODO: translate twodash
+		case 6:
+			return wxPENSTYLE_USER_DASH;
+*/
 		default:
 			linetype = wxPENSTYLE_SOLID;
 		}
-		int size = std::round(theme.pixels_per_mm * theme.element_line.size);
-		dc.SetPen(wxPen(theme.element_rect.colour, size));
-		dc.SetBrush(wxBrush(theme.element_rect.fill, wxBRUSHSTYLE_SOLID));
-		dc.DrawRectangle(p.first, p.second, p.first + d.first, p.second + d.second);
+	}
 
+	int plot_component::as_fontflag(element_text_t::face_t face) {
+		switch (face) { // plain, italic, bold, bold_italic};
+		case element_text_t::plain:
+			return wxFONTFLAG_DEFAULT;
+		case element_text_t::italic:
+			return wxFONTFLAG_ITALIC;
+		case element_text_t::bold:
+			return wxFONTFLAG_BOLD;
+		case element_text_t::bold_italic:
+			return wxFONTFLAG_BOLD | wxFONTFLAG_ITALIC;
+		default:
+			return wxFONTFLAG_DEFAULT;
+		}
 	}
 
 }

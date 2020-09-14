@@ -146,12 +146,12 @@ space between strips and axes when strips are switched (unit)
 		wxString			base_family{ "Ariel" };	// base font family name e.g. "Ariel"
 		double				base_line_size = base_size / 22;	// base size for line elements
 		double				base_rect_size = base_size / 22;	// base size for rect elements
-		
-		
-		element_line_t		element_line{ wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1, 0};		// all line elements
-		element_rect_t		element_rect{ wxColor(255, 255, 255, wxALPHA_OPAQUE),  wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1 };		// all rectangular elements
-		element_text_t		element_text{ base_family, element_text_t::plain, wxColor(0, 0, 0, wxALPHA_OPAQUE), base_size, 0.5, 0.5, 0, 0.9 };		// all text elements
-		element_circle_t	element_circle;		// all circular elements
+
+
+		element_line_t		element_line{ wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1, 0 }; // all line elements
+		element_rect_t		element_rect{ wxColor(255, 255, 255, wxALPHA_OPAQUE),  wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1 }; // all rectangular elements
+		element_text_t		element_text{ base_family, element_text_t::plain, wxColor(0, 0, 0, wxALPHA_OPAQUE), base_size, 0.5, 0.5, 0, 0.9 }; // all text elements
+		element_circle_t	element_circle{ wxColor(255, 255, 255, wxALPHA_OPAQUE),  wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1 }; // all circular elements
 
 		axis_label_t		title;			// specify style all axes' title labels or individually for each axis by top, bottom, left and right
 		axis_label_t		text;			// specify style all axes' tick labels or individually for each axis by top, bottom, left and right
