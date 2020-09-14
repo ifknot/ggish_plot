@@ -3,20 +3,27 @@
 #include "wx/wx.h"
 #include "theme.h"
 
+#if wxUSE_GRAPHICS_CONTEXT
+	#include <wx/dcgraph.h>
+#endif
+
 namespace R {
 
 	class plot_component {
 
 	public:
 
-
+#if wxUSE_GRAPHICS_CONTEXT
+		virtual void render(wxDC& dc, wxGCDC& gdc) = 0;
+#else
 		virtual void render(wxDC& dc) = 0;
+#endif
 
 	protected:
 
 		static void draw_text(wxDC& gdc, R::point_t p, wxString s, R::element_text_t& element_text, R::theme_t& theme);
 
-		static void draw_line(wxDC& gdc,R::point_t a, R::point_t b, R::element_line_t& element_line, R::theme_t& theme);
+		static void draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::theme_t& theme);
 
 		static void draw_rect(wxDC& gdc, R::point_t p, R::dimension_t d, R::element_rect_t& element_rect, R::theme_t& theme);
 

@@ -27,23 +27,33 @@ namespace R {
 #if wxUSE_GRAPHICS_CONTEXT
 		wxGCDC gdc(pdc);
 		wxDC& dc = use_gcdc ? (wxDC&)gdc : (wxDC&)pdc;
+		render(pdc, gdc);
 #else
 		wxDC& dc = pdc;
-#endif
 		render(dc);
+#endif
+
 	}
 
 	void plot_paper::paintNow() {
-		wxClientDC dc(this);
+		wxPaintDC pdc(this);
+
+#if wxUSE_GRAPHICS_CONTEXT
+		wxGCDC gdc(pdc);
+		wxDC& dc = use_gcdc ? (wxDC&)gdc : (wxDC&)pdc;
+		render(pdc, gdc);
+#else
+		wxDC& dc = pdc;
 		render(dc);
+#endif
 	}
 
-	void plot_paper::render(wxDC& dc) {
+	void plot_paper::render(wxDC& dc, wxGCDC& gdc) {
 
-		draw_rect(dc, { 0, 0 }, { 1, 1 }, theme.element_rect, theme);
+		draw_rect(gdc, { 0, 0 }, { 1, 1 }, theme.element_rect, theme);
 		draw_text(dc, { 1, 1 }, wxT("testing"), theme.element_text, theme);
-		draw_line(dc, { 0, 0 }, { 1, 1 }, theme.element_line, theme);
-		draw_circle(dc, { 0.5, 0.5 }, 0.3, theme.element_circle, theme);
+		draw_line(gdc, { 0, 0 }, { 1, 1 }, theme.element_line, theme);
+		draw_circle(gdc, { 0.5, 0.5 }, 0.3, theme.element_circle, theme);
 
 		//int dpi = 300;
 

@@ -20,7 +20,11 @@ namespace R {
 
         void paintNow();
 
+#if wxUSE_GRAPHICS_CONTEXT
+        void render(wxDC& dc, wxGCDC& gdc) override final;
+#else
         void render(wxDC& dc) override final;
+#endif
 
         DECLARE_EVENT_TABLE()
 

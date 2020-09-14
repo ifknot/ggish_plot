@@ -137,7 +137,7 @@ space between strips and axes when strips are switched (unit)
 	
 	struct theme_t {
 
-		dpi_t				dpi{ 72 };				// dpi/ppi of the paper
+		dpi_t				dpi{ 300 };				// dpi/ppi of the paper
 		ratio_t				aspect_ratio{ 1, 1 };	// aspect ratio of the paper
 		unit				width{ 1, inch };				// width of the paper
 		unit				height{ 1, inch };			// height of the paper 

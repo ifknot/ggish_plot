@@ -7,16 +7,25 @@
 
 namespace R {
 
-	void plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
+	void plot_component::draw_text(wxDC& dc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
 		auto dpi = theme.dpi;
 		wxFontInfo info(std::round(element_text.size * theme.font_scale));
 		info.FaceName(element_text.family); 
 		info.AllFlags(as_fontflag(element_text.face));
-		gdc.SetFont(wxFont(info));
+		info.AntiAliased(true);
+		dc.SetFont(wxFont(info));
 		wxCoord w, h;
-		gdc.GetMultiLineTextExtent(text, &w, &h);
-		gdc.SetTextForeground(element_text.colour);
-		gdc.DrawRotatedText(
+		dc.GetMultiLineTextExtent(text, &w, &h);
+		dc.SetTextForeground(element_text.colour);
+		if (element_text.angle == 0.0) {
+			dc.DrawText(
+				text,
+				std::round(p.first * dpi),
+				std::round((p.second * dpi) - h)
+			);
+		}
+		else
+		dc.DrawRotatedText(
 			text, 
 			std::round(p.first * dpi),
 			std::round((p.second * dpi) - h),
