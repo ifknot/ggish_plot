@@ -2,7 +2,6 @@
 
 #include "wx/wx.h"
 
-
 #include "plot_paper.h"
 
 class plot_window : public wxFrame {

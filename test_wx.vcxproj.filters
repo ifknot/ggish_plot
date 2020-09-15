@@ -30,6 +30,9 @@
     <ClCompile Include="plot_component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="conversions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h">
@@ -53,9 +56,6 @@
     <ClInclude Include="r_data_frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="metrics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="theme.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,6 +63,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PLOS_ONE_theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="conversions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="figure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

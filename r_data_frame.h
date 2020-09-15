@@ -23,7 +23,7 @@ namespace R {
 
 	using basic_data_types = std::variant<r_char, r_float, r_int, r_string, r_date>;
 
-	static enum ordinal_t { r_first = 1, r_second, r_third, r_fourth, r_fifth };
+	enum ordinal_t { r_first = 1, r_second, r_third, r_fourth, r_fifth };
 
 	/**
 	 * @brief in R vectors can store any variable type.

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "metrics.h"
+#include  "elements.h"
 
 namespace R {
 
@@ -12,7 +12,7 @@ namespace R {
 
 		double	x{ 0 };
 		double	y{ 0 };
-		unit_t	length{ 0.1, cm };	// length of tick marks (unit)
+		unit_t	length{ 3, units::pt };	// length of tick marks (unit)
 
 	};
 
@@ -50,27 +50,27 @@ namespace R {
 
 		point_t			centre{ 0, 0 };
 
-		element_rect_t	background;		// background of legend (element_rect(); inherits from rect)
-		margin_t		margin;			// the margin around each legend (margin())
-		unit_t			spacing;		// the spacing between legends (unit).legend.spacing.x& legend.spacing.y inherit from legend.spacing or can be specified separately
+		element_rect_t	background;				// background of legend (element_rect(); inherits from rect)
+		margin_t		margin;					// the margin around each legend (margin())
+		unit_t			spacing;				// the spacing between legends (unit).legend.spacing.x& legend.spacing.y inherit from legend.spacing or can be specified separately
 		unit_t			spacing_x{ spacing }; 
 		unit_t			spacing_y{ spacing };
-		element_rect_t	key;			// background underneath legend keys (element_rect(); inherits from rect)
-		unit_t			key_size;		// size of legend keys (unit); key background height & width inherit from legend.key.size or can be specified separately 
+		element_rect_t	key;					// background underneath legend keys (element_rect(); inherits from rect)
+		unit_t			key_size;				// size of legend keys (unit); key background height & width inherit from legend.key.size or can be specified separately 
 		unit_t			key_size_width{ key_size };
 		unit_t			key_size_height{ key_size };
-		element_text_t	text;			// legend item labels (element_text(); inherits from text)
-		int				text_align;		// alignment of legend labels (number from 0 (left)to 1 (right))
-		element_text_t	title;			// style title of legend (element_text(); inherits from title)
-		int				title_align;	// alignment of legend title (number from 0 (left)to 1 (right))
-		position_t		legend_position;// the position of legends ("none", "left", "right", "bottom", "top")
-		direction_t		direction;		// layout of items in legends ("horizontal" or "vertical")
-		point_t			justification{ centre };	// anchor point for positioning legend inside plot ("center" or two - element numeric vector) or the justification according to the plot area when positioned outside the plot
-		direction_t		box;			// arrangement of multiple legends ("horizontal" or "vertical")
-		position_t		box_just;		// justification of each legend within the overall bounding box, when there are multiple legends ("top", "bottom", "left", or "right")
-		margin_t		box_margin;		// margins around the full legend area, as specified using margin()
-		element_rect_t	box_background;	// background of legend area (element_rect(); inherits from rect)
-		unit_t			box_spacing;	//The spacing between the plotting area and the legend box (unit)
+		element_text_t	text;					// legend item labels (element_text(); inherits from text)
+		int				text_align{ 0 };		// alignment of legend labels (number from 0 (left)to 1 (right))
+		element_text_t	title;					// style title of legend (element_text(); inherits from title)
+		int				title_align{ 0 };		// alignment of legend title (number from 0 (left)to 1 (right))
+		position_t		legend_position{ left };// the position of legends ("none", "left", "right", "bottom", "top")
+		direction_t		direction;				// layout of items in legends ("horizontal" or "vertical")
+		point_t			justification{ centre };// anchor point for positioning legend inside plot ("center" or two - element numeric vector) or the justification according to the plot area when positioned outside the plot
+		direction_t		box;					// arrangement of multiple legends ("horizontal" or "vertical")
+		position_t		box_just;				// justification of each legend within the overall bounding box, when there are multiple legends ("top", "bottom", "left", or "right")
+		margin_t		box_margin;				// margins around the full legend area, as specified using margin()
+		element_rect_t	box_background;			// background of legend area (element_rect(); inherits from rect)
+		unit_t			box_spacing;			// the spacing between the plotting area and the legend box (unit)
 
 	};
 
@@ -89,9 +89,9 @@ namespace R {
 
 		element_rect_t background;			// background of plotting area, drawn underneath plot (element_rect(); inherits from rect)
 		element_rect_t border;				// border around plotting area, drawn on top of plot so that it covers tick marks and grid lines.This should be used with fill = NA (element_rect(); inherits from rect)
-		unit_enum_t spacing;						// spacing between facet panels (unit). panel.spacing.x & panel.spacing.y inherit from panel.spacing or can be specified separately.
-		unit_enum_t spacing_x{ spacing };		// or specify x spacing
-		unit_enum_t spacing_y{ spacing };		// and y spacing separately
+		unit_t spacing{ 2, units::pt };		// spacing between facet panels (unit). panel.spacing.x & panel.spacing.y inherit from panel.spacing or can be specified separately.
+		unit_t spacing_x{ spacing };	// or specify x spacing
+		unit_t spacing_y{ spacing };	// and y spacing separately
 
 	};
 
@@ -107,7 +107,7 @@ namespace R {
 		element_text_t		subtitle;		// plot subtitle (text appearance) - left aligned default
 		element_text_t		caption;		// caption below the plot (text appearance) - right aligned default
 		element_text_t		tag;			// upper - left label to identify a plot (text appearance)
-		position_t			tag_position;	// position of the tag 
+		position_t			tag_position{ topleft };	// position of the tag 
 		margin_t			margin;			// margin around entire plot (unit with the sizes of the top, right, bottom, and left margins)
 		
 	};
@@ -137,24 +137,29 @@ space between strips and axes when strips are switched (unit)
 	
 	struct theme_t {
 
-		dpi_t				dpi{ 72 };				// dpi/ppi of the paper
+		theme_t(dpi_t ppi = 72, double pt = 11, wxString family = "Times") :
+			dpi(ppi),
+			base_size(pt),
+			base_family(family) 
+		{}
+
+		dpi_t				dpi;					// dpi/ppi of the paper
 		ratio_t				aspect_ratio{ 1, 1 };	// aspect ratio of the paper
-		unit_t				width{ 1, inch };				// width of the paper
-		unit_t				height{ 1, inch };			// height of the paper 
+		unit_t				width{ 1, units::inch };		// width of the paper
+		unit_t				height{ 1, units::inch };		// height of the paper 
 		double				pixels_per_cm = dpi / cm_per_inch; 
 		double				pixels_per_pt = dpi / pt_per_inch;
 		double				font_scale = dpi / pt_per_inch;
-		wxFontFamily		wx_font_family{ wxFONTFAMILY_DEFAULT };
 
-		double				base_size{ 11 };		// base font size, given in pts
-		wxString			base_family{ "Ariel" };	// base font family name e.g. "Ariel"
+		double				base_size;		// base font size, given in pts
+		wxString			base_family;	// base font family name e.g. "Ariel"
 		double				base_line_size = base_size / 22;	// base size for line elements
 		double				base_rect_size = base_size / 22;	// base size for rect elements
 
 
 		element_line_t		element_line{ wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1, 0 }; // all line elements
 		element_rect_t		element_rect{ wxColor(255, 255, 255, wxALPHA_OPAQUE),  wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1 }; // all rectangular elements
-		element_text_t		element_text{ base_family, element_text_t::plain, wxColor(0, 0, 0, wxALPHA_OPAQUE), base_size, 0.5, 0.5, 90, 0.9 }; // all text elements
+		element_text_t		element_text{ base_family, element_text_t::face_t::plain, wxColor(0, 0, 0, wxALPHA_OPAQUE), base_size, 0.5, 0.5, 90, 0.9 }; // all text elements
 		element_circle_t	element_circle{ wxColor(255, 255, 255, wxALPHA_OPAQUE),  wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1 }; // all circular elements
 
 		axis_label_t		title;			// specify style all axes' title labels or individually for each axis by top, bottom, left and right

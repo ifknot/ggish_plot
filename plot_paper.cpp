@@ -13,7 +13,9 @@ namespace R {
 
 		END_EVENT_TABLE()
 
-	plot_paper::plot_paper(wxFrame* parent) : wxPanel(parent) {
+		plot_paper::plot_paper(wxFrame* parent) : 
+			wxPanel(parent), 
+			theme({ 72, 12, fig.valid_fonts[2] }) {
 		theme.width = fig.column_width;
 		theme.height = fig.column_width;
 	}

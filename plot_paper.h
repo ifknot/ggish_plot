@@ -4,6 +4,7 @@
 #include "wx/sizer.h"
 
 #include "plot_composite.h"
+#include "figure.h"
 #include "theme.h"
 
 namespace R {

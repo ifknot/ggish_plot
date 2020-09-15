@@ -7,6 +7,10 @@ app::app() {
 
 bool app::OnInit() {
 
+	if (!wxApp::OnInit()) {
+		return false;
+	}
+	setlocale(LC_NUMERIC, "English");
 	f.reset(new plot_window);
 	f->Show();
 

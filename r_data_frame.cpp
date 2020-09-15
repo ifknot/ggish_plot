@@ -7,7 +7,7 @@ namespace R {
 		for (const auto& date : source) {
 			std::stringstream ss;
 			ss << date + "T00:00:00Z ";
-		std:tm tm;
+		std::tm tm;
 			ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%S");
 			tm_dates.push_back(tm);
 		}
@@ -36,7 +36,7 @@ std::ostream& operator<<(std::ostream& os, const R::variant_factor& vf) {
 }
 
 std::ostream& operator<<(std::ostream& os, const R::data_frame& df) {
-	size_t sz;
+	size_t sz{ 0 };
 	for (const auto& [key, vctr] : df) {
 		os << '\t' << key;
 		sz = vctr.size();	// TODO: check each column contains same number of data items

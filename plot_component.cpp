@@ -1,49 +1,60 @@
 #include "plot_component.h"
+
 #include <math.h>
 
-#if wxUSE_GRAPHICS_CONTEXT
-	#include <wx/dcgraph.h>
-#endif
+#include "conversions.h"
 
 namespace R {
 
 	void plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
-		auto scale_x = theme.dpi * theme.aspect_ratio.first * theme.width.first;
-		auto scale_y = theme.dpi * theme.aspect_ratio.second * theme.height.first;
+		auto scale_x = theme.dpi * theme.aspect_ratio.first * as_inch(theme.width).first;
+		auto scale_y = theme.dpi * theme.aspect_ratio.second * as_inch(theme.height).first;
 		wxFontInfo info(std::round(element_text.size * theme.font_scale));
 		info.FaceName(element_text.family); 
 		info.AllFlags(as_fontflag(element_text.face));
 		info.AntiAliased(true);
-		gdc.SetFont(wxFont(info));
+		wxFont font(info);
+		gdc.SetFont(font);
 		wxCoord w, h;
-		gdc.GetMultiLineTextExtent(text, &w, &h);
-
-		wxBitmap bitmap(w, h, wxBITMAP_SCREEN_DEPTH);
+		gdc.GetTextExtent(text, &w, &h);
+		wxBitmap bitmap(w, h, 32);// wxBITMAP_SCREEN_DEPTH);
+		bitmap.UseAlpha();
 		wxMemoryDC mdc;
 		mdc.SelectObject(bitmap);
-		mdc.SetBackground(element_text.background);  
+		mdc.SetBackground(element_text.background);
 		mdc.Clear();
-		mdc.SetFont(wxFont(info));
+		mdc.SetFont(font);
+		mdc.SetTextBackground(element_text.background);
 		mdc.SetTextForeground(element_text.colour);
 		mdc.DrawText(text, 0, 0);
 		if (element_text.angle == 0) {
 			gdc.DrawBitmap(
 				bitmap,
 				std::round(p.first * scale_x),
-				std::round((p.second * scale_y) - h)
+				std::round((p.second * scale_y) - bitmap.GetHeight())
 			);
 		}
 		else {
 			auto image = bitmap.ConvertToImage();
-			image.SetMaskColour(element_text.background.Red(), element_text.background.Green(), element_text.background.Blue());
-			image.Rescale(w * theme.aspect_ratio.second, h * theme.aspect_ratio.first, wxIMAGE_QUALITY_HIGH);
+			image.SetMaskColour(
+				element_text.background.Red(), 
+				element_text.background.Green(), 
+				element_text.background.Blue()
+			);
+			image.SetAlpha(0);
+			image.Rescale(
+				w * theme.aspect_ratio.second, 
+				h * theme.aspect_ratio.first, 
+				wxIMAGE_QUALITY_HIGH
+			);
+			auto rotated_image = image.Rotate(
+				as_radians(element_text.angle),
+				{ 0, 0 }
+			);
 			gdc.DrawBitmap(
-				image.Rotate(
-					element_text.angle * as_radians, 
-					{ 0, 0 }
-				),
+				rotated_image,
 				std::round(p.first * scale_x),
-				std::round((p.second * scale_y) - h)
+				std::round((p.second * scale_y) - rotated_image.GetHeight())
 			);
 			
 		}
@@ -51,8 +62,8 @@ namespace R {
 	}
 
 	void plot_component::draw_line(wxDC& dc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::theme_t& theme) {
-		auto scale_x = theme.dpi * theme.aspect_ratio.first;
-		auto scale_y = theme.dpi * theme.aspect_ratio.second;
+		auto scale_x = theme.dpi * theme.aspect_ratio.first * as_inch(theme.width).first;
+		auto scale_y = theme.dpi * theme.aspect_ratio.second * as_inch(theme.height).first;
 		dc.SetPen(
 			wxPen(
 				element_line.colour,
@@ -69,8 +80,8 @@ namespace R {
 	}
 
 	void plot_component::draw_rect(wxDC& dc, R::point_t p, R::dimension_t d, R::element_rect_t& element_rect, R::theme_t& theme) {
-		auto scale_x = theme.dpi * theme.aspect_ratio.first;
-		auto scale_y = theme.dpi * theme.aspect_ratio.second;
+		auto scale_x = theme.dpi * theme.aspect_ratio.first * as_inch(theme.width).first;
+		auto scale_y = theme.dpi * theme.aspect_ratio.second * as_inch(theme.height).first;
 		dc.SetPen(
 			wxPen(
 				element_rect.colour, 
@@ -93,8 +104,8 @@ namespace R {
 	}
 
 	void plot_component::draw_circle(wxDC& dc, R::point_t o, double r, R::element_circle_t& element_circle, R::theme_t& theme) {
-		auto scale_x = theme.dpi * theme.aspect_ratio.first;
-		auto scale_y = theme.dpi * theme.aspect_ratio.second;
+		auto scale_x = theme.dpi * theme.aspect_ratio.first * as_inch(theme.width).first;
+		auto scale_y = theme.dpi * theme.aspect_ratio.second * as_inch(theme.height).first;
 		auto rr = r + r;
 		dc.SetPen(
 			wxPen(
@@ -138,19 +149,19 @@ namespace R {
 			return wxPENSTYLE_USER_DASH;
 */
 		default:
-			linetype = wxPENSTYLE_SOLID;
+			return wxPENSTYLE_SOLID;
 		}
 	}
 
 	int plot_component::as_fontflag(element_text_t::face_t face) {
 		switch (face) { // plain, italic, bold, bold_italic};
-		case element_text_t::plain:
+		case element_text_t::face_t::plain:
 			return wxFONTFLAG_DEFAULT;
-		case element_text_t::italic:
+		case element_text_t::face_t::italic:
 			return wxFONTFLAG_ITALIC;
-		case element_text_t::bold:
+		case element_text_t::face_t::bold:
 			return wxFONTFLAG_BOLD;
-		case element_text_t::bold_italic:
+		case element_text_t::face_t::bold_italic:
 			return wxFONTFLAG_BOLD | wxFONTFLAG_ITALIC;
 		default:
 			return wxFONTFLAG_DEFAULT;
