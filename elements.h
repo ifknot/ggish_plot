@@ -17,10 +17,19 @@ namespace R {
 
 	struct rect_t {		
 
-		double top{ 0 };
-		double bottom{ 1 };
-		double left{ 0 };
-		double right{ 1 };
+		rect_t(double top, double bottom, double left, double right, units unit) :
+			top(top),
+			bottom(bottom),
+			left(left),
+			right(right),
+			unit(unit)
+		{}
+
+		double	top;
+		double	bottom;
+		double	left;
+		double	right;
+		units	unit;
 
 	};
 

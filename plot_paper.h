@@ -15,7 +15,7 @@ namespace R {
 
         plot_paper(wxFrame* parent);
 
-        plot_paper(wxFrame* parent, unit_t width, unit_t height);
+        plot_paper(wxFrame* parent, unit_t width, unit_t height, dpi_t dpi, double font_size, wxString font);
 
         void paintEvent(wxPaintEvent& evt);
 
@@ -27,7 +27,6 @@ namespace R {
 
     public:
 
-        bool use_gcdc{ true };
         figure_t fig;
         theme_t theme;
 

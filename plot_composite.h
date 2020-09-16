@@ -15,7 +15,7 @@ namespace R {
 			components.emplace_back(p);
 		}
 
-	private:
+	protected:
 
 		std::vector<std::unique_ptr<plot_component>> components;
 

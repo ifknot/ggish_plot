@@ -20,31 +20,38 @@ namespace R {
 		 * @param base_size		base font size
 		 * @param base_family	base font family name @note look out for cross platform issues here
 		 */
-		theme_t(dpi_t ppi = 72, double base_size = 11, wxString base_family = "Times") :
+		theme_t(unit_t width, unit_t height, dpi_t ppi = 72, double base_size = 11, wxString base_family = "Times") :
+			base_width(width),
+			base_height(height),
 			dpi(ppi),
 			base_size(base_size),		
 			base_family(base_family) 
 		{}
 
-		dpi_t				dpi;							// dpi/ppi of the digital paper or physical printer paper
-		ratio_t				aspect_ratio{ 1, 1 };			// aspect ratio of the paper
-		unit_t				width{ 1, units::inch };		// width of the paper
-		unit_t				height{ 1, units::inch };		// height of the paper 
-		double				pixels_per_cm = dpi / cm_per_inch; 
-		double				pixels_per_pt = dpi / pt_per_inch;
-		double				font_scale = dpi / pt_per_inch;
-
+		unit_t				base_width;							// width of the paper
+		unit_t				base_height;						// height of the paper 
+		dpi_t				dpi;								// dpi/ppi of the digital paper or physical printer paper
 		double				base_size;							// base font size, given in pts
 		wxString			base_family;						// base font family name e.g. "Ariel"
 		double				base_line_size = base_size / 22;	// base size for line elements
 		double				base_rect_size = base_size / 22;	// base size for rect elements
+		
+		ratio_t				aspect_ratio{ 1, 1 };				// aspect ratio of the paper
+		// the available drawing space bounding box
+		// this will shrink if items are added e.g. margin, title, axes, legend
+		// before finally displaying the plot itself
+		rect_t				box{ 2, base_height.first, 2, base_width.first, base_width.second };
+
+		double				pixels_per_cm = dpi / cm_per_inch; 
+		double				pixels_per_pt = dpi / pt_per_inch;
+		double				font_scale = dpi / pt_per_inch;
 
 		// styles lines parameterized by colour, size and line type 
 		element_line_t		element_line{ black, 0.5, linetypes::solid, endstyles::butt }; 
 		// styles rectangles, mostly used for backgrounds, parameterized bill fill and border colours, size and line type
 		element_rect_t		element_rect{ white, black, 0.5, linetypes::solid }; 
 		// styles general text elements on plot font size is the base font 
-		element_text_t		element_text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0, 0.0, 0.9 }; 
+		element_text_t		element_text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 0.9 }; 
 		// styles circles 
 		element_circle_t	element_circle{ white,  black, 0.5, linetypes::solid }; 
 
