@@ -71,5 +71,8 @@
     <ClInclude Include="plot_component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="plot_composite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

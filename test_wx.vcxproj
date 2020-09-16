@@ -161,6 +161,7 @@
     <ClInclude Include="elements.h" />
     <ClInclude Include="PLOS_ONE_theme.h" />
     <ClInclude Include="plot_component.h" />
+    <ClInclude Include="plot_composite.h" />
     <ClInclude Include="plot_paper.h" />
     <ClInclude Include="plot_window.h" />
     <ClInclude Include="r_data_frame.h" />

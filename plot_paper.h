@@ -5,11 +5,11 @@
 
 #include "figure.h"
 #include "theme.h"
-#include "plot_component.h"
+#include "plot_composite.h"
 
 namespace R {
 
-    class plot_paper : public wxPanel, plot_component {
+    class plot_paper : public wxPanel, plot_composite {
 
     public:
 

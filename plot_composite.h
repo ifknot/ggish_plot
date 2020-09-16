@@ -1,0 +1,24 @@
+#pragma once
+
+#include <vector>
+#include <memory>
+
+#include "plot_component.h"
+
+namespace R {
+
+	class plot_composite : public plot_component {
+
+	public:
+
+		inline void add(plot_component* p) {
+			components.emplace_back(p);
+		}
+
+	private:
+
+		std::vector<std::unique_ptr<plot_component>> components;
+
+	};
+
+}
