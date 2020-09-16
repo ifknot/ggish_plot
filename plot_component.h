@@ -25,8 +25,7 @@ namespace R {
 
 		static void draw_circle(wxDC& gdc, R::point_t o, double r, R::element_circle_t& element_circle, R::theme_t& theme);
 
-		// TODO: define an enum linetype
-		static wxPenStyle as_penstyle(int linetype);
+		static wxPenStyle as_penstyle(linetypes linetype);
 
 		static int as_fontflag(element_text_t::face_t face);
 

@@ -3,179 +3,55 @@
 #include  "elements.h"
 
 namespace R {
-
-	struct strip_t {
-
-	};
-
-	struct tick_t : public element_line_t {
-
-		double	x{ 0 };
-		double	y{ 0 };
-		unit_t	length{ 3, units::pt };	// length of tick marks (unit)
-
-	};
-
-	struct axis_ticks_t : public tick_t {	
-		
-		tick_t top{ colour, size, linetype, lineend, arrow, x, y, length };
-		tick_t bottom{ colour, size, linetype, lineend, arrow, x, y, length };
-		tick_t left{ colour, size, linetype, lineend, arrow, x, y, length };
-		tick_t right{ colour, size, linetype, lineend, arrow, x, y, length };
-
-	};
-
-	struct axis_label_t: public element_text_t {
-
-		element_text_t top{ family, face, colour, size, hjust, vjust, angle, lineheight, background, margin, debug, x };
-		element_text_t bottom{ family, face, colour, size, hjust, vjust, angle, lineheight, background, margin, debug, x };
-		element_text_t left{ family, face, colour, size, hjust, vjust, angle, lineheight, background, margin, debug, x };
-		element_text_t right{ family, face, colour, size, hjust, vjust, angle, lineheight, background, margin, debug, x };
-
-	};	
-
-	struct axis_line_t : public element_line_t {
-
-		element_line_t top{ colour, size, linetype, lineend, arrow };
-		element_line_t bottom{ colour, size, linetype, lineend, arrow };
-		element_line_t left{ colour, size, linetype, lineend, arrow };
-		element_line_t right{ colour, size, linetype, lineend, arrow };
-
-	};
-
-	struct legend_t {
-
-		enum position_t { none, left, right, bottom, top };
-		enum direction_t { horizontal, vertical };
-
-		point_t			centre{ 0, 0 };
-
-		element_rect_t	background;				// background of legend (element_rect(); inherits from rect)
-		margin_t		margin;					// the margin around each legend (margin())
-		unit_t			spacing;				// the spacing between legends (unit).legend.spacing.x& legend.spacing.y inherit from legend.spacing or can be specified separately
-		unit_t			spacing_x{ spacing }; 
-		unit_t			spacing_y{ spacing };
-		element_rect_t	key;					// background underneath legend keys (element_rect(); inherits from rect)
-		unit_t			key_size;				// size of legend keys (unit); key background height & width inherit from legend.key.size or can be specified separately 
-		unit_t			key_size_width{ key_size };
-		unit_t			key_size_height{ key_size };
-		element_text_t	text;					// legend item labels (element_text(); inherits from text)
-		int				text_align{ 0 };		// alignment of legend labels (number from 0 (left)to 1 (right))
-		element_text_t	title;					// style title of legend (element_text(); inherits from title)
-		int				title_align{ 0 };		// alignment of legend title (number from 0 (left)to 1 (right))
-		position_t		legend_position{ left };// the position of legends ("none", "left", "right", "bottom", "top")
-		direction_t		direction;				// layout of items in legends ("horizontal" or "vertical")
-		point_t			justification{ centre };// anchor point for positioning legend inside plot ("center" or two - element numeric vector) or the justification according to the plot area when positioned outside the plot
-		direction_t		box;					// arrangement of multiple legends ("horizontal" or "vertical")
-		position_t		box_just;				// justification of each legend within the overall bounding box, when there are multiple legends ("top", "bottom", "left", or "right")
-		margin_t		box_margin;				// margins around the full legend area, as specified using margin()
-		element_rect_t	box_background;			// background of legend area (element_rect(); inherits from rect)
-		unit_t			box_spacing;			// the spacing between the plotting area and the legend box (unit)
-
-	};
-
-	struct grid_t : public element_line_t {
-
-		element_line_t major{ colour, size, linetype, lineend, arrow };
-		element_line_t minor{ colour, size, linetype, lineend, arrow };
-		element_line_t major_x{ major };		// vertical
-		element_line_t minor_x{ minor };		// vertical
-		element_line_t major_y{ major };		// horizontal
-		element_line_t minor_y{ minor };		// horizontal
-
-	};
-
-	struct panel_t {
-
-		element_rect_t background;			// background of plotting area, drawn underneath plot (element_rect(); inherits from rect)
-		element_rect_t border;				// border around plotting area, drawn on top of plot so that it covers tick marks and grid lines.This should be used with fill = NA (element_rect(); inherits from rect)
-		unit_t spacing{ 2, units::pt };		// spacing between facet panels (unit). panel.spacing.x & panel.spacing.y inherit from panel.spacing or can be specified separately.
-		unit_t spacing_x{ spacing };	// or specify x spacing
-		unit_t spacing_y{ spacing };	// and y spacing separately
-
-	};
-
-	struct plot_t {
-
-		enum position_t { topleft, top, topright, left, right, bottomleft, bottom, bottomright};
-		enum caption_position_t { panel, plot };
-
-		element_rect_t		background;		// background of the entire plot
-		element_text_t		title;			// plot title (text appearance)
-		std::vector<position_t>	title_position{ left, left, right };	// alignment of the plot title/subtitle and caption.
-		caption_position_t  caption_position{ panel };	// applies to both the title and the subtitle. A value of "panel" (the default) means that titles and/or caption are aligned to the plot panels. A value of "plot" means that titles and/or caption are aligned to the entire plot (minus any space for margins and plot tag)
-		element_text_t		subtitle;		// plot subtitle (text appearance) - left aligned default
-		element_text_t		caption;		// caption below the plot (text appearance) - right aligned default
-		element_text_t		tag;			// upper - left label to identify a plot (text appearance)
-		position_t			tag_position{ topleft };	// position of the tag 
-		margin_t			margin;			// margin around entire plot (unit with the sizes of the top, right, bottom, and left margins)
-		
-	};
-
-	struct strip {
-
-/*
-		
-strip.background, strip.background.x, strip.background.y
-background of facet labels (element_rect(); inherits from rect). Horizontal facet background (strip.background.x) & vertical facet background (strip.background.y) inherit from strip.background or can be specified separately
-
-strip.placement
-placement of strip with respect to axes, either "inside" or "outside". Only important when axes and strips are on the same side of the plot.
-
-strip.text, strip.text.x, strip.text.y
-facet labels (element_text(); inherits from text). Horizontal facet labels (strip.text.x) & vertical facet labels (strip.text.y) inherit from strip.text or can be specified separately
-
-strip.switch.pad.grid
-space between strips and axes when strips are switched (unit)
-
-strip.switch.pad.wrap
-space between strips and axes when strips are switched (unit)
-		
-*/
-
-	};
 	
+	/**
+	 * @brief exercise fine control over the non-data elements of a plot
+	 * + helps make a plot aesthetically pleasing or match an existing style guide
+	 * + separation of control into data and non-data parts avoids large numbers of function arguments
+	 */
 	struct theme_t {
 
-		theme_t(dpi_t ppi = 72, double pt = 11, wxString family = "Times") :
+		/**
+		 * @note all themes have a base_size that controls the base font size
+		 * the base font size is the size that the axis titles use, the plot title is usually bigger (1.2x)
+		 * the tick and strip labels are smaller (0.8x)
+		 * 
+		 * @param ppi			pixels per inch resolution 
+		 * @param base_size		base font size
+		 * @param base_family	base font family name @note look out for cross platform issues here
+		 */
+		theme_t(dpi_t ppi = 72, double base_size = 11, wxString base_family = "Times") :
 			dpi(ppi),
-			base_size(pt),
-			base_family(family) 
+			base_size(base_size),		
+			base_family(base_family) 
 		{}
 
-		dpi_t				dpi;					// dpi/ppi of the paper
-		ratio_t				aspect_ratio{ 1, 1 };	// aspect ratio of the paper
+		dpi_t				dpi;							// dpi/ppi of the digital paper or physical printer paper
+		ratio_t				aspect_ratio{ 1, 1 };			// aspect ratio of the paper
 		unit_t				width{ 1, units::inch };		// width of the paper
 		unit_t				height{ 1, units::inch };		// height of the paper 
 		double				pixels_per_cm = dpi / cm_per_inch; 
 		double				pixels_per_pt = dpi / pt_per_inch;
 		double				font_scale = dpi / pt_per_inch;
 
-		double				base_size;		// base font size, given in pts
-		wxString			base_family;	// base font family name e.g. "Ariel"
+		double				base_size;							// base font size, given in pts
+		wxString			base_family;						// base font family name e.g. "Ariel"
 		double				base_line_size = base_size / 22;	// base size for line elements
 		double				base_rect_size = base_size / 22;	// base size for rect elements
 
+		// styles lines parameterized by colour, size and line type 
+		element_line_t		element_line{ black, 0.5, linetypes::solid, endstyles::butt }; 
+		// styles rectangles, mostly used for backgrounds, parameterized bill fill and border colours, size and line type
+		element_rect_t		element_rect{ white, black, 0.5, linetypes::solid }; 
+		// styles general text elements on plot font size is the base font 
+		element_text_t		element_text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 0.9 }; 
+		// styles circles 
+		element_circle_t	element_circle{ white,  black, 0.5, linetypes::solid }; 
 
-		element_line_t		element_line{ wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1, 0 }; // all line elements
-		element_rect_t		element_rect{ wxColor(255, 255, 255, wxALPHA_OPAQUE),  wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1 }; // all rectangular elements
-		element_text_t		element_text{ base_family, element_text_t::face_t::plain, wxColor(0, 0, 0, wxALPHA_OPAQUE), base_size, 0.5, 0.5, 90, 0.9 }; // all text elements
-		element_circle_t	element_circle{ wxColor(255, 255, 255, wxALPHA_OPAQUE),  wxColor(0, 0, 0, wxALPHA_OPAQUE), 0.5, 1 }; // all circular elements
+		element_rect_t		plot_background{ white,  white, 0.5, linetypes::solid };
+		element_text_t		plot_title{ base_family, element_text_t::face_t::plain, black, base_size * 1.2, 0.5, 0.5, 0.0, 0.9 };
+		margin_t			plot_margin{ 1, 1, 0.5, 0.5, units::lines };
 
-		axis_label_t		title;			// specify style all axes' title labels or individually for each axis by top, bottom, left and right
-		axis_label_t		text;			// specify style all axes' tick labels or individually for each axis by top, bottom, left and right
-		axis_ticks_t		ticks;			// specify style all axes ticks or individually for each axis by top, bottom, left and right
-		axis_line_t			line;			// specify lines along all axes or individually for each axis by top, bottom, left and right
-
-		legend_t			legend;
-		panel_t				panel;
-		plot_t				plot;
-		strip_t				strip;
-
-		// complete // set this to TRUE if this is a complete theme, such as the one returned by theme_grey().Complete themes behave differently when added to a ggplot object.Also, when setting complete = TRUE all elements will be set to inherit from blank elements.
-
-		// validate // TRUE to run validate_element(), FALSE to bypass checks.
-		
 	};
 
 }

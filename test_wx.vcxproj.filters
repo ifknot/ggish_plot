@@ -27,10 +27,10 @@
     <ClCompile Include="r_data_frame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="plot_component.cpp">
+    <ClCompile Include="conversions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="conversions.cpp">
+    <ClCompile Include="plot_component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,15 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="plot_window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="plot_component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="plot_composite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="plot_leaf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="r_data_frame.h">
@@ -72,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="figure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="colours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plot_component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

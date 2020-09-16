@@ -9,55 +9,45 @@ namespace R {
 	void plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::theme_t& theme) {
 		auto scale_x = theme.dpi * theme.aspect_ratio.first * as_inch(theme.width).first;
 		auto scale_y = theme.dpi * theme.aspect_ratio.second * as_inch(theme.height).first;
+		
 		wxFontInfo info(std::round(element_text.size * theme.font_scale));
-		info.FaceName(element_text.family); 
+		info.FaceName(element_text.family);
 		info.AllFlags(as_fontflag(element_text.face));
 		info.AntiAliased(true);
+		
 		wxFont font(info);
 		gdc.SetFont(font);
 		wxCoord w, h;
 		gdc.GetTextExtent(text, &w, &h);
-		wxBitmap bitmap(w, h, 32);// wxBITMAP_SCREEN_DEPTH);
+		wxBitmap bitmap(w, h, wxBITMAP_SCREEN_DEPTH);
 		bitmap.UseAlpha();
+		
 		wxMemoryDC mdc;
 		mdc.SelectObject(bitmap);
-		mdc.SetBackground(element_text.background);
+		mdc.SetBackground(transparent);
 		mdc.Clear();
 		mdc.SetFont(font);
 		mdc.SetTextBackground(element_text.background);
 		mdc.SetTextForeground(element_text.colour);
 		mdc.DrawText(text, 0, 0);
-		if (element_text.angle == 0) {
-			gdc.DrawBitmap(
-				bitmap,
-				std::round(p.first * scale_x),
-				std::round((p.second * scale_y) - bitmap.GetHeight())
-			);
-		}
-		else {
-			auto image = bitmap.ConvertToImage();
-			image.SetMaskColour(
-				element_text.background.Red(), 
-				element_text.background.Green(), 
-				element_text.background.Blue()
-			);
-			image.SetAlpha(0);
-			image.Rescale(
-				w * theme.aspect_ratio.second, 
-				h * theme.aspect_ratio.first, 
-				wxIMAGE_QUALITY_HIGH
-			);
-			auto rotated_image = image.Rotate(
-				as_radians(element_text.angle),
-				{ 0, 0 }
-			);
-			gdc.DrawBitmap(
-				rotated_image,
-				std::round(p.first * scale_x),
-				std::round((p.second * scale_y) - rotated_image.GetHeight())
-			);
-			
-		}
+	
+		auto image = bitmap.ConvertToImage();
+		image.SetAlpha(0);
+		image.Rescale(
+			w * theme.aspect_ratio.second,
+			h * theme.aspect_ratio.first,
+			wxIMAGE_QUALITY_HIGH
+		);
+		auto rotated_image = image.Rotate(
+			as_radians(element_text.angle),
+			{ 0, 0 }
+		);
+		gdc.DrawBitmap(
+			rotated_image,
+			std::round(p.first * scale_x) + element_text.hjust,
+			std::round(p.second * scale_y) + element_text.vjust
+		);
+
 		mdc.SelectObject(wxNullBitmap);
 	}
 
@@ -84,14 +74,14 @@ namespace R {
 		auto scale_y = theme.dpi * theme.aspect_ratio.second * as_inch(theme.height).first;
 		dc.SetPen(
 			wxPen(
-				element_rect.colour, 
+				element_rect.colour,
 				std::round(theme.pixels_per_pt * theme.element_rect.size),
 				as_penstyle(element_rect.linetype)
 			)
 		);
 		dc.SetBrush(
 			wxBrush(
-				element_rect.fill, 
+				element_rect.fill,
 				wxBRUSHSTYLE_SOLID
 			)
 		);
@@ -121,33 +111,33 @@ namespace R {
 			)
 		);
 		dc.DrawEllipse(
-			std::round((o.first - r) * scale_x), 
-			std::round((o.second - r) * scale_y), 
+			std::round((o.first - r) * scale_x),
+			std::round((o.second - r) * scale_y),
 			std::round(rr * scale_x),
 			std::round(rr * scale_y)
 		);
 	}
 
-	wxPenStyle plot_component::as_penstyle(int linetype) {
-		//ggplot2 linetype integer 0:6 blank, solid, dashed, dotted, dotdash, longdash, twodash
+	wxPenStyle plot_component::as_penstyle(linetypes linetype) {
+		//ggplot2 linetype integer - blank, solid, dashed, dotted, dotdash, longdash, twodash
 		switch (linetype) {
-		case 0:
+		case linetypes::blank:
 			return wxPENSTYLE_TRANSPARENT;
-		case 1:
+		case linetypes::solid:
 			return wxPENSTYLE_SOLID;
-		case 2:
+		case linetypes::dashed:
 			return wxPENSTYLE_SHORT_DASH;
-		case 3:
+		case linetypes::dotted:
 			return wxPENSTYLE_DOT;
-		case 4:
+		case linetypes::dotdash:
 			return wxPENSTYLE_DOT_DASH;
 			break;
-		case 5:
+		case linetypes::longdash:
 			return wxPENSTYLE_LONG_DASH;
-/*	TODO: translate twodash
-		case 6:
-			return wxPENSTYLE_USER_DASH;
-*/
+			/*	TODO: translate twodash
+					case linetype::twodash:
+						return wxPENSTYLE_USER_DASH;
+			*/
 		default:
 			return wxPENSTYLE_SOLID;
 		}

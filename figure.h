@@ -44,12 +44,12 @@ namespace R {
 		point_t		place{ 0, 0 };
 		wxString		figure_label{ "" };
 		wxString		figure_title{ "" };
-		wxString		legend{ "" };
-		unit_t		column_width{ 13.2, units::cm };
-		unit_t		minimum_width{ 6.68, units::cm };
-		unit_t		maximum_width{ 19.05, units::cm };
-		unit_t		minimum_height{ 22.23, units::cm };
-		unit_t		maximum_height{ 22.23, units::cm };
+		wxString		legend{ "" };					//	cm	   inches
+		unit_t		column_width{ 13.2, units::cm };	// 13.2 	5.2 
+		unit_t		minimum_width{ 6.68, units::cm };	// 6.68		2.63
+		unit_t		maximum_width{ 19.05, units::cm };	// 19.05	7.5
+		unit_t		minimum_height{ 13.2, units::cm };	// 13.2		5.2 
+		unit_t		maximum_height{ 22.23, units::cm }; // 22.23	8.75
 		std::vector<wxString>	valid_fonts{ "Ariel", "Times", "Symbol" };
 		unit_t		minimum_pt{ 8, units::pt };
 		unit_t		maximum_pt{ 12, units::pt };

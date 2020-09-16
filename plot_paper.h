@@ -3,13 +3,13 @@
 #include "wx/wx.h"
 #include "wx/sizer.h"
 
-#include "plot_composite.h"
 #include "figure.h"
 #include "theme.h"
+#include "plot_component.h"
 
 namespace R {
 
-    class plot_paper : public wxPanel, R::plot_composite {
+    class plot_paper : public wxPanel, plot_component {
 
     public:
 
