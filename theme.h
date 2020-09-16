@@ -44,7 +44,7 @@ namespace R {
 		// styles rectangles, mostly used for backgrounds, parameterized bill fill and border colours, size and line type
 		element_rect_t		element_rect{ white, black, 0.5, linetypes::solid }; 
 		// styles general text elements on plot font size is the base font 
-		element_text_t		element_text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 0.9 }; 
+		element_text_t		element_text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0, 0.0, 0.9 }; 
 		// styles circles 
 		element_circle_t	element_circle{ white,  black, 0.5, linetypes::solid }; 
 

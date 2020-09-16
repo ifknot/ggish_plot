@@ -44,8 +44,8 @@ namespace R {
 		);
 		gdc.DrawBitmap(
 			rotated_image,
-			std::round(p.first * scale_x) + element_text.hjust,
-			std::round(p.second * scale_y) + element_text.vjust
+			std::round(p.first * scale_x) - (rotated_image.GetWidth() * element_text.hjust),
+			std::round(p.second * scale_y) - (rotated_image.GetHeight() * element_text.vjust)
 		);
 
 		mdc.SelectObject(wxNullBitmap);
