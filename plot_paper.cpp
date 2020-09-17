@@ -15,7 +15,7 @@ namespace R {
 
 	plot_paper::plot_paper(wxFrame* parent) :
 		wxPanel(parent),
-		fig({ 72, { 1, 5.2, 1, 5.2, units::inch } }),
+		fig({ 72, { 0, 5.2, 0, 5.2, units::inch } }),
 		theme({ fig.dpi, fig.maximum_pt.first, fig.valid_fonts[2] })
 	{}
 
