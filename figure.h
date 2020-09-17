@@ -28,6 +28,10 @@ namespace R {
 		rect_t		box;
 
 		wxString	title{ "" };
+		wxString	subtitle{ "" };
+		wxString	caption{ "" };
+		wxString	tag{ "" };
+
 
 		// calculate screen metrics
 		double				pixels_per_cm = dpi / cm_per_inch;

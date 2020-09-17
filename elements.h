@@ -17,6 +17,15 @@ namespace R {
 
 	using margin_t = rect_t;
 
+	const point_t topleft{ 0, 0 };
+	const point_t top{ 0.5, 0 };
+	const point_t topright{ 1, 0 };
+	const point_t left{ 0, 0.5 };
+	const point_t right{ 1, 0.5 };
+	const point_t bottomleft{ 0, 1 };
+	const point_t bottom{ 0.5, 1 };
+	const point_t bottomright{ 1, 1 };
+
 	/**
 	 * description of what arrows to add to a line
 	 * the result can be passed to grid::lines

@@ -5,7 +5,6 @@
 #endif
 
 #include "conversions.h"
-#include "plot_title.h"
 
 namespace R {
 
@@ -20,9 +19,7 @@ namespace R {
 		wxPanel(parent),
 		fig(fig),
 		theme(theme)
-	{
-		init_plot();
-	}
+	{}
 
 	void plot_paper::paintEvent(wxPaintEvent& evt) {
 
@@ -48,20 +45,21 @@ namespace R {
 
 		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.plot_background, theme);
 		R::shrink_by_margin(fig.box, theme.plot_margin);
-		for (const auto& c : components) {
-			c->render(gdc);
+		if (!fig.title.empty()) {
+			auto box = draw_text(gdc, theme.plot_title_position, fig.title, fig, theme.plot_title, theme);
+			if (theme.plot_title_position.second == 0) { // topleft, top, topright
+				fig.box.top += box.bottom;
+			}
+			else if (theme.plot_title_position.second == 1) {} // bottomleft, bottom, bottomright
+			else if (theme.plot_title_position.second == 0.5) {} // left, right
+			else {} // floating coordinate
 		}
+		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.panel_background, theme);
+		R::shrink_by_margin(fig.box, theme.panel_margin);
+		draw_line(gdc, { 0, 0.5 }, { 1, 0.5 }, fig, theme.panel_grid_major_x, theme);
+		draw_line(gdc, { 0, 0.6 }, { 1, 0.6 }, fig, theme.panel_grid_minor_x, theme);
+		draw_circle(gdc, { 0.5, 0.505 }, 0.008, fig, theme.element_circle, theme);
 
-		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_rect, theme);
-		draw_text(gdc, { 1, 1 }, wxT("a text element"), fig, theme.element_text, theme);
-		draw_line(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_line, theme);
-		draw_circle(gdc, { 0.5, 0.5 }, 0.3, fig, theme.element_circle, theme);
-	}
-
-	void R::plot_paper::init_plot() {
-		if (fig.title != "") {
-			add(new plot_title(fig.title, fig, theme));
-		}
 	}
 
 }
