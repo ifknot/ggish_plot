@@ -13,14 +13,10 @@ namespace R {
 
 		END_EVENT_TABLE()
 
-		plot_paper::plot_paper(wxFrame* parent) : 
-			wxPanel(parent),
-			theme({ fig.column_width, fig.column_width, fig.dpi / 4, 12, fig.valid_fonts[2]})
-	{}
-
-	plot_paper::plot_paper(wxFrame* parent, unit_t width, unit_t height, dpi_t dpi, double font_size, wxString font_name) :
+	plot_paper::plot_paper(wxFrame* parent) :
 		wxPanel(parent),
-		theme({ width, height, dpi, font_size, font_name }) 
+		fig({ 72, { 1, 5.2, 1, 5.2, units::inch } }),
+		theme({ fig.dpi, fig.maximum_pt.first, fig.valid_fonts[2] })
 	{}
 
 	void plot_paper::paintEvent(wxPaintEvent& evt) {
@@ -50,11 +46,11 @@ namespace R {
 		}
 
 		
-		draw_rect(gdc, { 0, 0 }, { 1, 1 }, theme.plot_background, theme);
-		draw_rect(gdc, { 0, 0 }, { 1, 1 }, theme.element_rect, theme);
-		draw_text(gdc, { 1, 1 }, wxT("a text element"), theme.element_text, theme);
-		draw_line(gdc, { 0, 0 }, { 1, 1 }, theme.element_line, theme);
-		draw_circle(gdc, { 0.5, 0.5 }, 0.3, theme.element_circle, theme);
+		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.plot_background, theme);
+		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_rect, theme);
+		draw_text(gdc, { 1, 1 }, wxT("a text element"), fig, theme.element_text, theme);
+		draw_line(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_line, theme);
+		draw_circle(gdc, { 0.5, 0.5 }, 0.3, fig, theme.element_circle, theme);
 		
 
 	}

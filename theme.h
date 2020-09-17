@@ -20,16 +20,12 @@ namespace R {
 		 * @param base_size		base font size
 		 * @param base_family	base font family name @note look out for cross platform issues here
 		 */
-		theme_t(unit_t width, unit_t height, dpi_t ppi = 72, double base_size = 11, wxString base_family = "Times") :
-			base_width(width),
-			base_height(height),
+		theme_t(dpi_t ppi = 72, double base_size = 11, wxString base_family = "Times") :
 			dpi(ppi),
 			base_size(base_size),		
 			base_family(base_family) 
 		{}
 
-		unit_t				base_width;							// width of the paper
-		unit_t				base_height;						// height of the paper 
 		dpi_t				dpi;								// dpi/ppi of the digital paper or physical printer paper
 		double				base_size;							// base font size, given in pts
 		wxString			base_family;						// base font family name e.g. "Ariel"
@@ -37,10 +33,7 @@ namespace R {
 		double				base_rect_size = base_size / 22;	// base size for rect elements
 		
 		ratio_t				aspect_ratio{ 1, 1 };				// aspect ratio of the paper
-		// the available drawing space bounding box
-		// this will shrink if items are added e.g. margin, title, axes, legend
-		// before finally displaying the plot itself
-		rect_t				box{ 2, base_height.first, 2, base_width.first, base_width.second };
+		
 
 		double				pixels_per_cm = dpi / cm_per_inch; 
 		double				pixels_per_pt = dpi / pt_per_inch;

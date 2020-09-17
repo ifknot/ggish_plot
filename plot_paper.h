@@ -15,8 +15,6 @@ namespace R {
 
         plot_paper(wxFrame* parent);
 
-        plot_paper(wxFrame* parent, unit_t width, unit_t height, dpi_t dpi, double font_size, wxString font);
-
         void paintEvent(wxPaintEvent& evt);
 
         void paintNow();
@@ -27,8 +25,12 @@ namespace R {
 
     public:
 
+        // physical metrics
         figure_t fig;
+        // aesthetic values
         theme_t theme;
+        // use graphics context (wxWidgets 2.9.0) or not if available (i.e. < 2.9.0)
+        bool use_gcdc{ true };
 
     };
 

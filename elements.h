@@ -15,24 +15,6 @@ namespace R {
 	enum class linetypes { blank, solid, dashed, dotted, dotdash, longdash, twodash };
 	enum class endstyles { round, butt, square };
 
-	struct rect_t {		
-
-		rect_t(double top, double bottom, double left, double right, units unit) :
-			top(top),
-			bottom(bottom),
-			left(left),
-			right(right),
-			unit(unit)
-		{}
-
-		double	top;
-		double	bottom;
-		double	left;
-		double	right;
-		units	unit;
-
-	};
-
 	struct margin_t {
 
 		double		t{ 0 };

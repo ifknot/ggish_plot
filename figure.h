@@ -16,19 +16,28 @@ namespace R {
 	 */
 	struct figure_t {
 
-		dpi_t dpi{ 300 };	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
-		colour_mode_t colour_mode{ RGB };
+		figure_t(dpi_t dpi, rect_t bounding_box) : 
+			dpi(dpi),
+			box(bounding_box)
+		{}
+
+		dpi_t		dpi;	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
+		// the available drawing space bounding box
+		// this will shrink if items are added e.g. margin, title, axes, legend
+		// before finally displaying the plot itself
+		rect_t		box;
+		colour_mode_t colour_mode{ colour_mode_t::RGB };
 		unit_t		white_space_border{ 2, units::pt };
-		point_t		place{ 0, 0 };
-		dimension_t dimensions{ 1, 1 };
+		unit_t		minimum_pt{ 8, units::pt };
+		unit_t		maximum_pt{ 12, units::pt };
+
+		//PLOS_ONE
 		unit_t		column_width{ 5.2, units::inch };
 		unit_t		minimum_width{ 2.63, units::inch };
 		unit_t		maximum_width{ 7.5, units::inch };
 		unit_t		minimum_height{ 2.63, units::inch };
 		unit_t		maximum_height{ 8.75, units::inch };
 		std::vector<wxString>	valid_fonts{ "Ariel", "Times", "Symbol" };
-		unit_t		minimum_pt{ 8, units::pt };
-		unit_t		maximum_pt{ 12, units::pt };
 
 	};
 
@@ -39,7 +48,7 @@ namespace R {
 	struct caption_t {
 
 		dpi_t dpi{ 300 };
-		colour_mode_t colour_mode{ RGB };
+		colour_mode_t colour_mode{ colour_mode_t::RGB };
 		unit_t		white_space_border{ 2, units::pt };
 		point_t		place{ 0, 0 };
 		wxString		figure_label{ "" };

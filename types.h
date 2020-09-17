@@ -16,12 +16,30 @@ namespace R {
 
 	using unit_t = std::pair<double, units>;
 
-	enum colour_mode_t { RGB, grayscale };
+	enum class colour_mode_t{ RGB, grayscale };
 
 	using point_t = std::pair<double, double>;
 
 	using ratio_t = std::pair<double, double>;
 
 	using dimension_t = std::pair<double, double>;
+
+	struct rect_t {
+
+		rect_t(double top, double bottom, double left, double right, units unit) :
+			top(top),
+			bottom(bottom),
+			left(left),
+			right(right),
+			unit(unit) {
+		}
+
+		double	top;
+		double	bottom;
+		double	left;
+		double	right;
+		units	unit;
+
+	};
 
 }
