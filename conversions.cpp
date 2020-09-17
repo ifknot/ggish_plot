@@ -17,7 +17,7 @@ namespace R {
 		}
 	}
 
-	void shrink(rect_t& r, const rect_t margin) {
+	void shrink_by_margin(rect_t& r, const rect_t& margin) {
 		r.left += R::as_inch({ margin.left, margin.unit }).first;
 		r.right -= R::as_inch({ margin.right, margin.unit }).first;
 		r.top += R::as_inch({ margin.top, margin.unit }).first;

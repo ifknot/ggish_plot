@@ -12,7 +12,9 @@ namespace R {
 
 	unit_t as_inch(unit_t u);
 
-	void shrink(rect_t& r, const rect_t m);
+	void shrink_by_box(rect_t& r, const rect_t& m);
+
+	void shrink_by_margin(rect_t& r, const rect_t& m);
 
 }
 

@@ -18,7 +18,7 @@ namespace R {
 
 	protected:
 
-		static void draw_text(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme);
+		static rect_t draw_text(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme);
 
 		static void draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::figure_t fig, R::element_line_t& element_line, R::theme_t& theme);
 

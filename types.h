@@ -26,11 +26,11 @@ namespace R {
 
 	struct rect_t {
 
-		rect_t(double top, double bottom, double left, double right, units unit) :
-			top(top),
-			bottom(bottom),
+		rect_t(double left, double right, double top, double bottom,  units unit) :
 			left(left),
 			right(right),
+			top(top),
+			bottom(bottom),
 			unit(unit) {
 		}
 

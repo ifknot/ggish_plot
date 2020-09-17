@@ -13,7 +13,7 @@ namespace R {
 
     public:
 
-        plot_paper(wxFrame* parent);
+        plot_paper(wxFrame* parent, figure_t& fig, theme_t& theme);
 
         void paintEvent(wxPaintEvent& evt);
 
@@ -24,6 +24,8 @@ namespace R {
         DECLARE_EVENT_TABLE()
 
     private:
+
+        void init_plot();
 
         // physical metrics
         figure_t fig;

@@ -27,6 +27,13 @@ namespace R {
 		// before finally displaying the plot itself
 		rect_t		box;
 
+		wxString	title{ "" };
+
+		// calculate screen metrics
+		double				pixels_per_cm = dpi / cm_per_inch;
+		double				pixels_per_pt = dpi / pt_per_inch;
+		double				font_scale = dpi / pt_per_inch;
+
 		//PLOS_ONE defaults
 		colour_mode_t colour_mode{ colour_mode_t::RGB };
 		unit_t		white_space_border{ 2, units::pt };

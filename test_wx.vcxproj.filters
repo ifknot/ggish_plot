@@ -33,6 +33,9 @@
     <ClCompile Include="plot_component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="plot_title.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="plot_composite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plot_title.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

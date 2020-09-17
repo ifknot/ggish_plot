@@ -20,24 +20,17 @@ namespace R {
 		 * @param base_size		base font size
 		 * @param base_family	base font family name @note look out for cross platform issues here
 		 */
-		theme_t(dpi_t ppi = 72, double base_size = 11, wxString base_family = "Times") :
-			dpi(ppi),
+		theme_t(double base_size = 11, wxString base_family = "Times") :
 			base_size(base_size),		
 			base_family(base_family) 
 		{}
 
-		dpi_t				dpi;								// dpi/ppi of the digital paper or physical printer paper
 		double				base_size;							// base font size, given in pts
 		wxString			base_family;						// base font family name e.g. "Ariel"
 		double				base_line_size = base_size / 22;	// base size for line elements
 		double				base_rect_size = base_size / 22;	// base size for rect elements
 		
 		ratio_t				aspect_ratio{ 1, 1 };				// aspect ratio of the paper
-		
-
-		double				pixels_per_cm = dpi / cm_per_inch; 
-		double				pixels_per_pt = dpi / pt_per_inch;
-		double				font_scale = dpi / pt_per_inch;
 
 		// styles lines parameterized by colour, size and line type 
 		element_line_t		element_line{ black, 0.5, linetypes::solid, endstyles::butt }; 
@@ -49,7 +42,7 @@ namespace R {
 		element_circle_t	element_circle{ white,  black, 0.5, linetypes::solid }; 
 
 		element_rect_t		plot_background{ white,  white, 0.5, linetypes::solid };
-		element_text_t		plot_title{ base_family, element_text_t::face_t::plain, black, base_size * 1.2, 0.5, 0.5, 0.0, 0.9 };
+		element_text_t		plot_title{ base_family, element_text_t::face_t::plain, black, base_size * 1.2, 0.5, 0.0, 0.0, 0.9 };
 		margin_t			plot_margin{ 2, 2, 1, 1, units::pt};
 
 	};

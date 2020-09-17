@@ -4,25 +4,23 @@
 
 namespace R {
 
-	void plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme) {
+	rect_t plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto width = as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
-		auto height = as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
-		auto scale_x = theme.dpi * theme.aspect_ratio.first * width;
-		auto scale_y = theme.dpi * theme.aspect_ratio.second * height;
-		auto x = theme.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
-		auto y = theme.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
+		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
+		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
 
-		wxFontInfo info(std::round(element_text.size * theme.font_scale));
+		wxFontInfo info(std::round(element_text.size * fig.font_scale));
 		info.FaceName(element_text.family);
 		info.AllFlags(as_fontflag(element_text.face));
 		info.AntiAliased(true);
 		
 		wxFont font(info);
 		gdc.SetFont(font);
-		wxCoord w, h;
-		gdc.GetTextExtent(text, &w, &h);
-		wxBitmap bitmap(w, h, wxBITMAP_SCREEN_DEPTH);
+		wxCoord text_width, text_height;
+		gdc.GetTextExtent(text, &text_width, &text_height);
+		wxBitmap bitmap(text_width, text_height, wxBITMAP_SCREEN_DEPTH);
 		bitmap.UseAlpha();
 		
 		wxMemoryDC mdc;
@@ -37,36 +35,45 @@ namespace R {
 		auto image = bitmap.ConvertToImage();
 		image.SetAlpha(0);
 		image.Rescale(
-			w * theme.aspect_ratio.second,
-			h * theme.aspect_ratio.first,
+			text_width * theme.aspect_ratio.second,
+			text_height * theme.aspect_ratio.first,
 			wxIMAGE_QUALITY_HIGH
 		);
 		auto rotated_image = image.Rotate(
 			as_radians(element_text.angle),
 			{ 0, 0 }
 		);
-		gdc.DrawBitmap(
-			rotated_image,
-			std::round( x + (p.first * scale_x) - (rotated_image.GetWidth() * element_text.hjust)),
-			std::round( y + (p.second * scale_y) - (rotated_image.GetHeight() * element_text.vjust))
+		gdc.DrawBitmap( 
+			rotated_image, 
+			std::round(x + (p.first * scale_x) - (rotated_image.GetWidth() * element_text.hjust)), 
+			std::round(y + (p.second * scale_y) - (rotated_image.GetHeight() * element_text.vjust))
 		);
 
 		mdc.SelectObject(wxNullBitmap);
+
+		double w{ rotated_image.GetWidth() / scale_x };
+		double h{ rotated_image.GetHeight() / scale_y };
+
+		return rect_t{ 
+			p.first, 
+			rotated_image.GetWidth() / (double)fig.dpi, 
+			p.second, 
+			rotated_image.GetHeight() / (double)fig.dpi, 
+			R::units::inch 
+		};
 	}
 
 	void plot_component::draw_line(wxDC& dc, R::point_t a, R::point_t b, R::figure_t fig, R::element_line_t& element_line, R::theme_t& theme) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto width = as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
-		auto height = as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
-		auto scale_x = theme.dpi * theme.aspect_ratio.first * width;
-		auto scale_y = theme.dpi * theme.aspect_ratio.second * height;
-		auto x = theme.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
-		auto y = theme.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
+		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
+		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
 
 		dc.SetPen(
 			wxPen(
 				element_line.colour,
-				std::round(theme.pixels_per_pt * theme.element_line.size),
+				std::round(fig.pixels_per_pt * theme.element_line.size),
 				as_penstyle(element_line.linetype)
 			)
 		);
@@ -80,17 +87,15 @@ namespace R {
 
 	void plot_component::draw_rect(wxDC& dc, R::point_t p, R::dimension_t d, R::figure_t fig, R::element_rect_t& element_rect, R::theme_t& theme) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto width = as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
-		auto height = as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
-		auto scale_x = theme.dpi * theme.aspect_ratio.first * width;
-		auto scale_y = theme.dpi * theme.aspect_ratio.second * height;
-		auto x = theme.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
-		auto y = theme.dpi * as_inch({ fig.box.top, fig.box.unit }).first; 
+		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
+		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
 
 		dc.SetPen(
 			wxPen(
 				element_rect.colour,
-				std::round(theme.pixels_per_pt * theme.element_rect.size),
+				std::round(fig.pixels_per_pt * theme.element_rect.size),
 				as_penstyle(element_rect.linetype)
 			)
 		);
@@ -110,18 +115,16 @@ namespace R {
 
 	void plot_component::draw_circle(wxDC& dc, R::point_t o, double r, R::figure_t fig, R::element_circle_t& element_circle, R::theme_t& theme) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto width = as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
-		auto height = as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
-		auto scale_x = theme.dpi * theme.aspect_ratio.first * width;
-		auto scale_y = theme.dpi * theme.aspect_ratio.second * height;
-		auto x = theme.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
-		auto y = theme.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
+		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
+		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
 
 		auto rr = r + r;
 		dc.SetPen(
 			wxPen(
 				element_circle.colour,
-				std::round(theme.pixels_per_pt * theme.element_circle.size),
+				std::round(fig.pixels_per_pt * theme.element_circle.size),
 				as_penstyle(element_circle.linetype)
 			)
 		);
