@@ -1,7 +1,5 @@
 #include "plot_component.h"
 
-#include <math.h>
-
 #include "conversions.h"
 
 namespace R {

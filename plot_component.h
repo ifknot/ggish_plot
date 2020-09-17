@@ -14,7 +14,7 @@ namespace R {
 
 	public:
 
-	virtual void render(wxDC& dc) = 0;
+		virtual void render(wxDC& dc) = 0;
 
 	protected:
 

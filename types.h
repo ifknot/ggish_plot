@@ -12,7 +12,7 @@ namespace R {
 
 	using dpi_t = int;
 
-	enum class units { pt, cm, inch, lines };
+	enum class units { pt, cm, inch, line };
 
 	using unit_t = std::pair<double, units>;
 

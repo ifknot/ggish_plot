@@ -50,7 +50,7 @@ namespace R {
 
 		element_rect_t		plot_background{ white,  white, 0.5, linetypes::solid };
 		element_text_t		plot_title{ base_family, element_text_t::face_t::plain, black, base_size * 1.2, 0.5, 0.5, 0.0, 0.9 };
-		margin_t			plot_margin{ 1, 1, 0.5, 0.5, units::lines };
+		margin_t			plot_margin{ 2, 2, 1, 1, units::pt};
 
 	};
 

@@ -15,15 +15,7 @@ namespace R {
 	enum class linetypes { blank, solid, dashed, dotted, dotdash, longdash, twodash };
 	enum class endstyles { round, butt, square };
 
-	struct margin_t {
-
-		double		t{ 0 };
-		double		r{ 0 };
-		double		b{ 0 };
-		double		l{ 0 };
-		units		unit{ units::pt };
-
-	};
+	using margin_t = rect_t;
 
 	/**
 	 * description of what arrows to add to a line
@@ -95,7 +87,7 @@ namespace R {
 		double		angle{ 0 };		// angle (in [0,360])
 		double		lineheight{ 0 };	// line height as of fontcase
 		wxColour	background{ transparent };
-		margin_t	margin;			// margins around the text = when creating a theme, the margins should be placed on the side of the text facing towards the center of the plot.
+		margin_t	margin{ 0, 0, 0, 0, units::inch };	// margins around the text = when creating a theme, the margins should be placed on the side of the text facing towards the center of the plot.
 		bool		debug{ false };	// aids visual debugging by drawing a solid rectangle behind the complete text area, and a point where each label is anchored.
 		double		x{ 0 };			// single number specifying size relative to parent element
 		

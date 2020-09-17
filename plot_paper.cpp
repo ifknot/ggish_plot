@@ -4,6 +4,8 @@
 	#include <wx/dcgraph.h>
 #endif
 
+#include "conversions.h"
+
 namespace R {
 
 	BEGIN_EVENT_TABLE(plot_paper, wxPanel)
@@ -11,7 +13,7 @@ namespace R {
 		// catch paint events
 		EVT_PAINT(plot_paper::paintEvent)
 
-		END_EVENT_TABLE()
+	END_EVENT_TABLE()
 
 	plot_paper::plot_paper(wxFrame* parent) :
 		wxPanel(parent),
@@ -41,16 +43,19 @@ namespace R {
 
 	void plot_paper::render(wxDC& gdc) {
 
+		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.plot_background, theme);
+		R::shrink(fig.box, theme.plot_margin);
+		//draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_rect, theme);
 		for (const auto& c : components) {
 			c->render(gdc);
 		}
 
 		
-		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.plot_background, theme);
-		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_rect, theme);
-		draw_text(gdc, { 1, 1 }, wxT("a text element"), fig, theme.element_text, theme);
-		draw_line(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_line, theme);
-		draw_circle(gdc, { 0.5, 0.5 }, 0.3, fig, theme.element_circle, theme);
+		
+		//draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_rect, theme);
+		//draw_text(gdc, { 1, 1 }, wxT("a text element"), fig, theme.element_text, theme);
+		//draw_line(gdc, { 0, 0 }, { 1, 1 }, fig, theme.element_line, theme);
+		//draw_circle(gdc, { 0.5, 0.5 }, 0.3, fig, theme.element_circle, theme);
 		
 
 	}

@@ -23,7 +23,7 @@ namespace R {
 
         DECLARE_EVENT_TABLE()
 
-    public:
+    private:
 
         // physical metrics
         figure_t fig;
