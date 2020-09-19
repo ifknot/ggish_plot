@@ -28,13 +28,19 @@ namespace R {
 		grid_t grid{ element_line_t::colour,  element_line_t::size,  element_line_t::linetype,  element_line_t::lineend };
 	};
 
+	struct position_text_t : public element_text_t, public point_t {
+		point_t position{ x, y };
+	};
+
 	struct plot_t : public font_t {
 		element_rect_t		background{ white, white, 0.5, linetypes::solid };
-		element_text_t		title{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
-		point_t				title_position{ top };
-		point_t				caption_position{ bottom };
+		position_text_t		title{
+			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 },
+			{ top }
+		};
 		element_text_t		subtitle{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
 		element_text_t		caption{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
+		point_t				caption_position{ bottom };
 		element_text_t		tag{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
 		point_t				tag_position{ topleft };
 		margin_t			margin{ 2, 2, 1, 1, units::pt };
@@ -52,7 +58,6 @@ namespace R {
 		 * the base font size is the size that the axis titles use, the plot title is usually bigger (1.2x)
 		 * the tick and strip labels are smaller (0.8x)
 		 * 
-		 * @param ppi			pixels per inch resolution 
 		 * @param base_size		base font size
 		 * @param base_family	base font family name @note look out for cross platform issues here
 		 */
@@ -64,17 +69,12 @@ namespace R {
 		double				base_size;							// base font size, given in pts
 		wxString			base_family;						// base font family name e.g. "Ariel"
 		double				base_line_size = base_size / 22;	// base size for line elements
-		double				base_rect_size = base_size / 22;	// base size for rect elements
-		
-		ratio_t				aspect_ratio{ 1, 1 };				// aspect ratio of the paper
+		double				base_rect_size = base_size / 22;	// base size for rect elements	
+		ratio_t				aspect_ratio{ 1, 1 };				// aspect ratio 
 
-		// styles lines parameterized by colour, size and line type 
 		element_line_t		line{ black, 0.5, linetypes::solid, endstyles::butt }; 
-		// styles rectangles, mostly used for backgrounds, parameterized bill fill and border colours, size and line type
 		element_rect_t		rect{ white, black, 0.5, linetypes::solid }; 
-		// styles general text elements on plot font size is the base font 
 		element_text_t		text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 0.9 }; 
-		// styles circles 
 		element_circle_t	circle{ transparent,  black, 0.5, linetypes::solid }; 
 
 
@@ -84,8 +84,6 @@ namespace R {
 		};
 
 		plot_t plot{ base_size, base_family };
-
-		//------ plot ------//
 		
 
 	};

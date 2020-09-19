@@ -46,12 +46,12 @@ namespace R {
 		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.plot.background, theme);
 		R::shrink_by_margin(fig.box, theme.plot.margin);
 		if (!fig.title.empty()) {
-			auto box = draw_text(gdc, theme.plot.title_position, fig.title, fig, theme.plot.title, theme);
-			if (theme.plot.title_position.y == 0) { // topleft, top, topright
+			auto box = draw_text(gdc, theme.plot.title.position, fig.title, fig, theme.plot.title, theme);
+			if (theme.plot.title.position.y == 0) { // topleft, top, topright
 				fig.box.top += box.bottom;
 			}
-			else if (theme.plot.title_position.y == 1) {} // bottomleft, bottom, bottomright
-			else if (theme.plot.title_position.y == 0.5) {} // left, right
+			else if (theme.plot.title.position.y == 1) {} // bottomleft, bottom, bottomright
+			else if (theme.plot.title.position.y == 0.5) {} // left, right
 			else {} // floating coordinate
 		}
 		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.panel.background, theme);
