@@ -3,6 +3,42 @@
 #include  "elements.h"
 
 namespace R {
+
+	struct spacing_t : public unit_t {
+		unit_t x{ val, type };
+		unit_t y{ val, type };
+	};
+
+	struct axes_t : public element_line_t {
+		element_line_t	x{ colour, size, linetype, lineend };
+		element_line_t	y{ colour, size, linetype, lineend };
+	};
+
+	struct grid_t : public element_line_t {
+		axes_t major{ colour, size, linetype, lineend };
+		axes_t minor{ colour, size, linetype, lineend };
+	};
+
+	struct panel_t : public element_line_t, public element_rect_t {
+		element_rect_t		background{ element_rect_t::colour, element_rect_t::fill, element_rect_t::size, element_rect_t::linetype };//{ grey90, grey90, 0.5, linetypes::solid };
+		element_rect_t		border{ transparent, background.fill, background.size / 2, background.linetype };
+		spacing_t			spacing{ 2, units::pt };
+		rect_t				margin{ 1, 1, 1, 1, units::pt };
+		bool				ontop{ false };
+		grid_t grid{ element_line_t::colour,  element_line_t::size,  element_line_t::linetype,  element_line_t::lineend };
+	};
+
+	struct plot_t : public font_t {
+		element_rect_t		background{ white, white, 0.5, linetypes::solid };
+		element_text_t		title{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
+		point_t				title_position{ top };
+		point_t				caption_position{ bottom };
+		element_text_t		subtitle{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
+		element_text_t		caption{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
+		element_text_t		tag{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
+		point_t				tag_position{ topleft };
+		margin_t			margin{ 2, 2, 1, 1, units::pt };
+	};
 	
 	/**
 	 * @brief exercise fine control over the non-data elements of a plot
@@ -33,46 +69,24 @@ namespace R {
 		ratio_t				aspect_ratio{ 1, 1 };				// aspect ratio of the paper
 
 		// styles lines parameterized by colour, size and line type 
-		element_line_t		element_line{ black, 0.5, linetypes::solid, endstyles::butt }; 
+		element_line_t		line{ black, 0.5, linetypes::solid, endstyles::butt }; 
 		// styles rectangles, mostly used for backgrounds, parameterized bill fill and border colours, size and line type
-		element_rect_t		element_rect{ white, black, 0.5, linetypes::solid }; 
+		element_rect_t		rect{ white, black, 0.5, linetypes::solid }; 
 		// styles general text elements on plot font size is the base font 
-		element_text_t		element_text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 0.9 }; 
+		element_text_t		text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 0.9 }; 
 		// styles circles 
-		element_circle_t	element_circle{ transparent,  black, 0.5, linetypes::solid }; 
+		element_circle_t	circle{ transparent,  black, 0.5, linetypes::solid }; 
 
-		//----- panel -----
-		// background of plotting area, drawn underneath plot
-		element_rect_t		panel_background{ grey90, grey90, 0.5, linetypes::solid };
-		// border around plotting area, drawn on top of plot so that it covers tick marks and grid lines
-		element_rect_t		panel_border{ transparent, grey90, 0.5, linetypes::solid };
-		// grid lines styles
-		element_line_t		panel_grid_major_x{ red, 0.5, linetypes::solid, endstyles::butt };
-		element_line_t		panel_grid_minor_x{ yellow, 0.25, linetypes::solid, endstyles::butt };
-		element_line_t		panel_grid_major_y{ white, 0.5, linetypes::solid, endstyles::butt };
-		element_line_t		panel_grid_minor_y{ grey95, 0.25, linetypes::solid, endstyles::butt };
-		rect_t				panel_margin{ 1, 1, 1, 1, units::pt };
-		// option to place the panel (background, gridlines) over the data layers (logical). 
-		bool				panel_ontop{ false };
+
+		panel_t panel{ 
+			{ white, 1, linetypes::solid, endstyles::butt },
+			{ grey90, grey90, 0.5, linetypes::solid } 
+		};
+
+		plot_t plot{ base_size, base_family };
 
 		//------ plot ------//
-		// background of the entire plot
-		element_rect_t		plot_background{ white, white, 0.5, linetypes::solid };
-		//plot title (text appearance)
-		element_text_t		plot_title{ base_family, element_text_t::face_t::plain, black, base_size * 1.2, 0.5, 0.0, 0.0, 0.9 };
 		
-		point_t				plot_title_position{ top };
-		point_t				plot_caption_position{ bottom };
-		//plot title (text appearance)
-		element_text_t		plot_subtitle{ base_family, element_text_t::face_t::plain, black, base_size * 1.2, 0.5, 0.0, 0.0, 0.9 };
-		// caption below the plot (text appearance) 
-		element_text_t		plot_caption{ base_family, element_text_t::face_t::plain, black, base_size * 1.2, 0.5, 0.0, 0.0, 0.9 };
-		// upper - left label to identify a plot (text appearance)
-		element_text_t		plot_tag{ base_family, element_text_t::face_t::plain, black, base_size * 1.2, 0.5, 0.0, 0.0, 0.9 };
-		// position of the tag as a string ("topleft", "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright) or a coordinate. If a string, extra space will be added to accommodate the tag.
-		point_t				plot_tag_position{ topleft };
-		// margin around entire plot (unit with the sizes of the top, right, bottom, and left margins)
-		margin_t			plot_margin{ 2, 2, 1, 1, units::pt};
 
 	};
 

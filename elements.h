@@ -26,6 +26,12 @@ namespace R {
 	const point_t bottom{ 0.5, 1 };
 	const point_t bottomright{ 1, 1 };
 
+
+	struct font_t {
+		double				size;
+		wxString			family;
+	};
+
 	/**
 	 * description of what arrows to add to a line
 	 * the result can be passed to grid::lines

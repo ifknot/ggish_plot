@@ -73,7 +73,7 @@ namespace R {
 		dc.SetPen(
 			wxPen(
 				element_line.colour,
-				std::round(fig.pixels_per_pt * theme.element_line.size),
+				std::round(fig.pixels_per_pt * theme.line.size),
 				as_penstyle(element_line.linetype)
 			)
 		);
@@ -95,7 +95,7 @@ namespace R {
 		dc.SetPen(
 			wxPen(
 				element_rect.colour,
-				std::round(fig.pixels_per_pt * theme.element_rect.size),
+				std::round(fig.pixels_per_pt * theme.rect.size),
 				as_penstyle(element_rect.linetype)
 			)
 		);
@@ -124,7 +124,7 @@ namespace R {
 		dc.SetPen(
 			wxPen(
 				element_circle.colour,
-				std::round(fig.pixels_per_pt * theme.element_circle.size),
+				std::round(fig.pixels_per_pt * theme.circle.size),
 				as_penstyle(element_circle.linetype)
 			)
 		);
