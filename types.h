@@ -14,15 +14,24 @@ namespace R {
 
 	enum class units { pt, cm, inch, line };
 
-	using unit_t = std::pair<double, units>;
-
 	enum class colour_mode_t{ RGB, grayscale };
-
-	using point_t = std::pair<double, double>;
 
 	using ratio_t = std::pair<double, double>;
 
-	using dimension_t = std::pair<double, double>;
+	struct unit_t {
+		double	val;
+		units	type;
+	};
+
+	struct point_t {
+		double x; 
+		double y;
+	};
+
+	struct dimension_t {
+		double width;
+		double height;
+	};
 
 	struct rect_t {
 

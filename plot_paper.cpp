@@ -47,11 +47,11 @@ namespace R {
 		R::shrink_by_margin(fig.box, theme.plot_margin);
 		if (!fig.title.empty()) {
 			auto box = draw_text(gdc, theme.plot_title_position, fig.title, fig, theme.plot_title, theme);
-			if (theme.plot_title_position.second == 0) { // topleft, top, topright
+			if (theme.plot_title_position.y == 0) { // topleft, top, topright
 				fig.box.top += box.bottom;
 			}
-			else if (theme.plot_title_position.second == 1) {} // bottomleft, bottom, bottomright
-			else if (theme.plot_title_position.second == 0.5) {} // left, right
+			else if (theme.plot_title_position.y == 1) {} // bottomleft, bottom, bottomright
+			else if (theme.plot_title_position.y == 0.5) {} // left, right
 			else {} // floating coordinate
 		}
 		draw_rect(gdc, { 0, 0 }, { 1, 1 }, fig, theme.panel_background, theme);

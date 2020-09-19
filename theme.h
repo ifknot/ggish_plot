@@ -47,8 +47,8 @@ namespace R {
 		// border around plotting area, drawn on top of plot so that it covers tick marks and grid lines
 		element_rect_t		panel_border{ transparent, grey90, 0.5, linetypes::solid };
 		// grid lines styles
-		element_line_t		panel_grid_major_x{ white, 0.5, linetypes::solid, endstyles::butt };
-		element_line_t		panel_grid_minor_x{ grey95, 0.25, linetypes::solid, endstyles::butt };
+		element_line_t		panel_grid_major_x{ red, 0.5, linetypes::solid, endstyles::butt };
+		element_line_t		panel_grid_minor_x{ yellow, 0.25, linetypes::solid, endstyles::butt };
 		element_line_t		panel_grid_major_y{ white, 0.5, linetypes::solid, endstyles::butt };
 		element_line_t		panel_grid_minor_y{ grey95, 0.25, linetypes::solid, endstyles::butt };
 		rect_t				panel_margin{ 1, 1, 1, 1, units::pt };

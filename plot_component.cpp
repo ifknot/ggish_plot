@@ -6,10 +6,10 @@ namespace R {
 
 	rect_t plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
-		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
+		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
+		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
 
 		wxFontInfo info(std::round(element_text.size * fig.font_scale));
 		info.FaceName(element_text.family);
@@ -45,8 +45,8 @@ namespace R {
 		);
 		gdc.DrawBitmap( 
 			rotated_image, 
-			std::round(x + (p.first * scale_x) - (rotated_image.GetWidth() * element_text.hjust)), 
-			std::round(y + (p.second * scale_y) - (rotated_image.GetHeight() * element_text.vjust))
+			std::round(x + (p.x * scale_x) - (rotated_image.GetWidth() * element_text.hjust)), 
+			std::round(y + (p.y * scale_y) - (rotated_image.GetHeight() * element_text.vjust))
 		);
 
 		mdc.SelectObject(wxNullBitmap);
@@ -55,9 +55,9 @@ namespace R {
 		double h{ rotated_image.GetHeight() / scale_y };
 
 		return rect_t{ 
-			p.first, 
+			p.x, 
 			rotated_image.GetWidth() / (double)fig.dpi, 
-			p.second, 
+			p.y, 
 			rotated_image.GetHeight() / (double)fig.dpi, 
 			R::units::inch 
 		};
@@ -65,10 +65,10 @@ namespace R {
 
 	void plot_component::draw_line(wxDC& dc, R::point_t a, R::point_t b, R::figure_t fig, R::element_line_t& element_line, R::theme_t& theme) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
-		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
+		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
+		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
 
 		dc.SetPen(
 			wxPen(
@@ -78,19 +78,19 @@ namespace R {
 			)
 		);
 		dc.DrawLine(
-			std::round(x + (a.first * scale_x)),
-			std::round(y + (a.second * scale_y)),
-			std::round(x + (b.first * scale_x)),
-			std::round(y + (b.second * scale_y))
+			std::round(x + (a.x * scale_x)),
+			std::round(y + (a.y * scale_y)),
+			std::round(x + (b.x * scale_x)),
+			std::round(y + (b.y * scale_y))
 		);
 	}
 
 	void plot_component::draw_rect(wxDC& dc, R::point_t p, R::dimension_t d, R::figure_t fig, R::element_rect_t& element_rect, R::theme_t& theme) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
-		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
+		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
+		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
 
 		dc.SetPen(
 			wxPen(
@@ -106,19 +106,19 @@ namespace R {
 			)
 		);
 		dc.DrawRectangle(
-			std::round(x + (p.first * scale_x)),
-			std::round(y + (p.second * scale_y)),
-			std::round((p.first + d.first) * scale_x),
-			std::round((p.second + d.second) * scale_y)
+			std::round(x + (p.x * scale_x)),
+			std::round(y + (p.y * scale_y)),
+			std::round((p.x + d.width) * scale_x),
+			std::round((p.y + d.height) * scale_y)
 		);
 	}
 
 	void plot_component::draw_circle(wxDC& dc, R::point_t o, double r, R::figure_t fig, R::element_circle_t& element_circle, R::theme_t& theme) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).first;
-		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).first;
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).first;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).first;
+		auto scale_x = fig.dpi * theme.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
+		auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
 
 		auto rr = r + r;
 		dc.SetPen(
@@ -135,8 +135,8 @@ namespace R {
 			)
 		);
 		dc.DrawEllipse(
-			std::round(x + ((o.first - r) * scale_x)),
-			std::round(y + ((o.second - r) * scale_y)),
+			std::round(x + ((o.x - r) * scale_x)),
+			std::round(y + ((o.y - r) * scale_y)),
 			std::round(rr * scale_x),
 			std::round(rr * scale_y)
 		);
