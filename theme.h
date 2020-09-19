@@ -32,17 +32,29 @@ namespace R {
 		point_t position{ x, y };
 	};
 
+	struct position_title_t : public element_text_t, public point_t {
+		element_text_t	subtitle{family, face, colour, size, hjust, vjust, angle, lineheight, background, margin};
+		point_t			position{ x, y };
+	};
+
 	struct plot_t : public font_t {
 		element_rect_t		background{ white, white, 0.5, linetypes::solid };
-		position_text_t		title{
+		position_title_t	title{
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 },
 			{ top }
 		};
-		element_text_t		subtitle{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
-		element_text_t		caption{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
-		point_t				caption_position{ bottom };
-		element_text_t		tag{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 };
-		point_t				tag_position{ topleft };
+		position_text_t		subtitle{
+			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0},
+			{ bottom }
+		};
+		position_text_t		caption {
+			{ family, element_text_t::face_t::plain, black, size * 0.5, 0.5, 0.0, 0.0},
+			{ bottom }
+		};
+		position_text_t		tag{
+			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0},
+			{ bottom }
+		};
 		margin_t			margin{ 2, 2, 1, 1, units::pt };
 	};
 	
@@ -74,7 +86,7 @@ namespace R {
 
 		element_line_t		line{ black, 0.5, linetypes::solid, endstyles::butt }; 
 		element_rect_t		rect{ white, black, 0.5, linetypes::solid }; 
-		element_text_t		text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 0.9 }; 
+		element_text_t		text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 1.4 }; 
 		element_circle_t	circle{ transparent,  black, 0.5, linetypes::solid }; 
 
 

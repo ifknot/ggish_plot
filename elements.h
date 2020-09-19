@@ -100,7 +100,11 @@ namespace R {
 		double		hjust{ 0 };		// horizontal justification (in [0,1])
 		double		vjust{ 0 };		// vertical justification (in [0,1])
 		double		angle{ 0 };		// angle (in [0,360])
-		double		lineheight{ 0 };	// line height as of fontcase
+		double		lineheight{ 1.4 };	// line height as factor of font size 
+		// Line spacing is commonly measured as a percentage of font size. 
+		// Conventional wisdom is that line spacing of 130%-150% is ideal for readability. 
+		// In fact, anything from about 120% up to 200% is acceptable
+		// but 140% tends to be the most quoted sweet spot.
 		wxColour	background{ transparent };
 		margin_t	margin{ 0, 0, 0, 0, units::inch };	// margins around the text = when creating a theme, the margins should be placed on the side of the text facing towards the center of the plot.
 	
