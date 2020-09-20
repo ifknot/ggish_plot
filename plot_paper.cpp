@@ -69,11 +69,9 @@ namespace R {
 				fig.box.top += box.bottom;
 			}
 			else if (theme.plot.caption.position.y == 1) { // bottomleft, bottom, bottomright
-				auto p = theme.plot.caption.position;
-				auto scale_y = fig.dpi * theme.aspect_ratio.second * as_inch({theme.base_size, units::pt}).val;
-				p.y -= (theme.aspect_ratio.second * R::as_inch({ theme.plot.caption.size, R::units::pt }).val / (fig.box.bottom - fig.box.top)) * theme.text.lineheight;
-				auto box = draw_text(gdc, p, fig.caption, fig, theme.plot.caption, theme);
+				auto box = get_text_bounding_box(gdc, theme.plot.caption.position, fig.caption, fig, theme.plot.caption, theme);
 				fig.box.bottom -= box.bottom;
+				box = draw_text(gdc, theme.plot.caption.position, fig.caption + std::to_string(box.bottom), fig, theme.plot.caption, theme);
 			} 
 			else if (theme.plot.caption.position.y == 0.5) {} // left, right
 			else {} // floating coordinate

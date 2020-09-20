@@ -18,7 +18,13 @@ namespace R {
 
 	protected:
 
-		static rect_t draw_text(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme);
+		static inline rect_t get_text_bounding_box(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme) {
+			return do_text(gdc, p, s, fig, element_text, theme, false);
+		}
+
+		static inline rect_t draw_text(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme) {
+			return do_text(gdc, p, s, fig, element_text, theme, true);
+		}
 
 		static void draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::figure_t fig, R::element_line_t& element_line, R::theme_t& theme);
 
@@ -29,6 +35,10 @@ namespace R {
 		static wxPenStyle as_penstyle(linetypes linetype);
 
 		static int as_fontflag(element_text_t::face_t face);
+
+	private:
+
+		static rect_t do_text(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme, bool draw);
 
 	};
 
