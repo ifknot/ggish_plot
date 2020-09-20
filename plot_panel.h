@@ -17,7 +17,7 @@ namespace R {
 	private:
 
 		point_t& position;
-		element_text_t& element_rect;
+		element_rect_t& element_rect;
 		figure_t& fig;
 
 	};
