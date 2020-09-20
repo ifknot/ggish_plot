@@ -20,7 +20,9 @@ namespace R {
 		plot_composite(fig.box),
 		fig(fig),
 		theme(theme)
-	{}
+	{
+		init_paper();
+	}
 
 	void plot_paper::paintEvent(wxPaintEvent& evt) {
 
@@ -42,8 +44,14 @@ namespace R {
 		render(dc);
 	}
 
+	void plot_paper::init_paper() {
+		//add(new plot_panel(fig.position, theme.panel.background, figure_t & fig)
+	}
+
 	void plot_paper::render(wxDC& gdc) {
 
+
+		/*
 		draw_rect(gdc, { 0, 0 }, { 1, 1 }, theme.plot.background, fig);
 		R::shrink_by_margin(fig.box, theme.plot.margin);
 
@@ -70,6 +78,7 @@ namespace R {
 		draw_line(gdc, { 0, 0.5 }, { 1, 0.5 }, theme.panel.grid.major.x, fig);
 		draw_line(gdc, { 0, 0.6 }, { 1, 0.6 }, theme.panel.grid.minor.x, fig);
 		draw_circle(gdc, { 0.5, 0.505 }, 0.008, theme.circle, fig);
+		*/
 
 	}
 

@@ -163,6 +163,7 @@
     <ClInclude Include="plot_component.h" />
     <ClInclude Include="plot_composite.h" />
     <ClInclude Include="plot_label.h" />
+    <ClInclude Include="plot_panel.h" />
     <ClInclude Include="plot_paper.h" />
     <ClInclude Include="plot_title.h" />
     <ClInclude Include="plot_window.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="conversions.cpp" />
     <ClCompile Include="plot_component.cpp" />
     <ClCompile Include="plot_label.cpp" />
+    <ClCompile Include="plot_panel.cpp" />
     <ClCompile Include="plot_paper.cpp" />
     <ClCompile Include="plot_title.cpp" />
     <ClCompile Include="plot_window.cpp" />
