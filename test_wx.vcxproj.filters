@@ -56,9 +56,6 @@
     <ClInclude Include="elements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PLOS_ONE_theme.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="conversions.h">
       <Filter>Header Files</Filter>
     </ClInclude>

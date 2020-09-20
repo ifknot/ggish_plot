@@ -21,16 +21,12 @@ namespace R {
 
         void paintNow();
 
-        void render(wxDC& dc) override final;
-
         //build up the plot elements: panel, plot, title, subtitle, caption, tag, ...
         void init_paper();
 
         DECLARE_EVENT_TABLE()
 
     private:
-
-       
 
         // copy of the physical metrics and strings for the figure
         figure_t fig;

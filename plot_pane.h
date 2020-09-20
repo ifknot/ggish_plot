@@ -7,7 +7,7 @@
 
 namespace R {
 
-	class plot_pane : public plot_component {
+	class plot_pane : public plot_composite {
 
 	public:
 

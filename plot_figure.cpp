@@ -6,6 +6,7 @@
 
 #include "conversions.h"
 #include "plot_pane.h"
+#include "plot_label.h"
 
 namespace R {
 
@@ -46,16 +47,16 @@ namespace R {
 	}
 
 	void plot_figure::init_paper() {
-		add(new plot_pane(fig.position, theme.plot.background, theme.panel.margin, fig));
+		auto plot = new plot_pane(fig.position, theme.plot.background, theme.panel.margin, fig);
+		if (!fig.title.empty()) {
+			plot->add(new plot_label(fig.title, theme.plot.title.position, theme.plot.title, fig));
+		}
+		add(plot);
 	}
 
-	void plot_figure::render(wxDC& gdc) {
-		for (auto& c : components) {
-			c->render(gdc);
-		}
+}
 
-
-		/*
+/*
 		draw_rect(gdc, { 0, 0 }, { 1, 1 }, theme.plot.background, fig);
 		R::shrink_by_margin(fig.box, theme.plot.margin);
 
@@ -83,10 +84,6 @@ namespace R {
 		draw_line(gdc, { 0, 0.6 }, { 1, 0.6 }, theme.panel.grid.minor.x, fig);
 		draw_circle(gdc, { 0.5, 0.505 }, 0.008, theme.circle, fig);
 		*/
-
-	}
-
-}
 
 /*
 

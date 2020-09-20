@@ -17,6 +17,12 @@ namespace R {
 			components.emplace_back(p);
 		}
 
+		inline void render(wxDC& gdc) override {
+			for (auto& c : components) {
+				c->render(gdc);
+			}
+		}
+
 	protected:
 
 		std::vector<std::unique_ptr<plot_component>> components;
