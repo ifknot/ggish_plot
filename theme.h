@@ -82,7 +82,6 @@ namespace R {
 		wxString			base_family;						// base font family name e.g. "Ariel"
 		double				base_line_size = base_size / 22;	// base size for line elements
 		double				base_rect_size = base_size / 22;	// base size for rect elements	
-		ratio_t				aspect_ratio{ 1, 1 };				// aspect ratio 
 
 		element_line_t		line{ black, 0.5, linetypes::solid, endstyles::butt }; 
 		element_rect_t		rect{ white, black, 0.5, linetypes::solid }; 

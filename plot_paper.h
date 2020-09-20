@@ -9,7 +9,7 @@
 
 namespace R {
 
-    class plot_paper : public wxPanel, plot_composite {
+    class plot_paper : public wxPanel, public plot_composite {
 
     public:
 
@@ -27,9 +27,9 @@ namespace R {
 
     private:
 
-        // physical metrics
+        // copy of the physical metrics and strings for the figure
         figure_t fig;
-        // aesthetic values
+        // copy of the aesthetic theme values
         theme_t theme;
         // use graphics context (wxWidgets 2.9.0) or not if available (i.e. < 2.9.0)
         bool use_gcdc{ true };

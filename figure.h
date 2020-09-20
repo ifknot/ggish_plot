@@ -22,10 +22,8 @@ namespace R {
 		{}
 
 		dpi_t		dpi;	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
-		// the available drawing space bounding box
-		// this will shrink if items are added e.g. margin, title, axes, legend
-		// before finally displaying the plot itself
-		rect_t		box;
+		rect_t		box;	// the available drawing space bounding box
+		ratio_t		aspect_ratio{ 1, 1 };				// aspect ratio 
 
 		wxString	title{ "" };
 		wxString	subtitle{ "" };

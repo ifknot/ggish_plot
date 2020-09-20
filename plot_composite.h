@@ -11,6 +11,8 @@ namespace R {
 
 	public:
 
+		using plot_component::plot_component;
+
 		inline void add(plot_component* p) {
 			components.emplace_back(p);
 		}

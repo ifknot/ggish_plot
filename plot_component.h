@@ -14,23 +14,27 @@ namespace R {
 
 	public:
 
-		virtual void render(wxDC& dc) = 0;
+		plot_component(rect_t box);
+
+		virtual void render(wxDC& gdc) = 0;
 
 	protected:
 
-		static inline rect_t get_text_bounding_box(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme) {
-			return do_text(gdc, p, s, fig, element_text, theme, false);
+		rect_t box;
+
+		static inline rect_t get_text_bounding_box(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig) {
+			return do_text(gdc, p, text, element_text, fig, false);
 		}
 
-		static inline rect_t draw_text(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme) {
-			return do_text(gdc, p, s, fig, element_text, theme, true);
+		static inline rect_t draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig) {
+			return do_text(gdc, p, text, element_text, fig, true);
 		}
 
-		static void draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::figure_t fig, R::element_line_t& element_line, R::theme_t& theme);
+		static void draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::figure_t fig);
 
-		static void draw_rect(wxDC& gdc, R::point_t p, R::dimension_t d, R::figure_t fig, R::element_rect_t& element_rect, R::theme_t& theme);
+		static void draw_rect(wxDC& gdc, R::point_t p, R::dimension_t d, R::element_rect_t& element_rect, R::figure_t fig);
 
-		static void draw_circle(wxDC& gdc, R::point_t o, double r, R::figure_t fig, R::element_circle_t& element_circle, R::theme_t& theme);
+		static void draw_circle(wxDC& gdc, R::point_t o, double r, R::element_circle_t& element_circle, R::figure_t fig);
 
 		static wxPenStyle as_penstyle(linetypes linetype);
 
@@ -38,7 +42,7 @@ namespace R {
 
 	private:
 
-		static rect_t do_text(wxDC& gdc, R::point_t p, wxString s, R::figure_t fig, R::element_text_t& element_text, R::theme_t& theme, bool draw);
+		static rect_t do_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig, bool draw);
 
 	};
 

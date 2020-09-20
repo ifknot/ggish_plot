@@ -42,11 +42,11 @@ namespace R {
 			bottom(bottom),
 			unit(unit) {
 		}
-
-		double	top;
-		double	bottom;
+		
 		double	left;
 		double	right;
+		double	top;
+		double	bottom;
 		units	unit;
 
 	};
