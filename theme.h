@@ -38,24 +38,24 @@ namespace R {
 	};
 
 	struct plot_t : public font_t {
-		element_rect_t		background{ white, white, 0.5, linetypes::solid };
+		element_rect_t		background{ yellow, white, 0.5, linetypes::solid };
 		position_title_t	title{
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 },
 			{ top }
 		};
 		position_text_t		subtitle{
-			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0},
-			{ bottom }
+			{ family, element_text_t::face_t::plain, black, size * 1.0, 0.5, 0.0, 0.0},
+			{ title.position }
 		};
 		position_text_t		caption {
-			{ family, element_text_t::face_t::plain, black, size * 0.5, 0.5, 0.0, 0.0},
+			{ family, element_text_t::face_t::plain, black, size * 0.9, 0.5, 0.0, 0.0},
 			{ bottom }
 		};
 		position_text_t		tag{
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0},
-			{ bottom }
+			{ left }
 		};
-		rect_t			margin{ 2, 2, 1, 1, units::pt };
+		rect_t			margin{ 1, 1, 0.5, 0.5, units::pt };
 	};
 	
 	/**
@@ -87,7 +87,6 @@ namespace R {
 		element_rect_t		rect{ white, black, 0.5, linetypes::solid }; 
 		element_text_t		text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 1.4 }; 
 		element_circle_t	circle{ transparent,  black, 0.5, linetypes::solid }; 
-
 
 		panel_t panel{ 
 			{ white, 1, linetypes::solid, endstyles::butt },

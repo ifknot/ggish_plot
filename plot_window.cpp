@@ -8,7 +8,8 @@ plot_window::plot_window() : wxFrame(nullptr, wxID_ANY, "test_wx", { 100, 100 },
 
 	fig.title = "Title";
 	fig.subtitle = "subtitle";
-	fig.caption = "Caption";
+	fig.caption = "! ";
+	fig.tag = "tag";
 
 	pp = new R::plot_figure(this, fig, theme);
 	sz = new wxBoxSizer(wxHORIZONTAL);

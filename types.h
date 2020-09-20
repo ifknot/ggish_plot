@@ -26,6 +26,10 @@ namespace R {
 	struct point_t {
 		double x; 
 		double y;
+
+
+
+
 	};
 
 	struct dimension_t {
@@ -34,6 +38,7 @@ namespace R {
 	};
 
 	struct rect_t {
+
 
 		rect_t(double left, double right, double top, double bottom,  units unit) :
 			left(left),

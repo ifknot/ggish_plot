@@ -159,8 +159,8 @@ namespace R {
 		auto image = bitmap.ConvertToImage();
 		image.SetAlpha(0);
 		image.Rescale(
-			text_width * fig.aspect_ratio.second,
-			text_height * fig.aspect_ratio.first,
+			text_width * fig.aspect_ratio.first,
+			text_height * fig.aspect_ratio.second,
 			wxIMAGE_QUALITY_HIGH
 		);
 		auto rotated_image = image.Rotate(
@@ -176,18 +176,13 @@ namespace R {
 			);
 		}
 
+		double w{ rotated_image.GetWidth() / (double)fig.dpi };
+		double h{ rotated_image.GetHeight() / (double)fig.dpi };
+
 		mdc.SelectObject(wxNullBitmap);
 
-		double w{ rotated_image.GetWidth() / scale_x };
-		double h{ rotated_image.GetHeight() / scale_y };
+		return rect_t{p.x, p.y, w, h , R::units::inch};
 
-		return rect_t{
-			p.x,
-			rotated_image.GetWidth() / (double)fig.dpi,
-			p.y,
-			rotated_image.GetHeight() / (double)fig.dpi,
-			R::units::inch
-		};
 	}
 
 }

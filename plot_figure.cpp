@@ -47,10 +47,22 @@ namespace R {
 	}
 
 	void plot_figure::init_paper() {
-		auto plot = new plot_pane(fig.position, theme.plot.background, theme.panel.margin, fig);
+		auto p = topleft;
+		auto plot = new plot_pane(fig.position, theme.plot.background, theme.plot.margin, fig);
 		if (!fig.title.empty()) {
 			plot->add(new plot_label(fig.title, theme.plot.title.position, theme.plot.title, fig));
 		}
+		if (!fig.subtitle.empty()) {
+			plot->add(new plot_label(fig.subtitle, theme.plot.subtitle.position, theme.plot.subtitle, fig));
+		}
+		if (!fig.caption.empty()) {
+			plot->add(new plot_label(fig.caption, theme.plot.caption.position, theme.plot.caption, fig));
+		}
+		if (!fig.tag.empty()) {
+			plot->add(new plot_label(fig.tag, theme.plot.tag.position, theme.plot.tag, fig));
+		}
+		auto panel = new plot_pane(p, theme.panel.background, theme.plot.margin, fig);
+		//plot->add(panel);
 		add(plot);
 	}
 
