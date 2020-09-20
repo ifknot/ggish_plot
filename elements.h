@@ -15,8 +15,6 @@ namespace R {
 	enum class linetypes { blank, solid, dashed, dotted, dotdash, longdash, twodash };
 	enum class endstyles { round, butt, square };
 
-	using margin_t = rect_t;
-
 	const point_t topleft{ 0, 0 };
 	const point_t top{ 0.5, 0 };
 	const point_t topright{ 1, 0 };
@@ -106,7 +104,7 @@ namespace R {
 		// In fact, anything from about 120% up to 200% is acceptable
 		// but 140% tends to be the most quoted sweet spot.
 		wxColour	background{ transparent };
-		margin_t	margin{ 0, 0, 0, 0, units::inch };	// margins around the text = when creating a theme, the margins should be placed on the side of the text facing towards the center of the plot.
+		rect_t	margin{ 0, 0, 0, 0, units::inch };	// margins around the text = when creating a theme, the margins should be placed on the side of the text facing towards the center of the plot.
 	
 	};
 

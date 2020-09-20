@@ -55,7 +55,7 @@ namespace R {
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0},
 			{ bottom }
 		};
-		margin_t			margin{ 2, 2, 1, 1, units::pt };
+		rect_t			margin{ 2, 2, 1, 1, units::pt };
 	};
 	
 	/**

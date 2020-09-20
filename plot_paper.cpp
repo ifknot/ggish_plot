@@ -5,6 +5,7 @@
 #endif
 
 #include "conversions.h"
+#include "plot_panel.h"
 
 namespace R {
 
@@ -45,10 +46,13 @@ namespace R {
 	}
 
 	void plot_paper::init_paper() {
-		//add(new plot_panel(fig.position, theme.panel.background, figure_t & fig)
+		add(new plot_panel(fig.position, theme.panel.background, theme.panel.margin, fig));
 	}
 
 	void plot_paper::render(wxDC& gdc) {
+		for (auto& c : components) {
+			c->render(gdc);
+		}
 
 
 		/*
