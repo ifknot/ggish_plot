@@ -20,7 +20,7 @@ private:
 
 	std::unique_ptr<plot_window> f;
 
-	R::plot_paper* pp;
+	R::plot_figure* pp;
 
 };
 

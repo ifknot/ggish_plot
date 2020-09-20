@@ -18,9 +18,6 @@
     <ClCompile Include="app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="plot_paper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="plot_window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,21 +30,18 @@
     <ClCompile Include="plot_component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="plot_title.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="plot_label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="plot_panel.cpp">
+    <ClCompile Include="plot_figure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="plot_pane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="plot_paper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="plot_window.h">
@@ -83,13 +77,13 @@
     <ClInclude Include="plot_composite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="plot_title.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="plot_label.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="plot_panel.h">
+    <ClInclude Include="plot_figure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plot_pane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

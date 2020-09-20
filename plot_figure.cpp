@@ -1,22 +1,22 @@
-#include "plot_paper.h"
+#include "plot_figure.h"
 
 #if wxUSE_GRAPHICS_CONTEXT
 	#include <wx/dcgraph.h>
 #endif
 
 #include "conversions.h"
-#include "plot_panel.h"
+#include "plot_pane.h"
 
 namespace R {
 
-	BEGIN_EVENT_TABLE(plot_paper, wxPanel)
+	BEGIN_EVENT_TABLE(plot_figure, wxPanel)
 
 		// catch paint events
-		EVT_PAINT(plot_paper::paintEvent)
+		EVT_PAINT(plot_figure::paintEvent)
 
 		END_EVENT_TABLE()
 
-		plot_paper::plot_paper(wxFrame* parent, figure_t& fig, theme_t& theme) :
+		plot_figure::plot_figure(wxFrame* parent, figure_t& fig, theme_t& theme) :
 		wxPanel(parent),
 		plot_composite(fig.box),
 		fig(fig),
@@ -25,7 +25,7 @@ namespace R {
 		init_paper();
 	}
 
-	void plot_paper::paintEvent(wxPaintEvent& evt) {
+	void plot_figure::paintEvent(wxPaintEvent& evt) {
 
 		wxPaintDC pdc(this);
 
@@ -40,16 +40,16 @@ namespace R {
 
 	}
 
-	void plot_paper::paintNow() {
+	void plot_figure::paintNow() {
 		wxClientDC dc(this);
 		render(dc);
 	}
 
-	void plot_paper::init_paper() {
-		add(new plot_panel(fig.position, theme.panel.background, theme.panel.margin, fig));
+	void plot_figure::init_paper() {
+		add(new plot_pane(fig.position, theme.plot.background, theme.panel.margin, fig));
 	}
 
-	void plot_paper::render(wxDC& gdc) {
+	void plot_figure::render(wxDC& gdc) {
 		for (auto& c : components) {
 			c->render(gdc);
 		}

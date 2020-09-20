@@ -1,5 +1,4 @@
 #include "plot_window.h"
-#include "plot_title.h"
 #include "conversions.h"
 
 plot_window::plot_window() : wxFrame(nullptr, wxID_ANY, "test_wx", { 100, 100 }, { 900, 900 }) {
@@ -11,7 +10,7 @@ plot_window::plot_window() : wxFrame(nullptr, wxID_ANY, "test_wx", { 100, 100 },
 	fig.subtitle = "subtitle";
 	fig.caption = "Caption";
 
-	pp = new R::plot_paper(this, fig, theme);
+	pp = new R::plot_figure(this, fig, theme);
 	sz = new wxBoxSizer(wxHORIZONTAL);
 	sz->Add(pp, 1, wxEXPAND);
 	SetSizer(sz);

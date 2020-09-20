@@ -2,7 +2,7 @@
 
 #include "wx/wx.h"
 
-#include "plot_paper.h"
+#include "plot_figure.h"
 
 class plot_window : public wxFrame {
 
@@ -12,7 +12,7 @@ public:
 
 	~plot_window() = default;
 
-	R::plot_paper* pp;
+	R::plot_figure* pp;
 
 	wxButton* btn;
 

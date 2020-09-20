@@ -9,11 +9,11 @@
 
 namespace R {
 
-    class plot_paper : public wxPanel, public plot_composite {
+    class plot_figure : public wxPanel, public plot_composite {
 
     public:
 
-        plot_paper(wxFrame* parent, figure_t& fig, theme_t& theme);
+        plot_figure(wxFrame* parent, figure_t& fig, theme_t& theme);
 
         //void layer(...);
 
