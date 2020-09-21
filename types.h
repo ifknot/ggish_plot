@@ -35,7 +35,6 @@ namespace R {
 
 	struct rect_t {
 
-
 		rect_t(double left, double right, double top, double bottom,  units unit) :
 			left(left),
 			right(right),

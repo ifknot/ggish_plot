@@ -17,12 +17,12 @@ namespace R {
 		if (!text.empty()) {
 			if (position.y == 0) { // topleft{ 0, 0 }, top{ 0.5, 0 }, topright{ 1, 0 }
 				auto p = position;
-				auto box = get_text_bounding_box(gdc, position, text, element_text, fig);
+				auto box = text_box(gdc, position, text, element_text, fig);
 				box = draw_text(gdc, p, text, element_text, fig);
 				fig.box.top += box.bottom;
 			}
 			else if (position.y == 1) { // bottomleft{ 0, 1 }, bottom{ 0.5, 1 }, bottomright{ 1, 1 }
-				auto box = get_text_bounding_box(gdc, position, text, element_text, fig);
+				auto box = text_box(gdc, position, text, element_text, fig);
 				auto p = position;
 				p.y -= 0.042;
 				box = draw_text(

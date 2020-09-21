@@ -22,13 +22,15 @@ namespace R {
 
 		rect_t box;
 
-		static inline rect_t get_text_bounding_box(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig) {
+		static inline rect_t text_box(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig) {
 			return do_text(gdc, p, text, element_text, fig, false);
 		}
 
 		static inline rect_t draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig) {
 			return do_text(gdc, p, text, element_text, fig, true);
 		}
+
+		static void align_text_box(rect_t box, point_t p);
 
 		static void draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::figure_t fig);
 

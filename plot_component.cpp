@@ -1,5 +1,7 @@
 #include "plot_component.h"
 
+#include <assert.h>
+
 #include "conversions.h"
 
 namespace R {
@@ -8,7 +10,17 @@ namespace R {
 		box(box)
 	{}
 
+	void plot_component::align_text_box(rect_t box, point_t p) {
+		if (p.y == 0) { // topleft, top, topright
+
+		}
+	}
+
 	void plot_component::draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::figure_t fig) {
+		assert((a.x >= 0) && (a.x <= 1));
+		assert((a.y >= 0) && (a.y <= 1));
+		assert((b.x >= 0) && (b.x <= 1));
+		assert((b.y >= 0) && (b.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
 		auto scale_x = fig.dpi * as_dimension(fig.box).width;
 		auto scale_y = fig.dpi * as_dimension(fig.box).height;
@@ -31,6 +43,8 @@ namespace R {
 	}
 
 	void plot_component::draw_rect(wxDC& gdc, R::point_t p, R::dimension_t d, R::element_rect_t& element_rect, R::figure_t fig) {
+		assert((p.x >= 0) && (p.x <= 1));
+		assert((p.y >= 0) && (p.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
 		auto scale_x = fig.dpi * as_dimension(fig.box).width;
 		auto scale_y = fig.dpi * as_dimension(fig.box).height;
@@ -59,6 +73,8 @@ namespace R {
 	}
 
 	void plot_component::draw_circle(wxDC& gdc, R::point_t o, double r, R::element_circle_t& element_circle, R::figure_t fig) {
+		assert((o.x >= 0) && (o.x <= 1));
+		assert((o.y >= 0) && (o.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
 		auto scale_x = fig.dpi * as_dimension(fig.box).width;
 		auto scale_y = fig.dpi * as_dimension(fig.box).height;
@@ -89,6 +105,8 @@ namespace R {
 
 	// multipurpose private helper 
 	rect_t plot_component::do_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig, bool draw) {
+		assert((p.x >= 0) && (p.x <= 1));
+		assert((p.y >= 0) && (p.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
 		auto scale_x = fig.dpi * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
 		auto scale_y = fig.dpi * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
