@@ -62,7 +62,7 @@ namespace R {
 			plot->add(new plot_label(fig.tag, theme.plot.tag.position, theme.plot.tag, fig));
 		}
 		auto panel = new plot_pane(p, theme.panel.background, theme.plot.margin, fig);
-		//plot->add(panel);
+		plot->add(panel);
 		add(plot);
 	}
 

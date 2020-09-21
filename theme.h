@@ -41,7 +41,7 @@ namespace R {
 		element_rect_t		background{ yellow, white, 0.5, linetypes::solid };
 		position_title_t	title{
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 },
-			{ top }
+			{ topleft }
 		};
 		position_text_t		subtitle{
 			{ family, element_text_t::face_t::plain, black, size * 1.0, 0.5, 0.0, 0.0},
@@ -49,7 +49,7 @@ namespace R {
 		};
 		position_text_t		caption {
 			{ family, element_text_t::face_t::plain, black, size * 0.9, 0.5, 0.0, 0.0},
-			{ bottom }
+			{ bottomleft }
 		};
 		position_text_t		tag{
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0},

@@ -10,10 +10,67 @@ namespace R {
 		box(box)
 	{}
 
-	void plot_component::align_text_box(rect_t box, point_t p) {
-		if (p.y == 0) { // topleft, top, topright
+	rect_t plot_component::draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig) {
+		assert((p.x >= 0) && (p.x <= 1));
+		assert((p.y >= 0) && (p.y <= 1));
+		// calculate the width & height and x, y origin of the display bounding box
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
+		auto w = fig.dpi * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
+		auto h = fig.dpi * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
+		
+		wxFontInfo info(std::round(element_text.size * fig.font_scale));
+		info.FaceName(element_text.family);
+		info.AllFlags(as_fontflag(element_text.face));
+		info.AntiAliased(true);
+	
+		wxFont font(info);
+		gdc.SetFont(font);
+		wxCoord text_width, text_height;
+		gdc.GetTextExtent(text, &text_width, &text_height);
+		wxBitmap bitmap(text_width, text_height, wxBITMAP_SCREEN_DEPTH);
+		bitmap.UseAlpha();
 
+		wxMemoryDC mdc;
+		mdc.SelectObject(bitmap);
+		mdc.SetBackground(transparent);
+		mdc.Clear();
+		mdc.SetFont(font);
+		mdc.SetTextBackground(element_text.background);
+		mdc.SetTextForeground(element_text.colour);
+		mdc.DrawText(text, 0, 0);
+
+		auto text_image = bitmap.ConvertToImage();
+		text_image.SetAlpha(0);
+		text_image.Rescale(
+			text_width,
+			text_height,
+			wxIMAGE_QUALITY_HIGH
+		);
+		auto rotated_image = text_image.Rotate(
+			as_radians(element_text.angle),
+			{ 0, 0 }
+		);
+
+		auto tw{ (double)rotated_image.GetWidth() }; 
+		auto th{ (double)rotated_image.GetHeight() }; 
+		auto tx = std::round(x + (p.x * w) - (tw * element_text.hjust));
+		auto ty = std::round(y + (p.y * h) - (th * element_text.vjust));
+		// adjust if text image strays out of bounds
+		if (ty + th >= y + h) {
+			ty -= (ty + th) - (y + h);
 		}
+		if (tx + tw >= x + w) {
+			tx -= (tx + tw) - (x + w);
+		}
+		if (tx < x) {
+			tx = x;
+		}
+		gdc.DrawBitmap(rotated_image, tx, ty);
+		
+		mdc.SelectObject(wxNullBitmap);
+
+		return rect_t{ p.x, p.y, tw / (double)fig.dpi, th / (double)fig.dpi , R::units::inch };
 	}
 
 	void plot_component::draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::figure_t fig) {
@@ -103,49 +160,11 @@ namespace R {
 		);
 	}
 
-	// multipurpose private helper 
-	rect_t plot_component::do_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig, bool draw) {
-		assert((p.x >= 0) && (p.x <= 1));
-		assert((p.y >= 0) && (p.y <= 1));
-		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
-		auto scale_y = fig.dpi * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
+}
 
-		wxFontInfo info(std::round(element_text.size * fig.font_scale));
-		info.FaceName(element_text.family);
-		info.AllFlags(as_fontflag(element_text.face));
-		info.AntiAliased(true);
+/*
 
-		wxFont font(info);
-		gdc.SetFont(font);
-		wxCoord text_width, text_height;
-		gdc.GetTextExtent(text, &text_width, &text_height);
-		wxBitmap bitmap(text_width, text_height, wxBITMAP_SCREEN_DEPTH);
-		bitmap.UseAlpha();
-
-		wxMemoryDC mdc;
-		mdc.SelectObject(bitmap);
-		mdc.SetBackground(transparent);
-		mdc.Clear();
-		mdc.SetFont(font);
-		mdc.SetTextBackground(element_text.background);
-		mdc.SetTextForeground(element_text.colour);
-		mdc.DrawText(text, 0, 0);
-
-		auto image = bitmap.ConvertToImage();
-		image.SetAlpha(0);
-		image.Rescale(
-			text_width,
-			text_height,
-			wxIMAGE_QUALITY_HIGH
-		);
-		auto rotated_image = image.Rotate(
-			as_radians(element_text.angle),
-			{ 0, 0 }
-		);
-		// draw_text can be used just to get the bound box
+// draw_text can be used just to get the bound box
 		if (draw) {
 			gdc.DrawBitmap(
 				rotated_image,
@@ -154,13 +173,4 @@ namespace R {
 			);
 		}
 
-		double w{ rotated_image.GetWidth() / (double)fig.dpi };
-		double h{ rotated_image.GetHeight() / (double)fig.dpi };
-
-		mdc.SelectObject(wxNullBitmap);
-
-		return rect_t{p.x, p.y, w, h , R::units::inch};
-
-	}
-
-}
+*/
