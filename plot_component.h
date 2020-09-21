@@ -36,10 +36,6 @@ namespace R {
 
 		static void draw_circle(wxDC& gdc, R::point_t o, double r, R::element_circle_t& element_circle, R::figure_t fig);
 
-		static wxPenStyle as_penstyle(linetypes linetype);
-
-		static int as_fontflag(element_text_t::face_t face);
-
 	private:
 
 		static rect_t do_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig, bool draw);

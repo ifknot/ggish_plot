@@ -26,10 +26,6 @@ namespace R {
 	struct point_t {
 		double x; 
 		double y;
-
-
-
-
 	};
 
 	struct dimension_t {

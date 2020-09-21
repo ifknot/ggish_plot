@@ -10,10 +10,10 @@ namespace R {
 
 	void plot_component::draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::figure_t fig) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * fig.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
-		auto scale_y = fig.dpi * fig.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
+		auto scale_x = fig.dpi * as_dimension(fig.box).width;
+		auto scale_y = fig.dpi * as_dimension(fig.box).height;
+		auto x = fig.dpi * as_position(fig.box).x;
+		auto y = fig.dpi * as_position(fig.box).y;
 
 		gdc.SetPen(
 			wxPen(
@@ -32,10 +32,10 @@ namespace R {
 
 	void plot_component::draw_rect(wxDC& gdc, R::point_t p, R::dimension_t d, R::element_rect_t& element_rect, R::figure_t fig) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * fig.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
-		auto scale_y = fig.dpi * fig.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
+		auto scale_x = fig.dpi * as_dimension(fig.box).width;
+		auto scale_y = fig.dpi * as_dimension(fig.box).height;
+		auto x = fig.dpi * as_position(fig.box).x;
+		auto y = fig.dpi * as_position(fig.box).y;
 
 		gdc.SetPen(
 			wxPen(
@@ -60,10 +60,10 @@ namespace R {
 
 	void plot_component::draw_circle(wxDC& gdc, R::point_t o, double r, R::element_circle_t& element_circle, R::figure_t fig) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * fig.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
-		auto scale_y = fig.dpi * fig.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
+		auto scale_x = fig.dpi * as_dimension(fig.box).width;
+		auto scale_y = fig.dpi * as_dimension(fig.box).height;
+		auto x = fig.dpi * as_position(fig.box).x;
+		auto y = fig.dpi * as_position(fig.box).y;
 
 		auto rr = r + r;
 		gdc.SetPen(
@@ -87,51 +87,11 @@ namespace R {
 		);
 	}
 
-	wxPenStyle plot_component::as_penstyle(linetypes linetype) {
-		//ggplot2 linetype integer - blank, solid, dashed, dotted, dotdash, longdash, twodash
-		switch (linetype) {
-		case linetypes::blank:
-			return wxPENSTYLE_TRANSPARENT;
-		case linetypes::solid:
-			return wxPENSTYLE_SOLID;
-		case linetypes::dashed:
-			return wxPENSTYLE_SHORT_DASH;
-		case linetypes::dotted:
-			return wxPENSTYLE_DOT;
-		case linetypes::dotdash:
-			return wxPENSTYLE_DOT_DASH;
-			break;
-		case linetypes::longdash:
-			return wxPENSTYLE_LONG_DASH;
-			/*	TODO: translate twodash
-					case linetype::twodash:
-						return wxPENSTYLE_USER_DASH;
-			*/
-		default:
-			return wxPENSTYLE_SOLID;
-		}
-	}
-
-	int plot_component::as_fontflag(element_text_t::face_t face) {
-		switch (face) { // plain, italic, bold, bold_italic};
-		case element_text_t::face_t::plain:
-			return wxFONTFLAG_DEFAULT;
-		case element_text_t::face_t::italic:
-			return wxFONTFLAG_ITALIC;
-		case element_text_t::face_t::bold:
-			return wxFONTFLAG_BOLD;
-		case element_text_t::face_t::bold_italic:
-			return wxFONTFLAG_BOLD | wxFONTFLAG_ITALIC;
-		default:
-			return wxFONTFLAG_DEFAULT;
-		}
-	}
-
 	// multipurpose private helper 
 	rect_t plot_component::do_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig, bool draw) {
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * fig.aspect_ratio.first * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
-		auto scale_y = fig.dpi * fig.aspect_ratio.second * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
+		auto scale_x = fig.dpi * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
+		auto scale_y = fig.dpi * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
 		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
 		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
 
@@ -159,8 +119,8 @@ namespace R {
 		auto image = bitmap.ConvertToImage();
 		image.SetAlpha(0);
 		image.Rescale(
-			text_width * fig.aspect_ratio.first,
-			text_height * fig.aspect_ratio.second,
+			text_width,
+			text_height,
 			wxIMAGE_QUALITY_HIGH
 		);
 		auto rotated_image = image.Rotate(

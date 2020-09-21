@@ -24,7 +24,6 @@ namespace R {
 		dpi_t		dpi;	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
 		rect_t		box;	// the available drawing space bounding box
 		point_t		position{ 0,0 };
-		ratio_t		aspect_ratio{ 1, 1 };				// aspect ratio 
 
 		wxString	title{ "" };
 		wxString	subtitle{ "" };
@@ -72,9 +71,9 @@ namespace R {
 		//PLOS_ONE defaults
 		colour_mode_t colour_mode{ colour_mode_t::RGB };
 		unit_t		white_space_border{ 2, units::pt };
-		wxString		figure_label{ "" };
-		wxString		figure_title{ "" };
-		wxString		legend{ "" };					
+		wxString	figure_label{ "" };
+		wxString	figure_title{ "" };
+		wxString	legend{ "" };					
 														//	cm	   inches
 		unit_t		column_width{ 13.2, units::cm };	// 13.2 	5.2 
 		unit_t		minimum_width{ 6.68, units::cm };	// 6.68		2.63
