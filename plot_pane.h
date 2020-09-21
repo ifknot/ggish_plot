@@ -11,7 +11,7 @@ namespace R {
 
 	public:
 
-		plot_pane(point_t& position, element_rect_t& element_rect, rect_t& margin, figure_t& fig);
+		plot_pane(point_t& position, element_rect_t& element_rect, figure_t& fig);
 
 		void render(wxDC& gdc) override final;
 

@@ -14,10 +14,10 @@ namespace R {
 		assert((p.x >= 0) && (p.x <= 1));
 		assert((p.y >= 0) && (p.y <= 1));
 		// calculate the width & height and x, y origin of the display bounding box
-		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
-		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
 		auto w = fig.dpi * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
 		auto h = fig.dpi * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
+		auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
+		auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
 		
 		wxFontInfo info(std::round(element_text.size * fig.font_scale));
 		info.FaceName(element_text.family);
@@ -79,8 +79,8 @@ namespace R {
 		assert((b.x >= 0) && (b.x <= 1));
 		assert((b.y >= 0) && (b.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * as_dimension(fig.box).width;
-		auto scale_y = fig.dpi * as_dimension(fig.box).height;
+		auto w = fig.dpi * as_dimension(fig.box).width;
+		auto h = fig.dpi * as_dimension(fig.box).height;
 		auto x = fig.dpi * as_position(fig.box).x;
 		auto y = fig.dpi * as_position(fig.box).y;
 
@@ -92,10 +92,10 @@ namespace R {
 			)
 		);
 		gdc.DrawLine(
-			std::round(x + (a.x * scale_x)),
-			std::round(y + (a.y * scale_y)),
-			std::round(x + (b.x * scale_x)),
-			std::round(y + (b.y * scale_y))
+			std::round(x + (a.x * w)),
+			std::round(y + (a.y * h)),
+			std::round(x + (b.x * w)),
+			std::round(y + (b.y * h))
 		);
 	}
 
@@ -103,8 +103,8 @@ namespace R {
 		assert((p.x >= 0) && (p.x <= 1));
 		assert((p.y >= 0) && (p.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * as_dimension(fig.box).width;
-		auto scale_y = fig.dpi * as_dimension(fig.box).height;
+		auto w = fig.dpi * as_dimension(fig.box).width;
+		auto h = fig.dpi * as_dimension(fig.box).height;
 		auto x = fig.dpi * as_position(fig.box).x;
 		auto y = fig.dpi * as_position(fig.box).y;
 
@@ -122,10 +122,10 @@ namespace R {
 			)
 		);
 		gdc.DrawRectangle(
-			std::round(x + (p.x * scale_x)),
-			std::round(y + (p.y * scale_y)),
-			std::round((p.x + d.width) * scale_x),
-			std::round((p.y + d.height) * scale_y)
+			std::round(x + (p.x * w)),
+			std::round(y + (p.y * h)),
+			std::round((p.x + d.width) * w),
+			std::round((p.y + d.height) * h)
 		);
 	}
 
@@ -133,8 +133,8 @@ namespace R {
 		assert((o.x >= 0) && (o.x <= 1));
 		assert((o.y >= 0) && (o.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
-		auto scale_x = fig.dpi * as_dimension(fig.box).width;
-		auto scale_y = fig.dpi * as_dimension(fig.box).height;
+		auto w = fig.dpi * as_dimension(fig.box).width;
+		auto h = fig.dpi * as_dimension(fig.box).height;
 		auto x = fig.dpi * as_position(fig.box).x;
 		auto y = fig.dpi * as_position(fig.box).y;
 
@@ -153,24 +153,11 @@ namespace R {
 			)
 		);
 		gdc.DrawEllipse(
-			std::round(x + ((o.x - r) * scale_x)),
-			std::round(y + ((o.y - r) * scale_y)),
-			std::round(rr * scale_x),
-			std::round(rr * scale_y)
+			std::round(x + ((o.x - r) * w)),
+			std::round(y + ((o.y - r) * h)),
+			std::round(rr * w),
+			std::round(rr * h)
 		);
 	}
 
 }
-
-/*
-
-// draw_text can be used just to get the bound box
-		if (draw) {
-			gdc.DrawBitmap(
-				rotated_image,
-				std::round(x + (p.x * scale_x) - (rotated_image.GetWidth() * element_text.hjust)),
-				std::round(y + (p.y * scale_y) - (rotated_image.GetHeight() * element_text.vjust))
-			);
-		}
-
-*/

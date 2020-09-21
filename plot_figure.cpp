@@ -47,8 +47,8 @@ namespace R {
 	}
 
 	void plot_figure::init_paper() {
-		auto p = topleft;
-		auto plot = new plot_pane(fig.position, theme.plot.background, theme.plot.margin, fig);
+		
+		auto plot = new plot_pane(fig.position, theme.plot.background, fig);
 		if (!fig.title.empty()) {
 			plot->add(new plot_label(fig.title, theme.plot.title.position, theme.plot.title, fig));
 		}
@@ -61,7 +61,8 @@ namespace R {
 		if (!fig.tag.empty()) {
 			plot->add(new plot_label(fig.tag, theme.plot.tag.position, theme.plot.tag, fig));
 		}
-		auto panel = new plot_pane(p, theme.panel.background, theme.plot.margin, fig);
+		auto p = topleft;
+		auto panel = new plot_pane(p, theme.panel.background, fig);
 		plot->add(panel);
 		add(plot);
 	}
