@@ -70,7 +70,7 @@ namespace R {
 		
 		mdc.SelectObject(wxNullBitmap);
 
-		return rect_t{ p.x, p.y, tw / (double)fig.dpi, th / (double)fig.dpi , R::units::inch };
+		return rect_t{ p.x, tw / (double)fig.dpi, p.y, th / (double)fig.dpi , R::units::inch };
 	}
 
 	void plot_component::draw_line(wxDC& gdc, R::point_t a, R::point_t b, R::element_line_t& element_line, R::figure_t fig) {

@@ -24,7 +24,14 @@ namespace R {
 				fig.box.bottom -= box.bottom;
 			}
 			else if (position.y == 0.5) { // left, right
-			
+				if (position.x == 0) { // left
+					auto box = draw_text(gdc, position, text, element_text, fig);
+					fig.box.left += box.right;
+				}
+				else if (position.x == 1) { // right
+					auto box = draw_text(gdc, position, text, element_text, fig);
+					fig.box.right -= box.right;
+				}
 			} 
 			else {} // floating coordinate
 		}
