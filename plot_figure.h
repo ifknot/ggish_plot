@@ -3,6 +3,7 @@
 #include "wx/wx.h"
 #include "wx/sizer.h"
 
+#include "data_frame.h"
 #include "figure.h"
 #include "theme.h"
 #include "plot_composite.h"
@@ -13,7 +14,7 @@ namespace R {
 
     public:
 
-        plot_figure(wxFrame* parent, figure_t& fig, theme_t& theme);
+        plot_figure(wxFrame* parent, data_frame& data, figure_t& fig, theme_t& theme);
 
         //void layer(...);
 
@@ -28,6 +29,7 @@ namespace R {
 
     private:
 
+        data_frame data;
         // copy of the physical metrics and strings for the figure
         figure_t fig;
         // copy of the aesthetic theme values

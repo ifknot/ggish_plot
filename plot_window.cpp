@@ -10,7 +10,9 @@ plot_window::plot_window() : wxFrame(nullptr, wxID_ANY, "test_wx", { 100, 100 },
 	fig.subtitle = "subtitle";
 	fig.caption = "caption";
 
-	pp = new R::plot_figure(this, fig, theme);
+	R::data_frame d;
+
+	pp = new R::plot_figure(this, d, fig, theme);
 	sz = new wxBoxSizer(wxHORIZONTAL);
 	sz->Add(pp, 1, wxEXPAND);
 	SetSizer(sz);

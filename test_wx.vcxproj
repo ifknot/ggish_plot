@@ -169,7 +169,7 @@
     <ClInclude Include="plot_pane.h" />
     <ClInclude Include="plot_figure.h" />
     <ClInclude Include="plot_window.h" />
-    <ClInclude Include="r_data_frame.h" />
+    <ClInclude Include="data_frame.h" />
     <ClInclude Include="figure.h" />
     <ClInclude Include="theme.h" />
     <ClInclude Include="types.h" />
@@ -182,7 +182,7 @@
     <ClCompile Include="plot_pane.cpp" />
     <ClCompile Include="plot_figure.cpp" />
     <ClCompile Include="plot_window.cpp" />
-    <ClCompile Include="r_data_frame.cpp" />
+    <ClCompile Include="data_frame.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

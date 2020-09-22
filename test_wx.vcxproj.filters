@@ -21,9 +21,6 @@
     <ClCompile Include="plot_window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="r_data_frame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="conversions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,15 +36,15 @@
     <ClCompile Include="plot_pane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="data_frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="plot_window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="r_data_frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="theme.h">
@@ -81,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="plot_pane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data_frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
