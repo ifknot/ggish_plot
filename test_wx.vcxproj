@@ -184,6 +184,9 @@
     <ClCompile Include="plot_window.cpp" />
     <ClCompile Include="data_frame.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="mtcars.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

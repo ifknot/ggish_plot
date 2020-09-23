@@ -15,22 +15,13 @@
 
 namespace R {
 
-	
+	using r_char	=	char;		// unint8_t
+	using r_int		=	int;		// int32_t
+	using r_float	=	double;		// float, double, long double
+	using r_string	=	std::string;
+	using r_date	=	std::tm;	// time_t
 
-	/**
-	 *  R has basic types  "logical", "integer", "double", "complex", "character", "raw" 
-	 *  but in a C++ domain using character instead of string could be confusing 
-	 */
-	enum token_t {logical_t, integer_t, double_t, complex_t, string_t, raw_t, date_t, broken_t};
-
-	using r_logical =	bool;
-	using r_integer	=	int;			// int32_t
-	using r_double	=	double;			// float, double, long double
-	using r_string	=	std::string;	// preferring string over character will help semantics in a C++ domain
-	using r_raw		=	char;			// or unint8_t?
-	using r_date	=	std::tm;		// or time_t?
-
-	using basic_data_types = std::variant<r_raw, r_integer, r_double, r_string, r_date>;
+	using basic_data_types = std::variant<r_char, r_float, r_int, r_string, r_date>;
 
 	enum ordinal_t { r_first = 1, r_second, r_third, r_fourth, r_fifth };
 
@@ -66,10 +57,6 @@ namespace R {
 	 * calendar dates.
 	 */
 	variant_vector as_dates(std::vector<std::string> dates);
-
-	token_t r_typeof(std::string& lexeme);
-
-	data_frame read_csv(std::string file_path, bool has_header = true);
 
 	/**
 	 * @brief (R-ish) sort (or order) a vector into ascending or descending order.
@@ -167,7 +154,7 @@ namespace R {
 		variant_vector ordinals;	
 	
 		for (const auto& i : x) {		// check each x
-			r_integer ordinal{ r_first };			
+			r_int ordinal{ r_first };			
 			for (const auto& c : categories) {	// against each category
 				if (std::get<T>(c) == std::get<T>(i)) {
 					ordinals.push_back(ordinal);
@@ -176,6 +163,7 @@ namespace R {
 			}
 		}
 	
+
 		// read out all of the source levels using a string stream for conversion then insert into levels set
 		/*
 		for (const auto& i : source) {
