@@ -17,13 +17,14 @@ namespace R {
 
 		END_EVENT_TABLE()
 
-		plot_figure::plot_figure(wxFrame* parent, data_frame& source, figure_t& fig, theme_t& theme) :
+		plot_figure::plot_figure(wxFrame* parent, data_frame& data, aesthetics_t aes, figure_t& fig, theme_t& theme) :
 		wxPanel(parent),
 		plot_composite(fig.box),
+		data(data),
+		aes(aes),
 		fig(fig),
 		theme(theme)
 	{
-		data = source;
 		init_layout();
 	}
 
@@ -53,7 +54,7 @@ namespace R {
 		add(plot);
 	}
 
-	void plot_figure::add_annotations(plot_composite* pane) {
+	void plot_figure::add_annotations(plot_pane* pane) {
 		if (!fig.title.empty()) {
 			pane->add(new plot_label(fig.title, theme.plot.title.position, theme.plot.title, fig));
 		}
@@ -68,13 +69,13 @@ namespace R {
 		}
 	}
 
-	void plot_figure::add_coordinate_system() {
+	void plot_figure::add_coordinate_system(plot_pane* pane) {
 	}
 
-	void plot_figure::add_scales() {
+	void plot_figure::add_scales(plot_pane* pane) {
 	}
 
-	void plot_figure::add_geoms() {
+	void plot_figure::add_geoms(plot_pane* pane) {
 	}
 
 }

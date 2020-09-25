@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="aesthetics.h" />
     <ClInclude Include="app.h" />
     <ClInclude Include="colours.h" />
     <ClInclude Include="conversions.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="data_frame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="mpg.csv" />
     <None Include="mtcars.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

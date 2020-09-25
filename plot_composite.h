@@ -26,8 +26,6 @@ namespace R {
 
 	protected:
 
-		data_frame data;
-
 		std::vector<std::unique_ptr<plot_component>> components;
 
 	};

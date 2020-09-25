@@ -17,6 +17,8 @@ namespace R {
 
 	private:
 
+		data_frame					data;
+
 		point_t position;
 		dimension_t dim;
 		element_rect_t element_rect;

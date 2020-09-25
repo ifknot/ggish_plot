@@ -15,6 +15,7 @@ namespace R {
 	enum class linetypes { blank, solid, dashed, dotted, dotdash, longdash, twodash };
 	enum class endstyles { round, butt, square };
 
+	const dimension_t halfsize{ 0.5, 0.5 };
 	const dimension_t fullsize{ 1,1 };
 
 	const point_t topleft{ 0, 0 };

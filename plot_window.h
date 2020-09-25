@@ -18,5 +18,10 @@ public:
 
 	wxBoxSizer* sz;
 
+private:
+
+	R::figure_t	fig;
+	R::theme_t theme;
+
 };
 
