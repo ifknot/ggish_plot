@@ -14,7 +14,7 @@ namespace R {
 
     public:
 
-        plot_figure(wxFrame* parent, data_frame& data, figure_t& fig, theme_t& theme);
+        plot_figure(wxFrame* parent, data_frame& source, figure_t& fig, theme_t& theme);
 
         //void layer(...);
 
@@ -22,20 +22,25 @@ namespace R {
 
         void paintNow();
 
-        //build up the plot elements: panel, plot, title, subtitle, caption, tag, ...
-        void init_paper();
-
         DECLARE_EVENT_TABLE()
 
     private:
 
-        data_frame data;
-        // copy of the physical metrics and strings for the figure
-        figure_t fig;
-        // copy of the aesthetic theme values
-        theme_t theme;
-        // use graphics context (wxWidgets 2.9.0) or not if available (i.e. < 2.9.0)
-        bool use_gcdc{ true };
+        void init_layout();
+
+        void add_annotations(plot_composite* pane);
+
+        void add_coordinate_system();
+
+        void add_scales();
+
+        void add_geoms();
+       
+        figure_t fig; // copy of the physical metrics and strings for the figure
+        
+        theme_t theme; // copy of the aesthetic theme values
+        
+        bool use_gcdc{ true }; 
 
     };
 

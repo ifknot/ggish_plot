@@ -3,7 +3,6 @@
 #include "wx/wx.h"
 #include "figure.h"
 #include "theme.h"
-
 #if wxUSE_GRAPHICS_CONTEXT
 	#include <wx/dcgraph.h>
 #endif
@@ -20,7 +19,7 @@ namespace R {
 
 	protected:
 
-		rect_t box;
+		rect_t box;			// the screen coordinates bounding box of the component
 
 		static rect_t draw_text(wxDC& gdc, R::point_t p, wxString text, R::element_text_t& element_text, R::figure_t fig);
 

@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "plot_component.h"
+#include "data_frame.h"
 
 namespace R {
 
@@ -24,6 +25,8 @@ namespace R {
 		}
 
 	protected:
+
+		data_frame data;
 
 		std::vector<std::unique_ptr<plot_component>> components;
 

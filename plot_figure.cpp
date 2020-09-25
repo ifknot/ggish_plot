@@ -17,14 +17,14 @@ namespace R {
 
 		END_EVENT_TABLE()
 
-		plot_figure::plot_figure(wxFrame* parent, data_frame& data, figure_t& fig, theme_t& theme) :
+		plot_figure::plot_figure(wxFrame* parent, data_frame& source, figure_t& fig, theme_t& theme) :
 		wxPanel(parent),
 		plot_composite(fig.box),
-		data(data),
 		fig(fig),
 		theme(theme)
 	{
-		init_paper();
+		data = source;
+		init_layout();
 	}
 
 	void plot_figure::paintEvent(wxPaintEvent& evt) {
@@ -45,25 +45,36 @@ namespace R {
 
 	}
 
-	void plot_figure::init_paper() {
-		
-		auto plot = new plot_pane(fig.position, theme.plot.background, fig);
-		if (!fig.title.empty()) {
-			plot->add(new plot_label(fig.title, theme.plot.title.position, theme.plot.title, fig));
-		}
-		if (!fig.subtitle.empty()) {
-			plot->add(new plot_label(fig.subtitle, theme.plot.subtitle.position, theme.plot.subtitle, fig));
-		}
-		if (!fig.caption.empty()) {
-			plot->add(new plot_label(fig.caption, theme.plot.caption.position, theme.plot.caption, fig));
-		}
-		if (!fig.tag.empty()) {
-			plot->add(new plot_label(fig.tag, theme.plot.tag.position, theme.plot.tag, fig));
-		}
-		auto p = topleft;
-		auto panel = new plot_pane(p, theme.panel.background, fig);
+	void plot_figure::init_layout() {
+		auto plot = new plot_pane(topleft, fullsize, theme.plot.background, fig);
+		add_annotations(plot);
+		auto panel = new plot_pane(topleft, fullsize, theme.panel.background, fig);
 		plot->add(panel);
 		add(plot);
+	}
+
+	void plot_figure::add_annotations(plot_composite* pane) {
+		if (!fig.title.empty()) {
+			pane->add(new plot_label(fig.title, theme.plot.title.position, theme.plot.title, fig));
+		}
+		if (!fig.subtitle.empty()) {
+			pane->add(new plot_label(fig.subtitle, theme.plot.subtitle.position, theme.plot.subtitle, fig));
+		}
+		if (!fig.caption.empty()) {
+			pane->add(new plot_label(fig.caption, theme.plot.caption.position, theme.plot.caption, fig));
+		}
+		if (!fig.tag.empty()) {
+			pane->add(new plot_label(fig.tag, theme.plot.tag.position, theme.plot.tag, fig));
+		}
+	}
+
+	void plot_figure::add_coordinate_system() {
+	}
+
+	void plot_figure::add_scales() {
+	}
+
+	void plot_figure::add_geoms() {
 	}
 
 }
