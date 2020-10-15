@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{3987B1EC-87B2-4D98-8875-E6A4E474F504}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="app.cpp" />
+    <ClCompile Include="gg\conversions.cpp" />
+    <ClCompile Include="gg\plot_component.cpp" />
+    <ClCompile Include="gg\plot_figure.cpp" />
+    <ClCompile Include="gg\plot_label.cpp" />
+    <ClCompile Include="gg\plot_pane.cpp" />
+    <ClCompile Include="gg\plot_window.cpp" />
+    <ClCompile Include="rpp\as_dates.cpp" />
+    <ClCompile Include="rpp\as_string.cpp" />
+    <ClCompile Include="rpp\data_frame.cpp" />
+    <ClCompile Include="rpp\head.cpp" />
+    <ClCompile Include="rpp\names.cpp" />
+    <ClCompile Include="rpp\ordinal_vector.cpp" />
+    <ClCompile Include="rpp\read_csv.cpp" />
+    <ClCompile Include="rpp\r_date.cpp" />
+    <ClCompile Include="rpp\r_logical.cpp" />
+    <ClCompile Include="rpp\string_vector.cpp" />
+    <ClCompile Include="rpp\tail.cpp" />
+    <ClCompile Include="rpp\tokenize.cpp" />
+    <ClCompile Include="rpp\typeof.cpp" />
+    <ClCompile Include="rpp\variant_factor.cpp" />
+    <ClCompile Include="rpp\variant_vector.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="app.h" />
+    <ClInclude Include="gg\aesthetics.h" />
+    <ClInclude Include="gg\colours.h" />
+    <ClInclude Include="gg\conversions.h" />
+    <ClInclude Include="gg\elements.h" />
+    <ClInclude Include="gg\figure.h" />
+    <ClInclude Include="gg\plot_component.h" />
+    <ClInclude Include="gg\plot_composite.h" />
+    <ClInclude Include="gg\plot_figure.h" />
+    <ClInclude Include="gg\plot_label.h" />
+    <ClInclude Include="gg\plot_pane.h" />
+    <ClInclude Include="gg\plot_window.h" />
+    <ClInclude Include="gg\theme.h" />
+    <ClInclude Include="gg\types.h" />
+    <ClInclude Include="rpp\as_dates.h" />
+    <ClInclude Include="rpp\as_string.h" />
+    <ClInclude Include="rpp\data_frame.h" />
+    <ClInclude Include="rpp\data_structures.h" />
+    <ClInclude Include="rpp\data_types.h" />
+    <ClInclude Include="rpp\dirty.h" />
+    <ClInclude Include="rpp\factor.h" />
+    <ClInclude Include="rpp\floor.h" />
+    <ClInclude Include="rpp\head.h" />
+    <ClInclude Include="rpp\list.h" />
+    <ClInclude Include="rpp\match.h" />
+    <ClInclude Include="rpp\match_all.h" />
+    <ClInclude Include="rpp\names.h" />
+    <ClInclude Include="rpp\ordinal_vector.h" />
+    <ClInclude Include="rpp\R.h" />
+    <ClInclude Include="rpp\range.h" />
+    <ClInclude Include="rpp\read_csv.h" />
+    <ClInclude Include="rpp\rescale.h" />
+    <ClInclude Include="rpp\r_date.h" />
+    <ClInclude Include="rpp\r_logical.h" />
+    <ClInclude Include="rpp\sort.h" />
+    <ClInclude Include="rpp\split.h" />
+    <ClInclude Include="rpp\string_vector.h" />
+    <ClInclude Include="rpp\tail.h" />
+    <ClInclude Include="rpp\tokenize.h" />
+    <ClInclude Include="rpp\typeof.h" />
+    <ClInclude Include="rpp\unique.h" />
+    <ClInclude Include="rpp\variant_factor.h" />
+    <ClInclude Include="rpp\variant_vector.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

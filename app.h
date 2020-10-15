@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "plot_window.h"
+#include "gg/plot_window.h"
 
 class app : public wxApp {
 
@@ -20,7 +20,7 @@ private:
 
 	std::unique_ptr<plot_window> f;
 
-	R::plot_figure* pp;
+	gg::plot_figure* pp;
 
 };
 

@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="app.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gg\conversions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gg\plot_component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gg\plot_figure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gg\plot_label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gg\plot_pane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gg\plot_window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\as_dates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\as_string.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\data_frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\head.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\names.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\ordinal_vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\read_csv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\r_date.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\r_logical.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\string_vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\tail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\tokenize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\typeof.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\variant_factor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rpp\variant_vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="app.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\aesthetics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\colours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\conversions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\elements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\figure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\plot_component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\plot_composite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\plot_figure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\plot_label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\plot_pane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\plot_window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\as_dates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\as_string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\data_frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\data_structures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\data_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\dirty.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\factor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\floor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\head.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\match.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\match_all.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\names.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\ordinal_vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\R.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\range.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\read_csv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\rescale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\r_date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\r_logical.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\sort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\split.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\string_vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\tail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\tokenize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\typeof.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\unique.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\variant_factor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rpp\variant_vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
