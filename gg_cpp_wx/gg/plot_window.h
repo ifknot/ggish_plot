@@ -10,11 +10,11 @@ public:
 
 	plot_window();
 
+	//plot_window(R::data_frame& );
+
 	~plot_window() = default;
 
 	gg::plot_figure* pp;
-
-	wxButton* btn;
 
 	wxBoxSizer* sz;
 
