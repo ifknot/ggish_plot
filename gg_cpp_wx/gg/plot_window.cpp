@@ -1,7 +1,7 @@
 #include "plot_window.h"
 #include "conversions.h"
 
-#include "rpp\read_csv.h"
+#include "..\rpp\read_csv.h"
 
 plot_window::plot_window() : 
 	wxFrame(nullptr, wxID_ANY, "test_wx", { 100, 100 }, { 900, 900 }),

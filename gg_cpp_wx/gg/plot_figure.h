@@ -8,7 +8,7 @@
 #include "theme.h"
 #include "plot_pane.h"
 
-#include "rpp\data_frame.h"
+#include "..\rpp\data_frame.h"
 
 namespace gg {
 
