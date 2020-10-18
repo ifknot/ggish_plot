@@ -11,7 +11,8 @@ bool app::OnInit() {
 		return false;
 	}
 	setlocale(LC_NUMERIC, "English");
-	f.reset(new plot_window);
+	auto plot = new plot_window(fig, theme);
+	f.reset(plot);
 	f->Show();
 
 	return true;

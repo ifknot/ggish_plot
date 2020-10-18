@@ -3,10 +3,10 @@
 
 #include "..\rpp\read_csv.h"
 
-plot_window::plot_window() : 
-	wxFrame(nullptr, wxID_ANY, "test_wx", { 100, 100 }, { 900, 900 }),
-	fig({ 150, { 0, 5.2, 0, 5.2, gg::units::inch } }),
-	theme({ fig.maximum_pt.val, fig.valid_fonts[1] })
+plot_window::plot_window(gg::figure_t& fig, gg::theme_t& theme) :
+	wxFrame(nullptr, wxID_ANY, "test_wx", { (int)fig.position.x, (int)fig.position.y }, { 900, 900 }),
+	fig(fig),
+	theme(theme)
 {
 
 	fig.title = "Title";

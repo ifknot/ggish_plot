@@ -8,9 +8,7 @@ class plot_window : public wxFrame {
 
 public:
 
-	plot_window();
-
-	//plot_window(R::data_frame& );
+	plot_window(gg::figure_t& fig, gg::theme_t& theme);
 
 	~plot_window() = default;
 
@@ -20,8 +18,8 @@ public:
 
 private:
 
-	gg::figure_t	fig;
-	gg::theme_t		theme;
+	gg::figure_t&	fig;
+	gg::theme_t&	theme ;
 
 };
 
