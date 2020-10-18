@@ -3,14 +3,12 @@
 #include <vector>
 #include <string>
 
-#include "wx/wx.h"
-
 #include "types.h"
 #include "colours.h"
 
 namespace gg {
 
-	static const wxColour transparent{ wxColor(255, 255, 255, wxALPHA_TRANSPARENT) };
+	static const colour_t transparent{ 255, 255, 255, wxALPHA_TRANSPARENT };
 
 	enum class linetypes { blank, solid, dashed, dotted, dotdash, longdash, twodash };
 	enum class endstyles { round, butt, square };
@@ -54,7 +52,7 @@ namespace gg {
 	 */
 	struct element_line_t {
 
-		wxColour	colour{ black };		// line / border colour default black
+		colour_t	colour{ black };		// line / border colour default black
 		double		size{ 1 };		// line / border size in mm; text size in pts.
 		linetypes	linetype{ linetypes::solid };	// line type blank, solid, dashed, dotted, dotdash, longdash, twodash
 		endstyles	lineend{ endstyles::butt };	// line end style round, butt, square
@@ -67,8 +65,8 @@ namespace gg {
 	*/
 	struct element_rect_t {
 
-		wxColour	fill{ white };	// fill colour default white
-		wxColour	colour{ black };		// line / border colour default black
+		colour_t	fill{ white };	// fill colour default white
+		colour_t	colour{ black };		// line / border colour default black
 		double		size{ 1 };		// line / border size in mm; text size in pts.
 		linetypes	linetype{ linetypes::solid };	// line type integer 0:8 blank, solid, dashed, dotted, dotdash, longdash, twodash
 
@@ -79,8 +77,8 @@ namespace gg {
 	 */
 	struct element_circle_t {
 
-		wxColour	fill{ white };	// fill colour default white
-		wxColour	colour{ black };		// line / border colour default black
+		colour_t	fill{ white };	// fill colour default white
+		colour_t	colour{ black };		// line / border colour default black
 		double		size{ 1 };		// line / border size in mm; text size in pts.
 		linetypes	linetype{ linetypes::solid };	// line type integer 0:8 blank, solid, dashed, dotted, dotdash, longdash, twodash
 
@@ -95,7 +93,7 @@ namespace gg {
 
 		wxString	family{ "Ariel" };
 		face_t		face{ face_t::plain };
-		wxColour	colour{ black };	// line / border colour
+		colour_t	colour{ black };	// line / border colour
 		double		size{ 1 };		// line / border size in mm; text size in pts.
 		double		hjust{ 0 };		// horizontal justification (in [0,1])
 		double		vjust{ 0 };		// vertical justification (in [0,1])
@@ -105,7 +103,7 @@ namespace gg {
 		// Conventional wisdom is that line spacing of 130%-150% is ideal for readability. 
 		// In fact, anything from about 120% up to 200% is acceptable
 		// but 140% tends to be the most quoted sweet spot.
-		wxColour	background{ transparent };
+		colour_t	background{ transparent };
 		rect_t		margin{ 0, 0, 0, 0, units::inch };	// margins around the text = when creating a theme, the margins should be placed on the side of the text facing towards the center of the plot.
 	};
 

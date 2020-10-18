@@ -33,11 +33,11 @@ namespace gg {
 
 		wxMemoryDC mdc;
 		mdc.SelectObject(bitmap);
-		mdc.SetBackground(transparent);
+		mdc.SetBackground(wxColour(transparent.r, transparent.g, transparent.b, transparent.a));
 		mdc.Clear();
 		mdc.SetFont(font);
-		mdc.SetTextBackground(element_text.background);
-		mdc.SetTextForeground(element_text.colour);
+		mdc.SetTextBackground(wxColour(element_text.background.r, element_text.background.g, element_text.background.b, element_text.background.a));
+		mdc.SetTextForeground(wxColour(element_text.colour.r, element_text.colour.g, element_text.colour.b, element_text.colour.a));
 		mdc.DrawText(text, 0, 0);
 
 		auto text_image = bitmap.ConvertToImage();
@@ -86,7 +86,7 @@ namespace gg {
 
 		gdc.SetPen(
 			wxPen(
-				element_line.colour,
+				wxColour(element_line.colour.r, element_line.colour.g, element_line.colour.b, element_line.colour.a),
 				std::round(fig.pixels_per_pt * element_line.size),
 				as_penstyle(element_line.linetype)
 			)
@@ -110,14 +110,14 @@ namespace gg {
 
 		gdc.SetPen(
 			wxPen(
-				element_rect.colour,
+				wxColour(element_rect.colour.r, element_rect.colour.g, element_rect.colour.b, element_rect.colour.a),
 				std::round(fig.pixels_per_pt * element_rect.size),
 				as_penstyle(element_rect.linetype)
 			)
 		);
 		gdc.SetBrush(
 			wxBrush(
-				element_rect.fill,
+				wxColour(element_rect.fill.r, element_rect.fill.g, element_rect.fill.b, element_rect.fill.a),
 				wxBRUSHSTYLE_SOLID
 			)
 		);
@@ -141,14 +141,14 @@ namespace gg {
 		auto rr = r + r;
 		gdc.SetPen(
 			wxPen(
-				element_circle.colour,
+				wxColour(element_circle.colour.r, element_circle.colour.g, element_circle.colour.b, element_circle.colour.a),
 				std::round(fig.pixels_per_pt * element_circle.size),
 				as_penstyle(element_circle.linetype)
 			)
 		);
 		gdc.SetBrush(
 			wxBrush(
-				element_circle.fill,
+				wxColour(element_circle.fill.r, element_circle.fill.g, element_circle.fill.b, element_circle.fill.a),
 				wxBRUSHSTYLE_SOLID
 			)
 		);
