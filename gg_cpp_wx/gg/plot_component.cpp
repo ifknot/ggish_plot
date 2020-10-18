@@ -10,6 +10,51 @@ namespace gg {
 		box(box)
 	{}
 
+	rect_t plot_component::text_bounds(wxDC& gdc, wxString text, element_text_t& element_text, figure_t fig) {
+		// calculate the width & height and x, y origin of the display bounding box
+		//auto w = fig.dpi * as_inch({ fig.box.right - fig.box.left, fig.box.unit }).val;
+		//auto h = fig.dpi * as_inch({ fig.box.bottom - fig.box.top, fig.box.unit }).val;
+		//auto x = fig.dpi * as_inch({ fig.box.left, fig.box.unit }).val;
+		//auto y = fig.dpi * as_inch({ fig.box.top, fig.box.unit }).val;
+
+		wxFontInfo info(std::round(element_text.size * fig.font_scale));
+		info.FaceName(element_text.family);
+		info.AllFlags(as_fontflag(element_text.face));
+		info.AntiAliased(true);
+
+		wxFont font(info);
+		gdc.SetFont(font);
+		wxCoord text_width, text_height;
+		gdc.GetTextExtent(text, &text_width, &text_height);
+		wxBitmap bitmap(text_width, text_height, wxBITMAP_SCREEN_DEPTH);
+		bitmap.UseAlpha();
+
+		wxMemoryDC mdc;
+		mdc.SelectObject(bitmap);
+		mdc.SetBackground(wxColour(transparent.r, transparent.g, transparent.b, transparent.a));
+		mdc.Clear();
+		mdc.SetFont(font);
+		mdc.SetTextBackground(wxColour(element_text.background.r, element_text.background.g, element_text.background.b, element_text.background.a));
+		mdc.SetTextForeground(wxColour(element_text.colour.r, element_text.colour.g, element_text.colour.b, element_text.colour.a));
+		mdc.DrawText(text, 0, 0);
+
+		auto text_image = bitmap.ConvertToImage();
+		text_image.SetAlpha(0);
+		text_image.Rescale(
+			text_width,
+			text_height,
+			wxIMAGE_QUALITY_HIGH
+		);
+		auto rotated_image = text_image.Rotate(
+			as_radians(element_text.angle),
+			{ 0, 0 }
+		);
+		mdc.SelectObject(wxNullBitmap);
+		auto w{ (double)rotated_image.GetWidth() };
+		auto h{ (double)rotated_image.GetHeight() };
+		return rect_t{ 0, w / (double)fig.dpi, 0, h / (double)fig.dpi, units::inch };
+	}
+
 	rect_t plot_component::draw_text(wxDC& gdc, point_t p, wxString text, element_text_t& element_text, figure_t fig) {
 		assert((p.x >= 0) && (p.x <= 1));
 		assert((p.y >= 0) && (p.y <= 1));

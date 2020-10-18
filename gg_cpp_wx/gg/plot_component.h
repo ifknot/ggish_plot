@@ -21,6 +21,8 @@ namespace gg {
 
 		rect_t box;			// the screen coordinates bounding box of the component
 
+		static rect_t text_bounds(wxDC& gdc, wxString text, element_text_t& element_text, figure_t fig);
+
 		static rect_t draw_text(wxDC& gdc, point_t p, wxString text, element_text_t& element_text, figure_t fig);
 
 		static void draw_line(wxDC& gdc, point_t a, point_t b, element_line_t& element_line, figure_t fig);

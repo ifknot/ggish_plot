@@ -18,7 +18,11 @@ namespace gg {
 		END_EVENT_TABLE()
 
 		plot_figure::plot_figure(wxFrame* parent, R::data_frame& data, aesthetics_t aes, figure_t& fig, theme_t& theme) :
-		wxPanel(parent),
+		wxPanel(parent, wxID_ANY,wxDefaultPosition, 
+			{	// width & height
+				(int)std::round(fig.dpi * gg::as_inch({ fig.box.right + fig.box.left, fig.box.unit }).val),
+				(int)std::round(fig.dpi * gg::as_inch({ fig.box.bottom + fig.box.top, fig.box.unit }).val)
+			}),
 		plot_composite(fig.box),
 		data(data),
 		aes(aes),

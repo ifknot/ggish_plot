@@ -1,5 +1,7 @@
 #include "app.h"
 
+#include "rpp\read_csv.h"
+
 wxIMPLEMENT_APP(app);
 
 app::app() {
@@ -11,8 +13,16 @@ bool app::OnInit() {
 		return false;
 	}
 	setlocale(LC_NUMERIC, "English");
-	auto plot = new plot_window(fig, theme);
-	f.reset(plot);
+
+	fig.title = "A Title";
+	fig.subtitle = "subtitle";
+	fig.caption = "caption";
+
+	auto win = new plot_window(fig, theme);
+
+	auto mpg = R::read_csv("mpg.csv");
+
+	f.reset(win);
 	f->Show();
 
 	return true;

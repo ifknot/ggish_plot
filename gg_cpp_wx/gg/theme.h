@@ -90,7 +90,7 @@ namespace gg {
 
 		panel_t panel{ 
 			{ white, 1, linetypes::solid, endstyles::butt },
-			{ grey90, grey90, 0.5, linetypes::solid } 
+			{ red, grey90, 0.5, linetypes::solid } 
 		};
 
 		plot_t plot{ base_size, base_family };

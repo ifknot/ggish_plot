@@ -23,7 +23,6 @@ namespace gg {
 
 		dpi_t		dpi;	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
 		rect_t		box;	// the available drawing space bounding box
-		point_t		position{ 0,0 };
 
 		wxString	title{ "" };
 		wxString	subtitle{ "" };

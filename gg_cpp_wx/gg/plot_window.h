@@ -14,8 +14,6 @@ public:
 
 	gg::plot_figure* pp;
 
-	wxBoxSizer* sz;
-
 private:
 
 	gg::figure_t&	fig;
