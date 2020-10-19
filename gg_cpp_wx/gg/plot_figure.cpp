@@ -5,7 +5,7 @@
 #endif
 
 #include "conversions.h"
-#include "plot_pane.h"
+#include "plot_background.h"
 #include "plot_label.h"
 
 namespace gg {
@@ -23,11 +23,11 @@ namespace gg {
 				(int)std::round(fig.dpi * gg::as_inch({ fig.box.right + fig.box.left, fig.box.unit }).val),
 				(int)std::round(fig.dpi * gg::as_inch({ fig.box.bottom + fig.box.top, fig.box.unit }).val)
 			}),
-		plot_composite(fig.box),
 		data(data),
 		aes(aes),
 		fig(fig),
-		theme(theme)
+		theme(theme),
+		plot(fig.box)
 	{
 		init_layout();
 	}
@@ -38,10 +38,10 @@ namespace gg {
 #if wxUSE_GRAPHICS_CONTEXT
 		wxGCDC gdc(pdc);
 		wxDC& dc = use_gcdc ? (wxDC&)gdc : (wxDC&)pdc;
-		render(dc);
+		plot.render(dc);
 #else
 		wxDC& dc = pdc;
-		render(dc);
+		plot.render(dc);
 #endif
 
 	}
@@ -51,35 +51,8 @@ namespace gg {
 	}
 
 	void plot_figure::init_layout() {
-		auto plot = new plot_pane(topleft, fullsize, theme.plot.background, fig);
-		add_annotations(plot);
-		auto panel = new plot_pane(topleft, fullsize, theme.panel.background, fig);
-		plot->add(panel);
-		add(plot);
-	}
-
-	void plot_figure::add_annotations(plot_pane* pane) {
-		if (!fig.title.empty()) {
-			pane->add(new plot_label(fig.title, theme.plot.title.position, theme.plot.title, fig));
-		}
-		if (!fig.subtitle.empty()) {
-			pane->add(new plot_label(fig.subtitle, theme.plot.subtitle.position, theme.plot.subtitle, fig));
-		}
-		if (!fig.caption.empty()) {
-			pane->add(new plot_label(fig.caption, theme.plot.caption.position, theme.plot.caption, fig));
-		}
-		if (!fig.tag.empty()) {
-			pane->add(new plot_label(fig.tag, theme.plot.tag.position, theme.plot.tag, fig));
-		}
-	}
-
-	void plot_figure::add_coordinate_system(plot_pane* pane) {
-	}
-
-	void plot_figure::add_scales(plot_pane* pane) {
-	}
-
-	void plot_figure::add_geoms(plot_pane* pane) {
+		auto background = new plot_background(fig.box, theme.plot.background, theme.plot.margin, fig);
+		plot.add(background);
 	}
 
 }

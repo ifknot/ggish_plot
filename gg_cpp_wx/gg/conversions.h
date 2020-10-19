@@ -22,7 +22,7 @@ namespace gg {
 
 	int as_fontflag(element_text_t::face_t face);
 
-	void shrink_by_margin(rect_t& r, const rect_t& m);
+
 
 }
 

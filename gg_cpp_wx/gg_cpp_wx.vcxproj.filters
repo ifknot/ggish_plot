@@ -30,9 +30,6 @@
     <ClCompile Include="gg\plot_label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gg\plot_pane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gg\plot_window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,6 +78,9 @@
     <ClCompile Include="rpp\variant_vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gg\plot_background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h">
@@ -111,9 +111,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gg\plot_label.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gg\plot_pane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gg\plot_window.h">
@@ -212,9 +209,12 @@
     <ClInclude Include="rpp\variant_vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gg\plot_background.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\mpg.csv">
+    <None Include="mpg.csv">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

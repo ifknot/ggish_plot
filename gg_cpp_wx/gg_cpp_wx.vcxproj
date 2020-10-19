@@ -122,7 +122,7 @@
     <ClCompile Include="gg\plot_component.cpp" />
     <ClCompile Include="gg\plot_figure.cpp" />
     <ClCompile Include="gg\plot_label.cpp" />
-    <ClCompile Include="gg\plot_pane.cpp" />
+    <ClCompile Include="gg\plot_background.cpp" />
     <ClCompile Include="gg\plot_window.cpp" />
     <ClCompile Include="rpp\as_dates.cpp" />
     <ClCompile Include="rpp\as_string.cpp" />
@@ -151,7 +151,7 @@
     <ClInclude Include="gg\plot_composite.h" />
     <ClInclude Include="gg\plot_figure.h" />
     <ClInclude Include="gg\plot_label.h" />
-    <ClInclude Include="gg\plot_pane.h" />
+    <ClInclude Include="gg\plot_background.h" />
     <ClInclude Include="gg\plot_window.h" />
     <ClInclude Include="gg\theme.h" />
     <ClInclude Include="gg\types.h" />
@@ -186,7 +186,7 @@
     <ClInclude Include="rpp\variant_vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\mpg.csv" />
+    <None Include="mpg.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

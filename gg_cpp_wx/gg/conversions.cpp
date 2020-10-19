@@ -79,11 +79,4 @@ namespace gg {
 		}
 	}
 
-	void shrink_by_margin(rect_t& r, const rect_t& margin) {
-		r.left += gg::as_inch({ margin.left, margin.unit }).val;
-		r.right -= gg::as_inch({ margin.right, margin.unit }).val;
-		r.top += gg::as_inch({ margin.top, margin.unit }).val;
-		r.bottom -= gg::as_inch({ margin.bottom, margin.unit }).val;
-	}
-
 }

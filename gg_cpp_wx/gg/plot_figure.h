@@ -6,19 +6,17 @@
 #include "aesthetics.h"
 #include "figure.h"
 #include "theme.h"
-#include "plot_pane.h"
+#include "plot_background.h"
 
 #include "..\rpp\data_frame.h"
 
 namespace gg {
 
-    class plot_figure : public wxPanel, public plot_composite {
+    class plot_figure : public wxPanel {
 
     public:
 
         plot_figure(wxFrame* parent, R::data_frame& data, aesthetics_t aes, figure_t& fig, theme_t& theme);
-
-        //void layer(...);
 
         void paintEvent(wxPaintEvent& evt);
 
@@ -34,15 +32,9 @@ namespace gg {
         figure_t&           fig;        
         theme_t&            theme; 
 
+        plot_composite      plot;
+
         void init_layout();
-
-        void add_annotations(plot_pane* pane);
-
-        void add_coordinate_system(plot_pane* pane);
-
-        void add_scales(plot_pane* pane);
-
-        void add_geoms(plot_pane* pane);
        
         bool use_gcdc{ true }; 
 

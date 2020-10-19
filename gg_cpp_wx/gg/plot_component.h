@@ -19,17 +19,19 @@ namespace gg {
 
 	protected:
 
-		rect_t box;			// the screen coordinates bounding box of the component
+		rect_t box;			
 
-		static rect_t text_bounds(wxDC& gdc, wxString text, element_text_t& element_text, figure_t fig);
+		static void shrink_rect(rect_t& a, rect_t& b);
 
-		static rect_t draw_text(wxDC& gdc, point_t p, wxString text, element_text_t& element_text, figure_t fig);
+		//static rect_t text_bounds(wxDC& gdc, wxString text, element_text_t& element_text, figure_t fig);
 
-		static void draw_line(wxDC& gdc, point_t a, point_t b, element_line_t& element_line, figure_t fig);
+		static rect_t draw_text(wxDC& gdc, point_t p, wxString text, element_text_t& element_text, rect_t box, const figure_t& fig);
 
-		static void draw_rect(wxDC& gdc, point_t p, dimension_t d, element_rect_t& element_rect, figure_t fig);
+		static void draw_line(wxDC& gdc, point_t a, point_t b, element_line_t& element_line, rect_t box, const figure_t& fig);
 
-		static void draw_circle(wxDC& gdc, point_t o, double r, element_circle_t& element_circle, figure_t fig);
+		static void draw_rect(wxDC& gdc, point_t p, dimension_t d, element_rect_t& pane, rect_t box, const figure_t& fig);
+
+		static void draw_circle(wxDC& gdc, point_t o, double r, element_circle_t& element_circle, rect_t box, const figure_t& fig);
 
 	};
 

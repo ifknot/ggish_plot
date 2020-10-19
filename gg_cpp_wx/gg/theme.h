@@ -38,7 +38,7 @@ namespace gg {
 	};
 
 	struct plot_t : public font_t {
-		element_rect_t		background{ white, white, 0.5, linetypes::solid };
+		element_rect_t		background{ red, green, 0.5, linetypes::solid };
 		position_title_t	title{
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0, 0.9 },
 			{ top }
@@ -55,7 +55,7 @@ namespace gg {
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0},
 			{ left }
 		};
-		rect_t			margin{ 1, 1, 0.5, 0.5, units::pt };
+		rect_t			margin{ 0, 0, 0, 0, units::pt };
 	};
 	
 	/**
