@@ -85,7 +85,7 @@ namespace gg {
 
 		element_line_t		line{ black, 0.5, linetypes::solid, endstyles::butt }; 
 		element_rect_t		rect{ white, black, 0.5, linetypes::solid }; 
-		element_text_t		text{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 1.4 }; 
+		element_text_t		s{ base_family, element_text_t::face_t::plain, black, base_size, 0.5, 0.5, 0.0, 1.4 }; 
 		element_circle_t	circle{ transparent,  black, 0.5, linetypes::solid }; 
 
 		panel_t panel{ 

@@ -11,15 +11,14 @@ namespace gg {
 
 	public:
 
-		plot_background(rect_t box, element_rect_t pane, rect_t margin, const figure_t& fig);
+		plot_background(rect_t bounding_box, const element_rect_t rect, const rect_t margin, const figure_t& fig);
 
 		void render(wxDC& gdc) override final;
 
 	private:
 
-		element_rect_t		pane;
-		rect_t				margin;
-		const figure_t&		fig;
+		const element_rect_t		rect;
+		const rect_t				margin;
 
 	};
 

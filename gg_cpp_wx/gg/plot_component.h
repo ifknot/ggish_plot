@@ -13,25 +13,31 @@ namespace gg {
 
 	public:
 
-		plot_component(rect_t box);
+		plot_component(rect_t bounding_box, const figure_t& fig);
 
 		virtual void render(wxDC& gdc) = 0;
 
-	protected:
+	protected:		
 
-		rect_t box;			
+		inline rect_t bounds() const {
+			return bounding_box;
+		}
 
-		static void shrink_rect(rect_t& a, rect_t& b);
+		void shrink_bounds(const rect_t& margin);
 
-		//static rect_t text_bounds(wxDC& gdc, wxString text, element_text_t& element_text, figure_t fig);
+		rect_t draw_text(wxDC& gdc, const point_t p, const wxString& s, const element_text_t& text);
 
-		static rect_t draw_text(wxDC& gdc, point_t p, wxString text, element_text_t& element_text, rect_t box, const figure_t& fig);
+		void draw_line(wxDC& gdc, const point_t a, const point_t b, const element_line_t& line);
 
-		static void draw_line(wxDC& gdc, point_t a, point_t b, element_line_t& element_line, rect_t box, const figure_t& fig);
+		void draw_rect(wxDC& gdc, const point_t p, const dimension_t d, const element_rect_t& rect);
 
-		static void draw_rect(wxDC& gdc, point_t p, dimension_t d, element_rect_t& pane, rect_t box, const figure_t& fig);
+		void draw_circle(wxDC& gdc, const point_t o, const double r, const element_circle_t& circle);
 
-		static void draw_circle(wxDC& gdc, point_t o, double r, element_circle_t& element_circle, rect_t box, const figure_t& fig);
+	private:
+
+		rect_t bounding_box;
+
+		const figure_t&  fig;
 
 	};
 

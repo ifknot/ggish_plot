@@ -18,11 +18,11 @@ namespace gg {
 
 		figure_t(dpi_t dpi, rect_t bounding_box) : 
 			dpi(dpi),
-			box(bounding_box)
+			bounding_box(bounding_box)
 		{}
 
 		dpi_t		dpi;	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
-		rect_t		box;	// the available drawing space bounding box
+		rect_t		bounding_box;	// the available drawing space bounding box
 
 		wxString	title{ "" };
 		wxString	subtitle{ "" };
@@ -58,14 +58,14 @@ namespace gg {
 
 		caption_t(dpi_t dpi, rect_t bounding_box) :
 			dpi(dpi),
-			box(bounding_box) {
+			bounding_box(bounding_box) {
 		}
 
 		dpi_t		dpi;	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
 		// the available drawing space bounding box
 		// this will shrink if items are added e.g. margin, title, axes, legend
 		// before finally displaying the plot itself
-		rect_t		box;
+		rect_t		bounding_box;
 
 		//PLOS_ONE defaults
 		colour_mode_t colour_mode{ colour_mode_t::RGB };

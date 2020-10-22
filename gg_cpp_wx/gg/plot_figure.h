@@ -16,7 +16,7 @@ namespace gg {
 
     public:
 
-        plot_figure(wxFrame* parent, R::data_frame& data, aesthetics_t aes, figure_t& fig, theme_t& theme);
+        plot_figure(wxFrame* parent, const R::data_frame& data, const aesthetics_t aes, const figure_t& fig, const theme_t& theme);
 
         void paintEvent(wxPaintEvent& evt);
 
@@ -27,10 +27,10 @@ namespace gg {
     private:
 
 
-        R::data_frame&      data;  
-        aesthetics_t        aes;  
-        figure_t&           fig;        
-        theme_t&            theme; 
+        const R::data_frame&    data;  
+        const aesthetics_t      aes;  
+        const figure_t&         fig;        
+        const theme_t&          theme; 
 
         plot_composite      plot;
 

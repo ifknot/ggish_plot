@@ -17,17 +17,17 @@ namespace gg {
 
 		END_EVENT_TABLE()
 
-		plot_figure::plot_figure(wxFrame* parent, R::data_frame& data, aesthetics_t aes, figure_t& fig, theme_t& theme) :
+		plot_figure::plot_figure(wxFrame* parent, const R::data_frame& data, const aesthetics_t aes, const figure_t& fig, const theme_t& theme) :
 		wxPanel(parent, wxID_ANY,wxDefaultPosition, 
 			{	// width & height
-				(int)std::round(fig.dpi * gg::as_inch({ fig.box.right + fig.box.left, fig.box.unit }).val),
-				(int)std::round(fig.dpi * gg::as_inch({ fig.box.bottom + fig.box.top, fig.box.unit }).val)
+				(int)std::round(fig.dpi * gg::as_inch({ fig.bounding_box.right + fig.bounding_box.left, fig.bounding_box.unit }).val),
+				(int)std::round(fig.dpi * gg::as_inch({ fig.bounding_box.bottom + fig.bounding_box.top, fig.bounding_box.unit }).val)
 			}),
 		data(data),
 		aes(aes),
 		fig(fig),
 		theme(theme),
-		plot(fig.box)
+		plot(fig.bounding_box, fig)
 	{
 		init_layout();
 	}
@@ -51,7 +51,7 @@ namespace gg {
 	}
 
 	void plot_figure::init_layout() {
-		auto background = new plot_background(fig.box, theme.plot.background, theme.plot.margin, fig);
+		auto background = new plot_background(fig.bounding_box, theme.plot.background, theme.plot.margin, fig);
 		plot.add(background);
 	}
 
