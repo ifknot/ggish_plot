@@ -1,7 +1,6 @@
 #pragma once
 
-#include <string>
-#include <array>
+#include "../rpp/data_types.h"
 
 namespace gg {
 
@@ -11,11 +10,11 @@ namespace gg {
 	 */
 	struct aesthetics_t {
 
-		std::string		x;
-		std::string		y;
-		std::string		size;
-		std::string		colour;
-		std::string		shape;
+		R::r_string		x;
+		R::r_string		y;
+		R::r_string		size;
+		R::r_string		colour;
+		R::r_string		shape;
 
 	};
 
