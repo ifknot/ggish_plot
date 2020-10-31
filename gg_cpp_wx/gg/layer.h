@@ -11,13 +11,13 @@ namespace gg {
 	 */
 	struct layer_t {
 
-		R::r_string		geom;					// name in the geom function dictionary 
-		R::r_string		stat;					// name in the stat function dictionary
-		R::data_frame*	data{ nullptr };		// data_frame 
-		aesthetics_t*	mapping{ nullptr };		// aesthetic struct 
-		R::r_string		position;				// name in the position function dictionary e.g. jitter
-		bool			show_legend{ true };	// include this layer in the legends
-		R::r_string		key_glyph;				// name in the glyph drawing function dictionary
+		R::r_string		geom;						// name in the geom function dictionary 
+		R::r_string		stat;						// name in the stat function dictionary
+		const R::data_frame*	data{ nullptr };	// data_frame 
+		const aesthetics_t*	mapping{ nullptr };		// aesthetic struct 
+		R::r_string		position;					// name in the position function dictionary e.g. jitter
+		bool			show_legend{ true };		// include this layer in the legends
+		R::r_string		key_glyph;					// name in the glyph drawing function dictionary
 	};
 
 }

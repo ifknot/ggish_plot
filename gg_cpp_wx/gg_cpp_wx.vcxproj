@@ -125,7 +125,9 @@
     <ClCompile Include="gg\plot_background.cpp" />
     <ClCompile Include="gg\plot_subject.cpp" />
     <ClCompile Include="gg\plot_window.cpp" />
+    <ClCompile Include="gg\rectangle.cpp" />
     <ClCompile Include="gg\Source.cpp" />
+    <ClCompile Include="gg\units.cpp" />
     <ClCompile Include="rpp\as_dates.cpp" />
     <ClCompile Include="rpp\as_string.cpp" />
     <ClCompile Include="rpp\data_frame.cpp" />
@@ -144,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h" />
+    <ClInclude Include="gg\constants.h" />
     <ClInclude Include="gg\geom.h" />
     <ClInclude Include="gg\aesthetics.h" />
     <ClInclude Include="gg\colours.h" />
@@ -158,9 +161,10 @@
     <ClInclude Include="gg\layer.h" />
     <ClInclude Include="gg\plot_subject.h" />
     <ClInclude Include="gg\plot_window.h" />
+    <ClInclude Include="gg\rectangle.h" />
     <ClInclude Include="gg\theme.h" />
     <ClInclude Include="gg\types.h" />
-    <ClInclude Include="plot_subject.h" />
+    <ClInclude Include="gg\units.h" />
     <ClInclude Include="rpp\as_dates.h" />
     <ClInclude Include="rpp\as_string.h" />
     <ClInclude Include="rpp\data_frame.h" />

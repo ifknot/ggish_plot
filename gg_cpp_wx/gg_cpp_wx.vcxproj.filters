@@ -87,6 +87,12 @@
     <ClCompile Include="gg\plot_subject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gg\rectangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gg\units.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h">
@@ -215,9 +221,6 @@
     <ClInclude Include="gg\plot_background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="plot_subject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gg\plot_subject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -228,6 +231,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gg\layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\units.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gg\constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

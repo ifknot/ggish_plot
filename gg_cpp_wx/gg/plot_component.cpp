@@ -12,10 +12,7 @@ namespace gg {
 	{}
 
 	void plot_component::shrink_bounds(const rect_t& margin) {
-		bounding_box.left += as_inch({ margin.left, margin.unit }).val;
-		bounding_box.right -= as_inch({ margin.right, margin.unit }).val;
-		bounding_box.top += as_inch({ margin.top, margin.unit }).val;
-		bounding_box.bottom -= as_inch({ margin.bottom, margin.unit }).val;
+		bounding_box = bounding_box.shrink(margin);
 	}
 
 	rect_t plot_component::draw_text(wxDC& gdc, const point_t p, const wxString& s, const element_text_t& text) {

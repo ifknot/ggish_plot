@@ -1,18 +1,18 @@
 #pragma once
 
-#include "plot_composite.h"
+#include "plot_background.h"
 #include "layer.h"
 
 namespace gg {
 
-	class plot_subject : public plot_composite {
+	class plot_subject : public plot_background {
 
 	public:
 
 		// needs a layer of data& and aesthetic& etc from parent 
-		plot_subject(rect_t bounding_box, const element_rect_t rect, const rect_t margin, const figure_t& fig, const layer_t& layer);
+		plot_subject(rect_t bounding_box, const element_rect_t rect, const figure_t& fig, const layer_t& layer);
 
-		void render(wxDC& gdc) override final;
+		void render(wxDC& gdc) override;
 
 	private:
 

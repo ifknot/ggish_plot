@@ -12,8 +12,6 @@ namespace gg {
 		return x * half_circle;
 	}
 
-	unit_t as_inch(unit_t u, double lineheight = 1.4);
-
 	point_t as_position(rect_t r);
 	
 	dimension_t as_dimension(rect_t r);

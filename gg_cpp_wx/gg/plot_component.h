@@ -15,13 +15,13 @@ namespace gg {
 
 		plot_component(rect_t bounding_box, const figure_t& fig);
 
-		virtual void render(wxDC& gdc) = 0;
-
-	protected:		
+		virtual void render(wxDC& gdc) = 0;		
 
 		inline rect_t bounds() const {
 			return bounding_box;
 		}
+
+	protected:
 
 		void shrink_bounds(const rect_t& margin);
 

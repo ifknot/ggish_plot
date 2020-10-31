@@ -23,7 +23,7 @@ namespace gg {
 		element_rect_t		background{ element_rect_t::colour, element_rect_t::fill, element_rect_t::size, element_rect_t::linetype };//{ grey90, grey90, 0.5, linetypes::solid };
 		element_rect_t		border{ transparent, black, background.size, background.linetype };
 		spacing_t			spacing{ 2, units::pt };
-		rect_t				margin{ 1, 1, 1, 1, units::pt };
+		rect_t				margin{ 10, 10, 10, 10, units::pt };
 		bool				ontop{ false };
 		grid_t grid{ element_line_t::colour,  element_line_t::size,  element_line_t::linetype,  element_line_t::lineend };
 	};
@@ -55,7 +55,7 @@ namespace gg {
 			{ family, element_text_t::face_t::plain, black, size * 1.2, 0.5, 0.0, 0.0},
 			{ left }
 		};
-		rect_t			margin{ 0, 0, 0, 0, units::pt };
+		rect_t			margin{ 1, 1, 1, 1, units::pt };
 	};
 	
 	/**
