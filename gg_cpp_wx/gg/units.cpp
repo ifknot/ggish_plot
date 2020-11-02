@@ -16,4 +16,18 @@ namespace gg {
 		}
 	}
 
+	double unit_t::inches() {
+		switch (type) {
+		case units::pt:
+			return val / pt_per_inch;
+		case units::cm:
+			return val / cm_per_inch;
+		case units::line:
+			return  (val / pt_per_inch);
+		case units::inch:
+		default:
+			return val;
+		}
+	}
+
 }

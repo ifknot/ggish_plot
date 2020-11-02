@@ -17,7 +17,7 @@ namespace gg {
 
 	private:
 
-		const element_rect_t		rect;
+		const element_rect_t	rect;
 
 	};
 

@@ -21,5 +21,5 @@ namespace gg {
 		double width;
 		double height;
 	};
-
+	
 }

@@ -6,6 +6,12 @@ namespace gg {
 
 	struct rect_t {
 
+		double	left;
+		double	right;
+		double	top;
+		double	bottom;
+		units	unit;
+
 		rect_t() = default;
 
 		rect_t(double left, double right, double top, double bottom, units unit) :
@@ -20,20 +26,17 @@ namespace gg {
 
 		rect_t& operator=(const rect_t& other) = default;
 
-		inline rect_t shrink(const rect_t& margin) const {
-			rect_t r(*this);
-			r.left += as_inch({ margin.left, margin.unit }).val;
-			r.right -= as_inch({ margin.right, margin.unit }).val;
-			r.top += as_inch({ margin.top, margin.unit }).val;
-			r.bottom -= as_inch({ margin.bottom, margin.unit }).val;
-			return r;
-		}
+		unit_t x();
 
-		double	left;
-		double	right;
-		double	top;
-		double	bottom;
-		units	unit;
+		unit_t y();
+
+		unit_t width();
+
+		unit_t height();
+
+		rect_t shrink(const rect_t& margin) const;
+
+;
 
 	};
 

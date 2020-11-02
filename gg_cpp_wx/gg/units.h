@@ -7,8 +7,12 @@ namespace gg {
 	enum class units { pt, cm, inch, line };
 
 	struct unit_t {
+
 		double	val;
 		units	type;
+
+		double inches();
+
 	};
 
 	/**

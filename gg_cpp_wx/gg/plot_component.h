@@ -35,6 +35,26 @@ namespace gg {
 
 	private:
 
+		static inline double as_radians(double x) {
+			return x * half_circle;
+		}
+
+		/**
+		 * convert element line types to wxWidgets penstyle.
+		 * 
+		 * @param linetype
+		 * @return 
+		 */
+		wxPenStyle as_penstyle(linetypes linetype);
+
+		/**
+		 * convert element text face to wxWidgets fontflag.
+		 * 
+		 * @param face
+		 * @return 
+		 */
+		int as_fontflag(element_text_t::face_t face);
+
 		rect_t bounding_box;
 
 		const figure_t&  fig;

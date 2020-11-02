@@ -53,8 +53,6 @@ namespace gg {
 	void plot_figure::init_layout() {
 		auto background = new plot_background(fig.bounding_box.shrink(theme.plot.margin), theme.plot.background, fig);
 		layer_t base_layer{ "geom_point", "default", &data, &aes, "default", false, "default" };
-		// TODO: give rect the shrink method 
-		// TODO: remove margins fomr plot comp ctrs
 		auto subject = new plot_subject(background->bounds().shrink(theme.panel.margin), theme.panel.background, fig, base_layer);
 		background->add(subject);
 		plot.add(background);

@@ -2,8 +2,6 @@
 
 #include <assert.h>
 
-#include "conversions.h"
-
 namespace gg {
 
 	plot_component::plot_component(rect_t bounding_box, const figure_t& fig) :
@@ -19,10 +17,10 @@ namespace gg {
 		assert((p.x >= 0) && (p.x <= 1));
 		assert((p.y >= 0) && (p.y <= 1));
 		// calculate the width & height and x, y origin of the display bounding box
-		auto w = fig.dpi * as_inch({ bounding_box.right - bounding_box.left, bounding_box.unit }).val;
-		auto h = fig.dpi * as_inch({ bounding_box.bottom - bounding_box.top, bounding_box.unit }).val;
-		auto x = fig.dpi * as_inch({ bounding_box.left, bounding_box.unit }).val;
-		auto y = fig.dpi * as_inch({ bounding_box.top, bounding_box.unit }).val;
+		auto w = fig.dpi * bounds().width().inches();//as_inch({ bounding_box.right - bounding_box.left, bounding_box.unit }).val;
+		auto h = fig.dpi * bounds().height().inches();//as_inch({ bounding_box.bottom - bounding_box.top, bounding_box.unit }).val;
+		auto x = fig.dpi * bounds().x().inches();//as_inch({ bounding_box.left, bounding_box.unit }).val;
+		auto y = fig.dpi * bounds().y().inches();//as_inch({ bounding_box.top, bounding_box.unit }).val;
 		
 		wxFontInfo info(std::round(text.size * fig.font_scale));
 		info.FaceName(text.family);
@@ -84,10 +82,10 @@ namespace gg {
 		assert((b.x >= 0) && (b.x <= 1));
 		assert((b.y >= 0) && (b.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
-		auto w = fig.dpi * as_dimension(bounding_box).width;
-		auto h = fig.dpi * as_dimension(bounding_box).height;
-		auto x = fig.dpi * as_position(bounding_box).x;
-		auto y = fig.dpi * as_position(bounding_box).y;
+		auto w = fig.dpi * bounds().width().inches();//as_dimension(bounding_box).width;
+		auto h = fig.dpi * bounds().height().inches();// as_dimension(bounding_box).height;
+		auto x = fig.dpi * bounds().x().inches();// as_position(bounding_box).x;
+		auto y = fig.dpi * bounds().y().inches();// as_position(bounding_box).y;
 
 		gdc.SetPen(
 			wxPen(
@@ -108,10 +106,10 @@ namespace gg {
 		assert((p.x >= 0) && (p.x <= 1));
 		assert((p.y >= 0) && (p.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
-		auto w = fig.dpi * as_dimension(bounding_box).width;
-		auto h = fig.dpi * as_dimension(bounding_box).height;
-		auto x = fig.dpi * as_position(bounding_box).x;
-		auto y = fig.dpi * as_position(bounding_box).y;
+		auto w = fig.dpi * bounds().width().inches();//as_dimension(bounding_box).width;
+		auto h = fig.dpi * bounds().height().inches();// as_dimension(bounding_box).height;
+		auto x = fig.dpi * bounds().x().inches();// as_position(bounding_box).x;
+		auto y = fig.dpi * bounds().y().inches();// as_position(bounding_box).y;
 
 		gdc.SetPen(
 			wxPen(
@@ -138,10 +136,10 @@ namespace gg {
 		assert((o.x >= 0) && (o.x <= 1));
 		assert((o.y >= 0) && (o.y <= 1));
 		//calculate the width & height and x, y origin of the display bounding box
-		auto w = fig.dpi * as_dimension(bounding_box).width;
-		auto h = fig.dpi * as_dimension(bounding_box).height;
-		auto x = fig.dpi * as_position(bounding_box).x;
-		auto y = fig.dpi * as_position(bounding_box).y;
+		auto w = fig.dpi * bounds().width().inches();//as_dimension(bounding_box).width;
+		auto h = fig.dpi * bounds().height().inches();// as_dimension(bounding_box).height;
+		auto x = fig.dpi * bounds().x().inches();// as_position(bounding_box).x;
+		auto y = fig.dpi * bounds().y().inches();// as_position(bounding_box).y;
 
 		auto rr = r + r;
 		gdc.SetPen(
@@ -163,6 +161,46 @@ namespace gg {
 			std::round(rr * w),
 			std::round(rr * h)
 		);
+	}
+
+	wxPenStyle plot_component::as_penstyle(linetypes linetype) {
+		//ggplot2 linetype integer - blank, solid, dashed, dotted, dotdash, longdash, twodash
+		switch (linetype) {
+		case linetypes::blank:
+			return wxPENSTYLE_TRANSPARENT;
+		case linetypes::solid:
+			return wxPENSTYLE_SOLID;
+		case linetypes::dashed:
+			return wxPENSTYLE_SHORT_DASH;
+		case linetypes::dotted:
+			return wxPENSTYLE_DOT;
+		case linetypes::dotdash:
+			return wxPENSTYLE_DOT_DASH;
+			break;
+		case linetypes::longdash:
+			return wxPENSTYLE_LONG_DASH;
+			/*	TODO: translate twodash
+					case linetype::twodash:
+						return wxPENSTYLE_USER_DASH;
+			*/
+		default:
+			return wxPENSTYLE_SOLID;
+		}
+	}
+
+	int plot_component::as_fontflag(element_text_t::face_t face) {
+		switch (face) { // plain, italic, bold, bold_italic};
+		case element_text_t::face_t::plain:
+			return wxFONTFLAG_DEFAULT;
+		case element_text_t::face_t::italic:
+			return wxFONTFLAG_ITALIC;
+		case element_text_t::face_t::bold:
+			return wxFONTFLAG_BOLD;
+		case element_text_t::face_t::bold_italic:
+			return wxFONTFLAG_BOLD | wxFONTFLAG_ITALIC;
+		default:
+			return wxFONTFLAG_DEFAULT;
+		}
 	}
 
 }
