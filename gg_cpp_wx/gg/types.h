@@ -2,6 +2,8 @@
 
 #include <utility>
 
+#include "wx/wx.h"
+
 #include "rectangle.h"
 
 namespace gg {
@@ -11,6 +13,8 @@ namespace gg {
 	enum class colour_mode_t{ RGB, grayscale };
 
 	using ratio_t = std::pair<double, double>;
+
+	using string_t = wxString;
 
 	struct point_t {
 		double x; 

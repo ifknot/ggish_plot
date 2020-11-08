@@ -118,7 +118,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp" />
-    <ClCompile Include="gg\conversions.cpp" />
     <ClCompile Include="gg\plot_component.cpp" />
     <ClCompile Include="gg\plot_figure.cpp" />
     <ClCompile Include="gg\plot_label.cpp" />
@@ -126,7 +125,6 @@
     <ClCompile Include="gg\plot_subject.cpp" />
     <ClCompile Include="gg\plot_window.cpp" />
     <ClCompile Include="gg\rectangle.cpp" />
-    <ClCompile Include="gg\Source.cpp" />
     <ClCompile Include="gg\units.cpp" />
     <ClCompile Include="rpp\as_dates.cpp" />
     <ClCompile Include="rpp\as_string.cpp" />
@@ -150,7 +148,6 @@
     <ClInclude Include="gg\geom.h" />
     <ClInclude Include="gg\aesthetics.h" />
     <ClInclude Include="gg\colours.h" />
-    <ClInclude Include="gg\conversions.h" />
     <ClInclude Include="gg\elements.h" />
     <ClInclude Include="gg\figure.h" />
     <ClInclude Include="gg\plot_component.h" />

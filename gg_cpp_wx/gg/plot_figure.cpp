@@ -4,7 +4,6 @@
 	#include <wx/dcgraph.h>
 #endif
 
-#include "conversions.h"
 #include "plot_background.h"
 #include "plot_subject.h"
 

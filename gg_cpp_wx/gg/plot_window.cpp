@@ -1,5 +1,4 @@
 #include "plot_window.h"
-#include "conversions.h"
 
 #include "..\rpp\read_csv.h"
 

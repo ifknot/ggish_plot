@@ -18,9 +18,6 @@
     <ClCompile Include="app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gg\conversions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gg\plot_component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
     <ClCompile Include="gg\plot_background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gg\Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gg\plot_subject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gg\colours.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gg\conversions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gg\elements.h">

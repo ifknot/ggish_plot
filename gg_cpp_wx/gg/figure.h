@@ -2,13 +2,9 @@
 
 #include <vector>
 
-#include "wx/wx.h"
-
 #include "types.h"
 
 namespace gg {
-
-	
 
 	/**  
 	 * PLOS_ONE defaults
@@ -24,11 +20,10 @@ namespace gg {
 		dpi_t		dpi;	// pixels per inch of the paper - 12-pt font is 1/6 inch in height
 		rect_t		bounding_box;	// the available drawing space bounding box
 
-		wxString	title{ "" };
-		wxString	subtitle{ "" };
-		wxString	caption{ "" };
-		wxString	tag{ "" };
-
+		string_t	title{ "" };	// The figure title
+		string_t	subtitle{ "" }; // Optional subtitle
+		string_t	caption{ "" };		// Optional A note can appear below the figure to describe contents of the figure that cannot be understood from the figure title, image, and/or legend alone (e.g. definitions of abbreviations, copyright attribution)
+		string_t	tag{ "" };		// The figure number (e.g. Figure 1)
 
 		// calculate screen metrics
 		double				pixels_per_cm = dpi / cm_per_inch;
@@ -46,7 +41,7 @@ namespace gg {
 
 		unit_t		minimum_pt{ 8, units::pt };
 		unit_t		maximum_pt{ 12, units::pt };
-		std::vector<wxString>	valid_fonts{ "Ariel", "Times", "Symbol" };
+		std::vector<string_t>	valid_fonts{ "Ariel", "Times", "Symbol" };
 
 	};
 
@@ -70,9 +65,9 @@ namespace gg {
 		//PLOS_ONE defaults
 		colour_mode_t colour_mode{ colour_mode_t::RGB };
 		unit_t		white_space_border{ 2, units::pt };
-		wxString	figure_label{ "" };
-		wxString	figure_title{ "" };
-		wxString	legend{ "" };					
+		string_t	figure_label{ "" };
+		string_t	figure_title{ "" };
+		string_t	legend{ "" };
 														//	cm	   inches
 		unit_t		column_width{ 13.2, units::cm };	// 13.2 	5.2 
 		unit_t		minimum_width{ 6.68, units::cm };	// 6.68		2.63
@@ -82,12 +77,10 @@ namespace gg {
 
 		unit_t		minimum_pt{ 8, units::pt };
 		unit_t		maximum_pt{ 12, units::pt };
-		std::vector<wxString>	valid_fonts{ "Ariel", "Times", "Symbol" };
+		std::vector<string_t>	valid_fonts{ "Ariel", "Times", "Symbol" };
 		
 
 	};
-
-
 
 }
 

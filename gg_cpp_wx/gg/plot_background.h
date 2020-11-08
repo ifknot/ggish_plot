@@ -3,7 +3,6 @@
 #include "plot_composite.h"
 #include "figure.h"
 #include "theme.h"
-#include "conversions.h"
 
 namespace gg {
 
